@@ -1,0 +1,153 @@
+<resources>
+    <string name="app_name">Sha.Project</string>
+    <string name="username_">
+Username:
+</string>
+    <string name="sign_in">
+Sign In
+</string>
+    <string name="enter_your_">
+Enter your username or email
+</string>
+    <string name="password_">
+Password:
+</string>
+    <string name="enter_your_1">
+Enter your password
+</string>
+    <string name="sign_in1">
+Sign In
+</string>
+    <string name="remember_me">
+Remember me
+</string>
+    <string name="forgot_pass">
+Forgot password?
+</string>
+    <string name="logout">
+LOGOUT
+</string>
+    <string name="welcome_use">
+Welcome,Username.
+</string>
+    <string name="please_choo">
+Please choose a course from your assigned
+</string>
+    <string name="list_of_cou">
+list of courses.
+</string>
+    <string name="course_1">
+Course 1
+</string>
+    <string name="course_2">
+Course 2
+</string>
+    <string name="course_3">
+Course 3
+</string>
+    <string name="course_1_ho">
+Course 1 Homepage
+</string>
+    <string name="course_id_1">
+Course ID: 123456
+</string>
+    <string name="teacher_use">
+Teacher: Username.
+</string>
+    <string name="take_attend">
+Take Attendance
+</string>
+    <string name="lectures_hi">
+Lectures History
+</string>
+    <string name="students_me">
+Students Metrics
+</string>
+    <string name="please_cho">
+Please choose a method to take the
+</string>
+    <string name="attendance_">
+attendance with.
+</string>
+    <string name="nfc">
+NFC
+</string>
+    <string name="manually">
+Manually
+</string>
+    <string name="finish">
+Finish
+</string>
+    <string name="nfc_attenda">
+NFC Attendance
+</string>
+    <string name="hold_the_de">
+Hold the device near the NFC tag labled on
+</string>
+    <string name="the_student">
+the student ID card.
+</string>
+    <string name="counter_0">
+Counter: 0
+</string>
+    <string name="finish1">
+Finish
+</string>
+    <string name="manual_atte">
+Manual Attendance
+</string>
+    <string name="enter_the_s">
+Enter the student ID in the textbox then
+</string>
+    <string name="click_atten">
+click Attend.
+</string>
+    <string name="student_id_">
+Student ID:
+</string>
+    <string name="counter_00">
+Counter: 0
+</string>
+    <string name="attend">
+Attend
+</string>
+    <string name="scan_the_nf">
+        Scan the NFC card, then insert the student
+    </string>
+    <string name="id_and_clic">
+        ID and click write.
+    </string>
+    <string name="write">
+        Write
+    </string>
+    <string name="welcome_to_">
+        Welcome to the Exams
+    </string>
+    <string name="attendance_1">
+        attendance system.
+    </string>
+    <string name="exam_name_e">
+        Exam name: Exam 1.
+    </string>
+    <string name="exam_id_123">
+        Exam ID: 123456.
+    </string>
+    <string name="date_dd_mm_">
+        Date: DD/MM/YYYY.
+    </string>
+    <string name="time_10_00_">
+        Time: 10:00-12:00.
+    </string>
+    <string name="exam_invigi">
+        Exam invigilator: Username.
+    </string>
+    <string name="there_are_n">
+        There are no exams currrently being
+    </string>
+    <string name="held_in_tha">
+        held in that room.
+    </string>
+    <string name="student_det">
+        Student details:
+    </string>
+</resources>

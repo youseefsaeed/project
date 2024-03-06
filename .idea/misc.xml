@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/e43bbf282e5.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/introscreenn.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle2.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_1.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_11.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_111.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_1111.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_2.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_22.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_222.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_2222.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_3.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_4.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_44.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_5.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_55.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_6.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_7.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_77.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_8.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_88.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle_9.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangletextview.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/drawable/scr22.xml" value="0.3828125" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_addemployee.xml" value="0.36666666666666664" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_course_options.xml" value="0.33" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_coursescreen.xml" value="0.25" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_exam.xml" value="0.33" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_lecuters_history.xml" value="0.17962962962962964" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_main2.xml" value="0.36666666666666664" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_manually_atten.xml" value="0.33" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_nfc_atten.xml" value="0.36666666666666664" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_student_details.xml" value="0.36666666666666664" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_students_metrics.xml" value="0.36666666666666664" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/activity_take_atten.xml" value="0.36666666666666664" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/course_style.xml" value="0.36666666666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

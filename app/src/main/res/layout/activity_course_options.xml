@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/home_page_s"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToOutline="true"
+    android:background="#FFFFFF"
+    >
+    <View
+        android:id="@+id/btn_logout1"
+        android:layout_width="120dp"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/rectangle_7" />
+    <TextView
+
+        android:id="@+id/logout"
+        android:layout_width="77dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="22sp"
+        android:text="@string/logout"
+        android:textAppearance="@style/logout" />
+    <RelativeLayout
+        android:id="@+id/bx_log_out"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/logout"
+        android:clipToOutline="true" />
+
+    <View
+        android:layout_centerHorizontal="true"
+        android:id="@+id/e43bbf282e5"
+        android:layout_width="157dp"
+        android:layout_height="104.67dp"
+        android:layout_marginTop="89dp"
+        android:background="@drawable/homepageicon"
+        />
+
+    <TextView
+        android:id="@+id/course_homepage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="183dp"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="33sp"
+        android:text="@string/course_1_ho"
+        android:textAppearance="@style/course_1_ho" />
+
+    <TextView
+        android:id="@+id/course_id_1"
+        android:layout_width="136dp"
+        android:layout_height="19dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="224dp"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="19sp"
+        android:text="@string/course_id_1"
+        android:textAppearance="@style/course_id_1" />
+
+    <TextView
+        android:id="@+id/username2"
+        android:layout_width="146dp"
+        android:layout_height="19dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="19sp"
+        android:text="@string/teacher_use"
+        android:textAppearance="@style/teacher_use" />
+
+    <RelativeLayout
+        android:layout_width="284dp"
+        android:layout_height="62dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="326dp"
+        android:gravity="center">
+
+        <View
+            android:id="@+id/btn_take_att"
+            android:layout_width="284dp"
+            android:layout_height="62dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rectangle_8" />
+
+        <TextView
+            android:id="@+id/take_attend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/inter"
+            android:gravity="top"
+            android:lineHeight="34sp"
+            android:text="@string/take_attend"
+            android:textAppearance="@style/take_attend" />
+    </RelativeLayout>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/solar_check"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="290dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="340dp"
+        android:clipToOutline="true"
+        android:background="@drawable/take_att"
+        />
+
+    <RelativeLayout
+        android:layout_width="284dp"
+        android:layout_height="62dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="437dp"
+        android:gravity="center">
+
+        <View
+            android:id="@+id/btn_lec_history"
+            android:layout_width="284dp"
+            android:layout_height="62dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rectangle_8" />
+
+        <TextView
+            android:id="@+id/lectures_hi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/inter"
+            android:gravity="top"
+            android:lineHeight="33sp"
+            android:text="@string/lectures_hi"
+            android:textAppearance="@style/lectures_hi" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tdesign_his"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="290dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="450dp"
+        android:clipToOutline="true"
+        android:background="@drawable/history"
+        />
+
+    <RelativeLayout
+        android:layout_width="284dp"
+        android:layout_height="62dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="548dp"
+        android:gravity="center">
+
+        <View
+            android:id="@+id/btn_metrics"
+            android:layout_width="284dp"
+            android:layout_height="62dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rectangle_8" />
+
+        <TextView
+            android:id="@+id/students_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/inter"
+            android:gravity="top"
+            android:lineHeight="32sp"
+            android:text="@string/students_me"
+            android:textAppearance="@style/students_me" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fluent_peop"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="290dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="561dp"
+        android:clipToOutline="true"
+        android:background="@drawable/matr"
+        />
+
+
+
+
+
+</RelativeLayout>
+

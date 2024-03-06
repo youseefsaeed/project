@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nfc_attenda"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToOutline="true"
+    android:background="#FCFCFC">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/iconoir_han"
+        android:layout_width="69dp"
+        android:layout_height="69dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="117dp"
+        android:clipToOutline="true"
+        android:background="@drawable/hand_card2"
+        />
+    <TextView
+        android:id="@+id/nfc_attenda1"
+        android:layout_width="221dp"
+        android:layout_height="33dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="186dp"
+        android:text="@string/nfc_attenda"
+        android:textAppearance="@style/nfc_attenda"
+        android:gravity="top"
+        android:lineHeight="33sp"
+        android:fontFamily="@font/inter"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/hold_the_de"
+        android:layout_width="315dp"
+        android:layout_height="19dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="230dp"
+        android:text="@string/hold_the_de"
+        android:textAppearance="@style/hold_the_de"
+        android:gravity="top"
+        android:lineHeight="19sp"
+        android:fontFamily="@font/inter"
+        />
+    <TextView
+        android:id="@+id/the_student"
+        android:layout_width="145dp"
+        android:layout_height="19dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="249dp"
+        android:text="@string/the_student"
+        android:textAppearance="@style/the_student"
+        android:gravity="top"
+        android:lineHeight="19sp"
+        android:fontFamily="@font/inter"
+        />
+
+    <TextView
+        android:id="@+id/counter_0"
+        android:layout_width="146dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="331dp"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="35sp"
+        android:text="@string/counter_0"
+        android:textAppearance="@style/counter_0" />
+    <View
+        android:id="@+id/rectangle_2"
+        android:layout_width="255.21dp"
+        android:layout_height="81dp"
+       android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="496dp"
+        android:background="@drawable/rectangle_222"
+        android:clickable="false"
+        />
+    <TextView
+        android:id="@+id/finish"
+        android:layout_width="143dp"
+        android:layout_height="58dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="508dp"
+        android:text="@string/finish1"
+        android:textAppearance="@style/finish1"
+        android:gravity="top"
+        android:lineHeight="58sp"
+        android:fontFamily="@font/inter"
+        android:textStyle="bold"
+        />
+    <View
+        android:id="@+id/rectangle_22"
+        android:layout_width="255.21dp"
+        android:layout_height="81dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="496dp"
+        android:background="@drawable/rectangle_2222"
+        android:visibility="invisible"
+        android:clickable="true"
+        />
+    <TextView
+        android:id="@+id/finish2"
+        android:layout_width="143dp"
+        android:layout_height="58dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="508dp"
+        android:text="@string/finish1"
+        android:textAppearance="@style/finish2"
+        android:gravity="top"
+        android:lineHeight="58sp"
+        android:fontFamily="@font/inter"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        />
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

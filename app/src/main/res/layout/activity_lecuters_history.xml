@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:context=".lecuters_history">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        app:srcCompat="@drawable/history_icon"
+        />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineHeight="32.28px"
+        android:text="Lectures History"
+        android:textColor="@color/black"
+        android:textFontWeight="700"
+        android:textSize="80px"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineHeight="18.61px"
+        android:text="Please choose lecture from the dropdown"
+        android:textColor="@color/black"
+        android:textFontWeight="400"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineHeight="18.61px"
+        android:text="menu to view its details."
+        android:textColor="@color/black"
+        android:textFontWeight="400"
+        android:textStyle="bold" />
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@color/gray"
+        android:gravity="center"
+        android:textAlignment="center"
+
+        />
+    <LinearLayout
+        android:id="@+id/layoutToShow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:context=".lecuters_history"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineHeight="18.61px"
+            android:text="Lecture details:"
+            android:textColor="@color/black"
+            android:textFontWeight="400"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineHeight="18.61px"
+            android:padding="16sp"
+            android:text="Date: DD/MM/YYYY"
+            android:textColor="@color/black"
+            android:textFontWeight="400"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineHeight="18.61px"
+            android:padding="16sp"
+            android:text="Time: 9:15-11:30"
+            android:textColor="@color/black"
+            android:textFontWeight="400"
+
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineHeight="18.61px"
+            android:padding="16sp"
+            android:text="Number of students attended:  183"
+            android:textColor="@color/black"
+            android:textFontWeight="400"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/green"
+            android:text="Download attendance file "
+            android:textColor="@color/black"
+
+            />
+    </LinearLayout>
+    </LinearLayout>
+
+
+

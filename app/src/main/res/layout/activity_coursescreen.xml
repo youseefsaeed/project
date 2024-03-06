@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/select_cour"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToOutline="true"
+    android:background="#FFFFFF">
+
+    <View
+        android:id="@+id/btn_logout"
+        android:layout_width="120dp"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/rectangle_7" />
+
+    <TextView
+
+        android:id="@+id/logout"
+        android:layout_width="77dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="22sp"
+        android:text="@string/logout"
+        android:textAppearance="@style/logout" />
+
+    <RelativeLayout
+        android:id="@+id/bx_log_out"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/logout"
+        android:clipToOutline="true" />
+
+    <View
+        android:id="@+id/f_188161181"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp"
+        android:background="@drawable/scr2" />
+
+    <TextView
+        android:id="@+id/welcome_doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="183dp"
+        android:fontFamily="@font/inter"
+        android:lineHeight="33sp"
+        android:text="@string/welcome_use"
+        android:textAppearance="@style/welcome_use" />
+    <TextView
+        android:id="@+id/please_choo"
+        android:layout_width="317dp"
+        android:layout_height="19dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="232dp"
+        android:text="@string/please_choo"
+        android:textAppearance="@style/please_choo"
+
+        android:lineHeight="19sp"
+        android:fontFamily="@font/inter"
+        />
+
+    <TextView
+        android:id="@+id/list_of_cou"
+        android:layout_width="107dp"
+        android:layout_height="19dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="251dp"
+        android:fontFamily="@font/inter"
+        android:lineHeight="19sp"
+        android:text="@string/list_of_cou"
+        android:textAppearance="@style/list_of_cou" />
+
+
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/recycleview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="312dp"
+    android:gravity="center"
+    android:layout_centerHorizontal="true">
+
+</android.support.v7.widget.RecyclerView>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".students_metrics">
+
+    <ImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fluent_peop"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="107dp"
+        android:background="@drawable/metrics"/>
+    <TextView
+        android:id="@+id/students_me"
+        android:layout_width="232dp"
+        android:layout_height="33dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="177dp"
+        android:text="Students Metrics"
+        android:textSize="27.5sp"
+        android:textColor="#000000"
+        android:gravity="top"
+        android:lineHeight="33sp"
+        />
+    <android.widget.SearchView
+        android:id="@+id/rectangle_1"
+        android:layout_width="309dp"
+        android:layout_height="37dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="240dp"
+        android:background="@drawable/rectangle" />
+    <Spinner
+        android:id="@+id/rectangle_2"
+        android:layout_width="242dp"
+        android:layout_height="31dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="293dp"
+        android:background="@drawable/rectangle2" />
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frame"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="349dp"
+        android:background="@drawable/rectangletextview"
+        />
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/student_name"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="349dp"
+        android:text="1.Student name"
+        android:textColor="@color/black" />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="389dp"
+        android:background="@drawable/rectangletextview"
+        />
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="389dp"
+
+        android:text="2.Student name"
+        android:textColor="@color/black"
+        />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="429dp"
+        android:background="@drawable/rectangletextview"
+        />
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="429dp"
+
+        android:text="3.Student name"
+        android:textColor="@color/black"
+        />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="469dp"
+        android:background="@drawable/rectangletextview"
+        />
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="469dp"
+
+        android:text="4.Student name"
+        android:textColor="@color/black"
+        />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="509dp"
+        android:background="@drawable/rectangletextview"
+        />
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="509dp"
+
+        android:text="5.Student name"
+        android:textColor="@color/black"
+        />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="549dp"
+        android:background="@drawable/rectangletextview"
+        />
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="549dp"
+
+        android:text="6.Student name"
+        android:textColor="@color/black"
+        />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="589dp"
+        android:background="@drawable/rectangletextview"
+        />
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="589dp"
+
+        android:text="7.Student name"
+        android:textColor="@color/black"
+        />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="629dp"
+        android:background="@drawable/rectangletextview"
+        />
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="629dp"
+
+        android:text="8.Student name"
+        android:textColor="@color/black"
+        />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="669dp"
+        android:background="@drawable/rectangletextview"
+        />
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="669dp"
+
+        android:text="9.Student name"
+        android:textColor="@color/black"
+        />
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="709dp"
+        android:background="@drawable/rectangletextview"
+        />
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="709dp"
+        android:text="10.Student name"
+        android:textColor="@color/black" />
+
+
+</RelativeLayout>

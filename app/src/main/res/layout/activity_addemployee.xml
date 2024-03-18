@@ -1,232 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/manual_atte"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToOutline="true"
     android:background="#FCFCFC">
+
     <View
         android:id="@+id/rectangle_8"
         android:layout_width="120dp"
         android:layout_height="35dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="13dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="13dp"
         android:background="@drawable/rectangle_88"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
+
     <TextView
         android:id="@+id/logout"
         android:layout_width="77dp"
         android:layout_height="22dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="43dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="19dp"
-        android:text="@string/logout"
-        android:textAppearance="@style/logout"
         android:fontFamily="@font/inter"
         android:lineHeight="22sp"
-        />
+        android:text="@string/logout"
+        android:textAppearance="@style/logout"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_8"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_8"
+        app:layout_constraintHorizontal_bias="0.697"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_8"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_8"
+        app:layout_constraintVertical_bias="0.23" />
+
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/bx_log_out"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="16dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="19dp"
-        android:clipToOutline="true"
         android:background="@drawable/logout"
-        />
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_8"
+        app:layout_constraintEnd_toStartOf="@+id/logout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_8"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_8"
+        app:layout_constraintVertical_bias="0.3" />
+
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/clarity_adm"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="111dp"
-        android:clipToOutline="true"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/system"
-        />
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_9"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="@+id/icon_person"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.128" />
+
     <TextView
         android:id="@+id/welcome_use"
         android:layout_width="280dp"
         android:layout_height="33dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="188dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="33sp"
         android:text="@string/welcome_use"
         android:textAppearance="@style/welcome_use"
-        android:gravity="top"
-        android:fontFamily="@font/inter"
-        android:lineHeight="33sp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/clarity_adm"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="@+id/clarity_adm"
+        app:layout_constraintTop_toBottomOf="@+id/clarity_adm"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/scan_the_nf"
         android:layout_width="313dp"
         android:layout_height="19dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="234dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="19sp"
         android:text="@string/scan_the_nf"
         android:textAppearance="@style/scan_the_nf"
-        android:gravity="top"
-        android:fontFamily="@font/inter"
-        android:lineHeight="19sp"
-        android:layout_centerHorizontal="true"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/welcome_use"
+        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintStart_toStartOf="@+id/welcome_use"
+        app:layout_constraintTop_toBottomOf="@+id/clarity_adm"
+        app:layout_constraintVertical_bias="0.084" />
+
     <TextView
         android:id="@+id/id_and_clic"
         android:layout_width="139dp"
         android:layout_height="19dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="113dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="253dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="19sp"
         android:text="@string/id_and_clic"
         android:textAppearance="@style/id_and_clic"
-        android:gravity="top"
-        android:fontFamily="@font/inter"
-        android:lineHeight="19sp"
-        android:layout_centerHorizontal="true"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/scan_the_nf"
+        app:layout_constraintHorizontal_bias="0.436"
+        app:layout_constraintStart_toStartOf="@+id/scan_the_nf"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.31" />
+
     <TextView
         android:id="@+id/student_id_"
         android:layout_width="106dp"
         android:layout_height="24dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="36dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="367dp"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="24sp"
         android:text="@string/student_id_"
         android:textAppearance="@style/student_id_"
-        android:gravity="top"
-        android:fontFamily="@font/inter"
-        android:lineHeight="24sp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_9"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_9"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.469" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/rectangle_9"
         android:layout_width="309dp"
         android:layout_height="37dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="396dp"
         android:background="@drawable/rectangle_9"
 
-        >
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/student_id"
-            android:layout_width="270dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="35dp"
-            />
+        app:layout_constraintBottom_toTopOf="@+id/rectangle_1111"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_1111"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_1111"
+        app:layout_constraintTop_toBottomOf="@+id/clarity_adm"
+        app:layout_constraintVertical_bias="0.724">
+
     </android.support.design.widget.TextInputLayout>
+
     <View
         android:id="@+id/icon_person"
         android:layout_width="23dp"
         android:layout_height="23dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="403dp"
-        android:background="@drawable/icon11" />
+        android:background="@drawable/icon11"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_9"
+        app:layout_constraintEnd_toStartOf="@+id/student_id"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_9"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_9" />
+
     <View
-        android:id="@+id/rectangle_1"
+        android:id="@+id/rectangle_1111"
         android:layout_width="272.79dp"
         android:layout_height="92dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="509dp"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/rectangle_111"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.565"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.749" />
+
     <TextView
         android:id="@+id/write"
         android:layout_width="130dp"
         android:layout_height="58dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="526dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="58sp"
         android:text="@string/write"
         android:textAppearance="@style/write"
-        android:gravity="top"
-        android:fontFamily="@font/inter"
-        android:lineHeight="58sp"
-        android:layout_centerHorizontal="true"
-        />
-
-    <View
-        android:id="@+id/rectangle_11"
-        android:layout_width="272.79dp"
-        android:layout_height="92dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="509dp"
-        android:background="@drawable/rectangle_1111"
-        android:visibility="invisible" />
-    <TextView
-        android:id="@+id/write1"
-        android:layout_width="130dp"
-        android:layout_height="58dp"
-        android:visibility="invisible"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="526dp"
-        android:text="@string/write"
-        android:textAppearance="@style/write1"
-        android:gravity="top"
-        android:fontFamily="@font/inter"
-        android:lineHeight="58sp"
-        android:layout_centerHorizontal="true"
-        />
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_1111"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_1111"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_1111"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_1111" />
 
 
 
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/student_id"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_9"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_9"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_9"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_9" />
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

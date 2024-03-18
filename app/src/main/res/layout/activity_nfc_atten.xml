@@ -94,32 +94,7 @@
         android:fontFamily="@font/inter"
         android:textStyle="bold"
         />
-    <View
-        android:id="@+id/rectangle_22"
-        android:layout_width="255.21dp"
-        android:layout_height="81dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="496dp"
-        android:background="@drawable/rectangle_2222"
-        android:visibility="invisible"
-        android:clickable="true"
-        />
-    <TextView
-        android:id="@+id/finish2"
-        android:layout_width="143dp"
-        android:layout_height="58dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="508dp"
-        android:text="@string/finish1"
-        android:textAppearance="@style/finish2"
-        android:gravity="top"
-        android:lineHeight="58sp"
-        android:fontFamily="@font/inter"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        />
+
 
 
 

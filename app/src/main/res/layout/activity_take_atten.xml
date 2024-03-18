@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/take_attend"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,56 +9,73 @@
     android:background="#FCFCFC">
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/solar_check"
-        android:layout_centerHorizontal="true"
         android:layout_width="76dp"
         android:layout_height="76dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="96dp"
-        android:clipToOutline="true"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/att"
-        />
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.112" />
+
     <TextView
         android:id="@+id/take"
         android:layout_width="228dp"
         android:layout_height="33dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="179dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="33sp"
         android:text="@string/take_attend"
         android:textAppearance="@style/take"
-        android:gravity="top"
-        android:fontFamily="@font/inter"
-        android:lineHeight="33sp"
         android:textStyle="bold"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/solar_check"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/solar_check"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.236" />
+
     <TextView
         android:id="@+id/please_cho"
         android:layout_width="262dp"
         android:layout_height="19dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="220dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="19sp"
         android:text="@string/please_cho"
         android:textAppearance="@style/please_cho"
-        android:gravity="top"
-        android:fontFamily="@font/inter"
-        android:lineHeight="19sp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/take"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/take"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.289" />
+
     <TextView
         android:id="@+id/attendance_"
         android:layout_width="123dp"
         android:layout_height="19dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="239dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="19sp"
         android:text="@string/attendance_"
         android:textAppearance="@style/attendance_"
-        android:gravity="top"
-        android:fontFamily="@font/inter"
-        android:lineHeight="19sp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/please_cho"
+        app:layout_constraintStart_toStartOf="@+id/please_cho"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.33" />
 
     <View
         android:id="@+id/rectangle_4"
@@ -64,8 +83,13 @@
         android:layout_height="72dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="317dp"
-        android:background="@drawable/rectangle_44" />
+        android:background="@drawable/rectangle_44"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
 
     <TextView
         android:id="@+id/nfc"
@@ -73,23 +97,28 @@
         android:layout_height="51dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="327dp"
         android:fontFamily="@font/inter"
         android:gravity="top"
         android:lineHeight="51sp"
         android:text="@string/nfc"
-        android:textAppearance="@style/nfc" />
+        android:textAppearance="@style/nfc"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_4"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_4"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_4"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_4" />
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:id="@+id/iconoir_han"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="270dp"
-        android:layout_marginTop="322dp"
         android:background="@drawable/hand_card"
-        android:clipToOutline="true" />
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_4"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_4"
+        app:layout_constraintStart_toEndOf="@+id/nfc"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_4" />
 
     <View
         android:id="@+id/rectangle_5"
@@ -97,8 +126,13 @@
         android:layout_height="72dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="453dp"
-        android:background="@drawable/rectangle_55" />
+        android:background="@drawable/rectangle_55"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.705" />
 
     <TextView
         android:id="@+id/manually"
@@ -106,50 +140,99 @@
         android:layout_height="45dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="469dp"
         android:fontFamily="@font/inter"
         android:gravity="top"
         android:lineHeight="42sp"
         android:text="@string/manually"
-        android:textAppearance="@style/manually" />
+        android:textAppearance="@style/manually"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_5"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_5"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_5"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_5" />
+
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mdi_hand_ta"
         android:layout_width="57dp"
         android:layout_height="57dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="280dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="457dp"
-        android:clipToOutline="true"
         android:background="@drawable/hand_tap"
-        />
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_5"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_5"
+        app:layout_constraintStart_toEndOf="@+id/manually"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_5" />
+
     <View
         android:id="@+id/rectangle_22"
+        android:layout_width="329.81dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/rectangle_10"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_5"
+        app:layout_constraintTop_toBottomOf="@+id/rectangle_5" />
+
+    <TextView
+        android:id="@+id/face_id"
+        android:layout_width="124dp"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="top"
+        android:text="@string/face_id"
+        android:textAppearance="@style/face_id"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_22"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_22"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_22"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_22" />
+    <RelativeLayout
+        android:id="@+id/mdi_hand_ta2"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/vector"
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_22"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_22"
+        app:layout_constraintStart_toEndOf="@+id/face_id"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_22" />
+
+    <View
+        android:id="@+id/rectangle_6"
         android:layout_width="255.21dp"
         android:layout_height="81dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="616dp"
-        android:background="@drawable/rectangle_22"
-        android:visibility="invisible"
-        />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rectangle_6"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_22"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_22"
+        app:layout_constraintTop_toBottomOf="@+id/rectangle_22" />
+
     <TextView
         android:id="@+id/finish"
         android:layout_width="143dp"
         android:layout_height="58dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="628dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/inter"
+        android:gravity="top"
+        android:lineHeight="58sp"
         android:text="@string/finish"
         android:textAppearance="@style/finish"
-        android:gravity="top"
-        android:fontFamily="@font/inter"
-        android:lineHeight="58sp"
         android:textStyle="bold"
-        android:visibility="invisible"
-        />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_6"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_6"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_6"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_6" />
 
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.nfc.NdefMessage
 import android.nfc.NdefRecord
 import android.nfc.NfcAdapter
@@ -22,10 +23,14 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_addemployee.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.rectangle_2
+import kotlinx.android.synthetic.main.activity_nfc_atten.*
 import java.text.SimpleDateFormat
+
 import java.util.*
 
 class addemployee : AppCompatActivity() {
+
     private var nfcAdapter: NfcAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +40,6 @@ class addemployee : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-
-
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
     }
@@ -67,11 +69,16 @@ class addemployee : AppCompatActivity() {
         super.onNewIntent(intent)
         if (NfcAdapter.ACTION_TAG_DISCOVERED == intent.action) {
             val tag: Tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)!!
-            val studentId = student_id.text.toString()
-            rectangle_11.setOnClickListener{
-                writeStudentIdToNfcCard(tag, studentId)
-            }
+            val drawable: Drawable? = ContextCompat.getDrawable(baseContext, R.drawable.rectangle_1111)
+            rectangle_1111.background = drawable
+            rectangle_1111.isClickable = true
+            if(rectangle_1111.isClickable) {
+                rectangle_1111.setOnClickListener {
+                    val studentId = student_id.text.toString()
+                    writeStudentIdToNfcCard(tag, studentId)
 
+                }
+            }
         }
     }
     override fun onPause() {

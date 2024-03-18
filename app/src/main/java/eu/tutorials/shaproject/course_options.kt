@@ -1,5 +1,6 @@
 package eu.tutorials.shaproject
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +23,10 @@ class course_options : AppCompatActivity() {
         var username_2=intent.getStringExtra(Constants.teacher_name)
         username2.text=username_2
         course_id_1.text="Course Id:${intent.getIntExtra(Constants.course_id,0)}"
+        val sharedPreferences = getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
+        sharedPreferences.edit()
+            .putInt("course_id", intent.getIntExtra(Constants.course_id,0))
+            .apply()
         btn_take_att.setOnClickListener{
             val intent= Intent(this,take_atten::class.java)
             startActivity(intent)

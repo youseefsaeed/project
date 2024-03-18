@@ -1,5 +1,6 @@
 package eu.tutorials.shaproject
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -29,6 +30,11 @@ class coursescreen : AppCompatActivity() {
         setContentView(R.layout.activity_coursescreen)
         var doctor_name=intent.getStringExtra(Constants.teacher_name)
         var doctor_id = intent.getIntExtra(Constants.teacher_id, 0)
+        val sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit()
+            .putInt("doctor_id", doctor_id)
+            .apply()
+
         welcome_doctor.text="Welcome,$doctor_name."
 
         recycleview.setHasFixedSize(true)
@@ -86,4 +92,5 @@ class coursescreen : AppCompatActivity() {
 
 
     }
+
 }

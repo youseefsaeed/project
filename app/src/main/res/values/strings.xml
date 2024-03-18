@@ -150,4 +150,7 @@ Attend
     <string name="student_det">
         Student details:
     </string>
+    <string name="face_id">
+        Face ID
+    </string>
 </resources>

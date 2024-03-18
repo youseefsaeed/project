@@ -6,7 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface StudentApi {
-    @GET("students/{id}")
+    @GET("students/id/{id}")
     fun getTeachers(
         @Path("id") courseId: Int
     ): Call<List<StudentResponse>?>

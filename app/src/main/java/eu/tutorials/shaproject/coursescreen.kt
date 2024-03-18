@@ -2,9 +2,9 @@ package eu.tutorials.shaproject
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_course_options.*
@@ -38,7 +38,8 @@ class coursescreen : AppCompatActivity() {
         welcome_doctor.text="Welcome,$doctor_name."
 
         recycleview.setHasFixedSize(true)
-        linearLayoutManager=LinearLayoutManager(this)
+        linearLayoutManager=
+            LinearLayoutManager(this)
         recycleview.layoutManager=linearLayoutManager
 
         val logging2 = HttpLoggingInterceptor()

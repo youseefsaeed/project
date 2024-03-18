@@ -6,13 +6,13 @@ Username:
     <string name="sign_in">
 Sign In
 </string>
-    <string name="enter_your_">
+    <string name="enter_your_email">
 Enter your username or email
 </string>
     <string name="password_">
 Password:
 </string>
-    <string name="enter_your_1">
+    <string name="enter_your_password">
 Enter your password
 </string>
     <string name="sign_in1">

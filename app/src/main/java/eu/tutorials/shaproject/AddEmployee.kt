@@ -1,41 +1,28 @@
 package eu.tutorials.shaproject
 
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Color
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.nfc.NdefMessage
 import android.nfc.NdefRecord
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.nfc.tech.Ndef
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.util.Log
-import android.view.View
-import android.widget.TextView
+import androidx.core.content.ContextCompat
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_addemployee.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.rectangle_2
-import kotlinx.android.synthetic.main.activity_nfc_atten.*
-import java.text.SimpleDateFormat
 
-import java.util.*
-
-class addemployee : AppCompatActivity() {
+class AddEmployee : AppCompatActivity() {
 
     private var nfcAdapter: NfcAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addemployee)
-        rectangle_8.setOnClickListener{
+        logout.setOnClickListener{
             val intent= Intent(this, Login::class.java)
             startActivity(intent)
             finish()

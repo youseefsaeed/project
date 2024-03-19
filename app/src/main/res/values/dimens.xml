@@ -17,4 +17,12 @@
     <dimen name="size_7">7dp</dimen>
     <dimen name="size_21">21dp</dimen>
     <dimen name="size_42">42dp</dimen>
+    <dimen name="size_14">14dp</dimen>
+    <dimen name="size_49">49dp</dimen>
+    <dimen name="size_57">57dp</dimen>
+    <dimen name="size_89">89dp</dimen>
+    <dimen name="size_8">8dp</dimen>
+    <dimen name="size_59">59dp</dimen>
+    <dimen name="size_39">39dp</dimen>
+    <dimen name="size_96">96dp</dimen>
 </resources>

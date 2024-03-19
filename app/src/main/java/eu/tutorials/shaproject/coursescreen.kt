@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
-import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_course_options.*
 import kotlinx.android.synthetic.main.activity_coursescreen.*
-import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -17,25 +14,24 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.StringBuilder
 
 class coursescreen : AppCompatActivity() {
-    lateinit var Adapter_coursesscreen:Adapter_coursesscreen
-    lateinit var linearLayoutManager: LinearLayoutManager
+    lateinit var adapterCoursesScreen:AdapterCoursesScreen
+    private lateinit var linearLayoutManager: LinearLayoutManager
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coursescreen)
-        var doctor_name=intent.getStringExtra(Constants.teacher_name)
-        var doctor_id = intent.getIntExtra(Constants.teacher_id, 0)
+        var doctorName=intent.getStringExtra(Constants.teacher_name)
+        var doctorId = intent.getIntExtra(Constants.teacher_id, 0)
         val sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
         sharedPreferences.edit()
-            .putInt("doctor_id", doctor_id)
+            .putInt("doctor_id", doctorId)
             .apply()
 
-        welcome_doctor.text="Welcome,$doctor_name."
+        welcome_doctor.text="Welcome,$doctorName."
 
         recycleview.setHasFixedSize(true)
         linearLayoutManager=
@@ -54,26 +50,26 @@ class coursescreen : AppCompatActivity() {
             .client(httpClient2.build())
             .build()
         val courseApi = retrofit2.create(CoursesApi::class.java)
-        val call = courseApi.getTeachers(doctor_id)
+        val call = courseApi.getTeachers(doctorId)
         call.enqueue(object : Callback<List<CoursesX>?> {
             override fun onResponse(call: Call<List<CoursesX>?>, response: Response<List<CoursesX>?>) {
                 if (response.isSuccessful ) {
                     val courses = response.body()!!
 
-                    Adapter_coursesscreen= Adapter_coursesscreen(baseContext,courses)
-                    Adapter_coursesscreen.courseClickListener = object : Adapter_coursesscreen.CourseClickListener {
+                    adapterCoursesScreen= AdapterCoursesScreen(baseContext,courses)
+                    adapterCoursesScreen.courseClickListener = object : AdapterCoursesScreen.CourseClickListener {
                         override fun onCourseClicked(courseId: Int,coursename:String) {
 
                             val intent = Intent(this@coursescreen, course_options::class.java)
                             intent.putExtra(Constants.course_id,courseId)
                             intent.putExtra(Constants.course_name,coursename)
-                            intent.putExtra(Constants.teacher_name,doctor_name)
+                            intent.putExtra(Constants.teacher_name,doctorName)
                             startActivity(intent)
 
                         }
                     }
-                    Adapter_coursesscreen.notifyDataSetChanged()
-                    recycleview.adapter=Adapter_coursesscreen
+                    adapterCoursesScreen.notifyDataSetChanged()
+                    recycleview.adapter=adapterCoursesScreen
 
                 }
                 else{}

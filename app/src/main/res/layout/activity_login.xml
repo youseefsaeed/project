@@ -101,6 +101,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPasswordLabel"
         app:passwordToggleDrawable="@drawable/icon33"
+        app:passwordToggleTint="@color/black"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText

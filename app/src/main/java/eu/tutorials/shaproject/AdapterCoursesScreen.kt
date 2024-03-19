@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.course_style.view.*
 
-class Adapter_coursesscreen (val context: Context, val items: List<CoursesX>) :
-    RecyclerView.Adapter<Adapter_coursesscreen.ViewHolder>() {
+class AdapterCoursesScreen (val context: Context, val items: List<CoursesX>) :
+    RecyclerView.Adapter<AdapterCoursesScreen.ViewHolder>() {
     interface CourseClickListener {
         fun onCourseClicked(courseId: Int,coursename:String)
     }
@@ -27,7 +27,7 @@ class Adapter_coursesscreen (val context: Context, val items: List<CoursesX>) :
                     val course = items[position]
                     val courseId = course.course_id
                     val coursename = course.name
-                    courseClickListener?.onCourseClicked(courseId,coursename)
+                    courseClickListener.onCourseClicked(courseId,coursename)
                 }
             }
         }

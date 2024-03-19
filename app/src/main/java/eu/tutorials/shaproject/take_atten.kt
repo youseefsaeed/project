@@ -1,29 +1,21 @@
 package eu.tutorials.shaproject
 
 import android.Manifest
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
-import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_course_options.*
-import kotlinx.android.synthetic.main.activity_course_options.btn_logout1
-import kotlinx.android.synthetic.main.activity_nfc_atten.*
-import kotlinx.android.synthetic.main.activity_take_atten.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.main.activity_take_atten.manually
+import kotlinx.android.synthetic.main.activity_take_atten.nfc
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,10 +25,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Date
+import java.util.Locale
 
 class take_atten : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 123
@@ -49,13 +39,13 @@ class take_atten : AppCompatActivity() {
         val sharedPreferences2 = this.getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
         val courseid = sharedPreferences2.getInt("course_id", 0)
 
-        rectangle_4.setOnClickListener{
-            val intent= Intent(this,NFC_atten::class.java)
+        nfc.setOnClickListener {
+            val intent = Intent(this, NFC_atten::class.java)
             startActivity(intent)
 
         }
-        rectangle_5.setOnClickListener{
-            val intent= Intent(this,manually_atten::class.java)
+        manually.setOnClickListener {
+            val intent = Intent(this, manually_atten::class.java)
             startActivity(intent)
 
         }
@@ -70,18 +60,16 @@ class take_atten : AppCompatActivity() {
             combinedList.addAll(students2)
         }
 
-        if (students!=null || students2!=null) {
+        if (students != null || students2 != null) {
 
-            var finish = findViewById(R.id.rectangle_22) as View
+            var finish = findViewById<View>(R.id.finish)
             finish.visibility = View.VISIBLE
-            var finish2 = findViewById(R.id.finish) as View
-            finish2.visibility = View.VISIBLE
             finish.setOnClickListener {
 
                 createCSVFile(combinedList)
 
                 val logging = HttpLoggingInterceptor()
-                Log.e("Login","failaerin"+logging)
+                Log.e("Login", "failaerin" + logging)
                 logging.setLevel(HttpLoggingInterceptor.Level.BODY)
                 val httpClient = OkHttpClient.Builder()
                 httpClient.addInterceptor(logging)
@@ -95,33 +83,52 @@ class take_atten : AppCompatActivity() {
                 val lectureService = retrofit.create(create_lecuture::class.java)
                 val lectureDate = "2024-03-13"
                 val lectureTime = "02:01:02.214Z"
-                val lectureData = LectureData(lectureDate,lectureTime,doctorId, courseid)
+                val lectureData = LectureData(lectureDate, lectureTime, doctorId, courseid)
                 val call = lectureService.createLecture(lectureData)
                 call.enqueue(object : retrofit2.Callback<LectureResponse?> {
-                    override fun onResponse(call: Call<LectureResponse?>, response: retrofit2.Response<LectureResponse?>) {
+                    override fun onResponse(
+                        call: Call<LectureResponse?>,
+                        response: retrofit2.Response<LectureResponse?>
+                    ) {
                         if (response.isSuccessful) {
                             val createLectureResponse = response.body()
-                            val lectureId = createLectureResponse?.lecture_id?.data?.get(0)?.lecture_id
-                            val requestBody = RequestBody(lecture_id = lectureId!!, students = students_id!!.toList())
+                            val lectureId =
+                                createLectureResponse?.lecture_id?.data?.get(0)?.lecture_id
+                            val requestBody = RequestBody(
+                                lecture_id = lectureId!!,
+                                students = students_id!!.toList()
+                            )
                             val call2 = lectureService.createLectureWithStudents(requestBody)
                             call2.enqueue(object : Callback<Void> {
-                                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                override fun onResponse(
+                                    call: Call<Void>,
+                                    response: Response<Void>
+                                ) {
 
                                 }
 
                                 override fun onFailure(call: Call<Void>, t: Throwable) {
-                                    Toast.makeText(this@take_atten, "error", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@take_atten, "error", Toast.LENGTH_SHORT)
+                                        .show()
                                 }
                             })
 
                         } else {
                             val statusCode = response.code()
-                            Toast.makeText(this@take_atten, "Request failed with status code $statusCode", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@take_atten,
+                                "Request failed with status code $statusCode",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
 
                     override fun onFailure(call: Call<LectureResponse?>, t: Throwable) {
-                        Toast.makeText(this@take_atten, "Request failed: ${t.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@take_atten,
+                            "Request failed: ${t.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 })
 
@@ -137,7 +144,8 @@ class take_atten : AppCompatActivity() {
         val fileName = "students_$timeStamp.csv"
 
         if (checkPermission()) {
-            val downloadsDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val downloadsDirectory =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             val file = File(downloadsDirectory, fileName)
 
             try {
@@ -166,7 +174,8 @@ class take_atten : AppCompatActivity() {
 
 
     private fun checkPermission(): Boolean {
-        val result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        val result =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         return result == PackageManager.PERMISSION_GRANTED
     }
 
@@ -183,12 +192,17 @@ class take_atten : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission granted. Click again to create CSV file.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Permission granted. Click again to create CSV file.",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
                 Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show()
             }
         }
     }
-    }
+}

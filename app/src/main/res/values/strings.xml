@@ -6,13 +6,13 @@ Username:
     <string name="sign_in">
 Sign In
 </string>
-    <string name="enter_your_">
+    <string name="enter_your_email">
 Enter your username or email
 </string>
     <string name="password_">
 Password:
 </string>
-    <string name="enter_your_1">
+    <string name="enter_your_password">
 Enter your password
 </string>
     <string name="sign_in1">
@@ -82,10 +82,9 @@ Finish
 NFC Attendance
 </string>
     <string name="hold_the_de">
-Hold the device near the NFC tag labled on
+Hold the device near the NFC tag labled on\nthe student ID card.
 </string>
     <string name="the_student">
-the student ID card.
 </string>
     <string name="counter_0">
 Counter: 0
@@ -97,10 +96,10 @@ Finish
 Manual Attendance
 </string>
     <string name="enter_the_s">
-Enter the student ID in the textbox then
+Enter the student ID in the textbox then\nclick Attend.
 </string>
     <string name="click_atten">
-click Attend.
+
 </string>
     <string name="student_id_">
 Student ID:
@@ -153,4 +152,6 @@ Attend
     <string name="face_id">
         Face ID
     </string>
+    <string name="welcome">Welcome, %1$s.</string>
+    <string name="counter">Counter:%1$s</string>
 </resources>

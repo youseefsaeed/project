@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout2"
@@ -177,7 +177,7 @@
         app:layout_constraintHorizontal_bias="0.029"
         app:layout_constraintStart_toStartOf="@+id/rectangle_3" />
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/rectangle_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
         app:layout_constraintVertical_bias="0.906"
         app:passwordToggleEnabled="true">
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <View
         android:id="@+id/icon_lock_l"
@@ -258,12 +258,12 @@
         app:layout_constraintStart_toStartOf="@+id/there_are_n"
         app:layout_constraintTop_toBottomOf="@+id/there_are_n" />
 
-    <android.support.design.widget.TextInputEditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/enter_your_1"
         android:layout_width="224dp"
         android:layout_height="37dp"
         android:fontFamily="@font/inter"
-        android:hint="@string/enter_your_1"
+        android:hint="@string/enter_your_password"
         android:inputType="textPassword"
         android:lineHeight="17sp"
         android:paddingTop="0dp"
@@ -275,4 +275,4 @@
         app:layout_constraintTop_toTopOf="@+id/rectangle_3" />
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,21 +1,22 @@
 package eu.tutorials.shaproject
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.course_style.view.*
 
-class Adapter_coursesscreen (val context: Context, val items: List<CoursesX>) :
-    RecyclerView.Adapter<Adapter_coursesscreen.ViewHolder>() {
+class AdapterCoursesScreen (val context: Context, val items: List<CoursesX>) :
+    RecyclerView.Adapter<AdapterCoursesScreen.ViewHolder>() {
     interface CourseClickListener {
         fun onCourseClicked(courseId: Int,coursename:String)
     }
     var courseClickListener: CourseClickListener? = null
 
-    class ViewHolder(itemView:View,private val items: List<CoursesX>,private val courseClickListener:CourseClickListener ):RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView:View,private val items: List<CoursesX>,private val courseClickListener:CourseClickListener ):
+        RecyclerView.ViewHolder(itemView){
         var course_name: TextView = itemView.course_1
 
         init {
@@ -26,7 +27,7 @@ class Adapter_coursesscreen (val context: Context, val items: List<CoursesX>) :
                     val course = items[position]
                     val courseId = course.course_id
                     val coursename = course.name
-                    courseClickListener?.onCourseClicked(courseId,coursename)
+                    courseClickListener.onCourseClicked(courseId,coursename)
                 }
             }
         }

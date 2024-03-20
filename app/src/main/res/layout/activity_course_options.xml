@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_page_s"
@@ -8,56 +8,34 @@
     android:background="#FFFFFF"
     android:clipToOutline="true">
 
-    <View
-        android:id="@+id/btn_logout1"
-        android:layout_width="120dp"
-        android:layout_height="35dp"
-        android:background="@drawable/rectangle_7"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
-
     <TextView
-
         android:id="@+id/logout"
+        style="@style/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="@dimen/size_12"
+        android:layout_marginTop="@dimen/size_32"
+        android:background="@drawable/rectangle_7"
+        android:drawablePadding="@dimen/size_7"
         android:fontFamily="@font/inter"
-        android:gravity="top"
-        android:lineHeight="22sp"
+        android:paddingHorizontal="@dimen/size_7"
+        android:paddingVertical="@dimen/size_4"
         android:text="@string/logout"
-        android:textAppearance="@style/logout"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_logout1"
-        app:layout_constraintEnd_toEndOf="@+id/btn_logout1"
-        app:layout_constraintStart_toStartOf="@+id/btn_logout1"
-        app:layout_constraintTop_toTopOf="@+id/btn_logout1" />
+        app:drawableStartCompat="@drawable/logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:id="@+id/bx_log_out"
+    <ImageView
+        android:id="@+id/imgIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/logout"
-        android:clipToOutline="true"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_logout1"
-        app:layout_constraintEnd_toStartOf="@+id/logout"
-        app:layout_constraintStart_toStartOf="@+id/btn_logout1"
-        app:layout_constraintTop_toTopOf="@+id/btn_logout1" />
-
-
-    <View
-        android:id="@+id/e43bbf282e5"
-        android:layout_width="228dp"
-        android:layout_height="106dp"
+        android:layout_marginTop="@dimen/size_89"
         android:background="@drawable/homepageicon"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/course_homepage"
@@ -65,168 +43,94 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter"
         android:gravity="top"
-        android:lineHeight="33sp"
         android:maxHeight="40dp"
         android:text="@string/course_1_ho"
         android:textAppearance="@style/course_1_ho"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.277" />
+        app:layout_constraintTop_toBottomOf="@id/imgIcon" />
 
     <TextView
         android:id="@+id/course_id_1"
+        style="@style/course_id_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_8"
         android:fontFamily="@font/inter"
-        android:gravity="top"
-        android:lineHeight="19sp"
         android:text="@string/course_id_1"
-        android:textAppearance="@style/course_id_1"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/course_homepage"
         app:layout_constraintVertical_bias="0.319" />
 
     <TextView
         android:id="@+id/username2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_7"
         android:fontFamily="@font/inter"
-        android:gravity="top"
-        android:lineHeight="19sp"
         android:text="@string/teacher_use"
         android:textAppearance="@style/teacher_use"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.349" />
-
-    <View
-        android:id="@+id/btn_take_att"
-        android:layout_width="284dp"
-        android:layout_height="62dp"
-        android:background="@drawable/rectangle_8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintTop_toBottomOf="@id/course_id_1" />
 
     <TextView
         android:id="@+id/take_attend"
+        style="@style/take_attend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:gravity="top"
-        android:lineHeight="34sp"
-        android:text="@string/take_attend"
-        android:textAppearance="@style/take_attend"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_take_att"
-        app:layout_constraintEnd_toEndOf="@+id/btn_take_att"
-        app:layout_constraintHorizontal_bias="0.27"
-        app:layout_constraintStart_toStartOf="@+id/btn_take_att"
-        app:layout_constraintTop_toTopOf="@+id/btn_take_att" />
-
-    <RelativeLayout
-        android:id="@+id/solar_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/take_att"
-        android:clipToOutline="true"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_take_att"
-        app:layout_constraintEnd_toEndOf="@+id/btn_take_att"
-        app:layout_constraintHorizontal_bias="0.285"
-        app:layout_constraintStart_toEndOf="@+id/take_attend"
-        app:layout_constraintTop_toTopOf="@+id/btn_take_att"
-        app:layout_constraintVertical_bias="0.26" />
-
-
-    <View
-        android:id="@+id/btn_lec_history"
-        android:layout_width="284dp"
-        android:layout_height="62dp"
+        android:layout_marginTop="@dimen/size_57"
         android:background="@drawable/rectangle_8"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:drawablePadding="@dimen/size_7"
+        android:fontFamily="@font/inter"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/size_7"
+        android:paddingVertical="@dimen/size_14"
+        android:text="@string/take_attend"
+        app:drawableEndCompat="@drawable/take_att"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.624" />
+        app:layout_constraintTop_toBottomOf="@+id/username2" />
 
     <TextView
         android:id="@+id/lectures_hi"
+        style="@style/lectures_hi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:gravity="top"
-        android:lineHeight="33sp"
-        android:text="@string/lectures_hi"
-        android:textAppearance="@style/lectures_hi"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_lec_history"
-        app:layout_constraintEnd_toEndOf="@+id/btn_lec_history"
-        app:layout_constraintHorizontal_bias="0.369"
-        app:layout_constraintStart_toStartOf="@+id/btn_lec_history"
-        app:layout_constraintTop_toTopOf="@+id/btn_lec_history"
-        app:layout_constraintVertical_bias="0.48" />
-
-    <RelativeLayout
-        android:id="@+id/tdesign_his"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/history"
-        android:clipToOutline="true"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_lec_history"
-        app:layout_constraintEnd_toEndOf="@+id/btn_lec_history"
-        app:layout_constraintStart_toEndOf="@+id/lectures_hi"
-        app:layout_constraintTop_toTopOf="@+id/btn_lec_history" />
-
-    <View
-        android:id="@+id/btn_metrics"
-        android:layout_width="284dp"
-        android:layout_height="62dp"
+        android:layout_marginTop="@dimen/size_49"
         android:background="@drawable/rectangle_8"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:drawablePadding="@dimen/size_7"
+        android:fontFamily="@font/inter"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/size_7"
+        android:paddingVertical="@dimen/size_14"
+        android:text="@string/lectures_hi"
+        app:drawableEndCompat="@drawable/history"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.757" />
+        app:layout_constraintTop_toBottomOf="@id/take_attend" />
+
 
     <TextView
         android:id="@+id/students_me"
+        style="@style/students_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_49"
+        android:background="@drawable/rectangle_8"
+        android:drawablePadding="@dimen/size_7"
         android:fontFamily="@font/inter"
-        android:gravity="top"
-        android:lineHeight="32sp"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/size_7"
+        android:paddingVertical="@dimen/size_14"
         android:text="@string/students_me"
-        android:textAppearance="@style/students_me"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_metrics"
-        app:layout_constraintEnd_toEndOf="@+id/btn_metrics"
-        app:layout_constraintHorizontal_bias="0.182"
-        app:layout_constraintStart_toStartOf="@+id/btn_metrics"
-        app:layout_constraintTop_toTopOf="@+id/btn_metrics"
-        app:layout_constraintVertical_bias="0.407" />
+        app:drawableEndCompat="@drawable/matr"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lectures_hi"
+        app:layout_constraintVertical_bias="0" />
 
-    <RelativeLayout
-        android:id="@+id/fluent_peop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/matr"
-        android:clipToOutline="true"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_metrics"
-        app:layout_constraintEnd_toEndOf="@+id/btn_metrics"
-        app:layout_constraintStart_toEndOf="@+id/students_me"
-        app:layout_constraintTop_toTopOf="@+id/btn_metrics" />
-
-
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

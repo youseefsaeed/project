@@ -37,7 +37,7 @@
             android:exported="true"
             android:theme="@style/noactionbar" />
         <activity
-            android:name=".addemployee"
+            android:name=".AddEmployee"
             android:exported="true"
             android:theme="@style/noactionbar">
         <intent-filter>
@@ -49,7 +49,7 @@
     </activity>
 
         <activity
-            android:name=".manually_atten"
+            android:name=".ManuallyAttended"
             android:exported="true"
             android:theme="@style/noactionbar" />
         <activity
@@ -65,7 +65,7 @@
             android:exported="true"
             android:theme="@style/noactionbar" />
         <activity
-            android:name=".coursescreen"
+            android:name=".CourseScreen"
             android:exported="true"
             android:theme="@style/noactionbar" />
         <activity

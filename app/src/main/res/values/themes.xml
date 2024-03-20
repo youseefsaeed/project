@@ -1,229 +1,292 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ShaProject" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme.ShaProject" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryDark">@color/purple_700</item>
         <item name="colorAccent">@color/teal_200</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="ItalicHintStyle" parent="TextAppearance.Design.Hint">
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontWeight">500</item>
+    </style>
+
     <style name="username_">
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="sign_in">
-        <item name="android:textSize">27.5sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="enter_your_">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="password_">
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="enter_your_1">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="sign_in1">
-        <item name="android:textSize">47.61sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="noactionbar" parent="Theme.AppCompat.Light.NoActionBar">
 
     </style>
+
     <style name="remember_me">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="forgot_pass">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="logout">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#0E0E0E</item>
+        <item name="android:textStyle">bold</item>
     </style>
+
     <style name="welcome_use">
-    <item name="android:textSize">27.5sp</item>
-    <item name="android:textColor">#000000</item>
-</style>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="please_choo">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="list_of_cou">
-        <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="course_1">
         <item name="android:textSize">21sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="course_2">
         <item name="android:textSize">22sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="course_3">
         <item name="android:textSize">25sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="course_1_ho">
         <item name="android:textSize">24.5sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="course_id_1">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="teacher_use">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="take_attend">
         <item name="android:textSize">28.25sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="lectures_hi">
         <item name="android:textSize">27.33sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="students_me">
         <item name="android:textSize">26.49sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="take">
         <item name="android:textSize">27.5sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="please_cho">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="attendance_">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="nfc">
         <item name="android:textSize">42.14sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="manually">
         <item name="android:textSize">34.78sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="finish">
         <item name="android:textSize">47.61sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="nfc_attenda">
         <item name="android:textSize">27.5sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="hold_the_de">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">italic</item>
     </style>
+
     <style name="the_student">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="counter_0">
         <item name="android:textSize">29.27sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="finish1">
         <item name="android:textSize">47.61sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="finish2">
         <item name="android:textSize">47.61sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="manual_atte">
         <item name="android:textSize">27.5sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="enter_the_s">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="click_atten">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="student_id_">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="counter_00">
-    <item name="android:textSize">18.4sp</item>
-    <item name="android:textColor">#000000</item>
-</style>
+        <item name="android:textSize">18.4sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="attend">
         <item name="android:textSize">47.61sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="scan_the_nf">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="id_and_clic">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="write">
         <item name="android:textSize">47.61sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="write1">
         <item name="android:textSize">47.61sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="welcome_to_">
         <item name="android:textSize">27.5sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="attendance_1">
         <item name="android:textSize">27.5sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="exam_name_e">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="exam_id_123">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="date_dd_mm_">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="time_10_00_">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="exam_invigi">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="there_are_n">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="held_in_tha">
         <item name="android:textSize">15.38sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="student_det">
         <item name="android:textSize">25sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="face_id">
         <item name="android:textSize">34.78sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

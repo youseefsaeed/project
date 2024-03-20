@@ -94,7 +94,7 @@ class Login : AppCompatActivity() {
                                             }
 
                                             val intent =
-                                                Intent(this@Login, coursescreen::class.java)
+                                                Intent(this@Login, CourseScreen::class.java)
                                             intent.putExtra(
                                                 Constants.teacher_id,
                                                 teacher_id.toString().toIntOrNull()

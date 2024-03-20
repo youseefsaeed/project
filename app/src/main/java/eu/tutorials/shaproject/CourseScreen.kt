@@ -15,7 +15,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class coursescreen : AppCompatActivity() {
+class CourseScreen : AppCompatActivity() {
     lateinit var adapterCoursesScreen:AdapterCoursesScreen
     private lateinit var linearLayoutManager: LinearLayoutManager
 
@@ -31,7 +31,7 @@ class coursescreen : AppCompatActivity() {
             .putInt("doctor_id", doctorId)
             .apply()
 
-        welcome_doctor.text="Welcome,$doctorName."
+        welcome_doctor.text= getString(R.string.welcome, doctorName)
 
         recycleview.setHasFixedSize(true)
         linearLayoutManager=
@@ -39,7 +39,6 @@ class coursescreen : AppCompatActivity() {
         recycleview.layoutManager=linearLayoutManager
 
         val logging2 = HttpLoggingInterceptor()
-        Log.i("coursescreen","failaerin"+logging2)
         logging2.setLevel(HttpLoggingInterceptor.Level.BODY)
         val httpClient2 = OkHttpClient.Builder()
         httpClient2.addInterceptor(logging2)
@@ -60,7 +59,7 @@ class coursescreen : AppCompatActivity() {
                     adapterCoursesScreen.courseClickListener = object : AdapterCoursesScreen.CourseClickListener {
                         override fun onCourseClicked(courseId: Int,coursename:String) {
 
-                            val intent = Intent(this@coursescreen, course_options::class.java)
+                            val intent = Intent(this@CourseScreen, course_options::class.java)
                             intent.putExtra(Constants.course_id,courseId)
                             intent.putExtra(Constants.course_name,coursename)
                             intent.putExtra(Constants.teacher_name,doctorName)

@@ -162,6 +162,7 @@
     <style name="hold_the_de">
         <item name="android:textSize">15.38sp</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">italic</item>
     </style>
 
     <style name="the_student">

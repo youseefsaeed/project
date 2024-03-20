@@ -25,4 +25,11 @@
     <dimen name="size_59">59dp</dimen>
     <dimen name="size_39">39dp</dimen>
     <dimen name="size_96">96dp</dimen>
+    <dimen name="size_117">117dp</dimen>
+    <dimen name="size_11">11dp</dimen>
+    <dimen name="size_63">63dp</dimen>
+    <dimen name="size_130">130dp</dimen>
+    <dimen name="size_91">91dp</dimen>
+    <dimen name="size_98">98dp</dimen>
+    <dimen name="size_29">29dp</dimen>
 </resources>

@@ -45,11 +45,11 @@ class take_atten : AppCompatActivity() {
 
         }
         manually.setOnClickListener {
-            val intent = Intent(this, manually_atten::class.java)
+            val intent = Intent(this, ManuallyAttended::class.java)
             startActivity(intent)
 
         }
-        val students_id = intent.getIntegerArrayListExtra("students_id")
+        val studentIds = intent.getIntegerArrayListExtra("students_id")
         val students = intent.getStringArrayListExtra("students")
         val students2 = intent.getStringArrayListExtra("students2")
         val combinedList: ArrayList<String> = ArrayList()
@@ -69,7 +69,6 @@ class take_atten : AppCompatActivity() {
                 createCSVFile(combinedList)
 
                 val logging = HttpLoggingInterceptor()
-                Log.e("Login", "failaerin" + logging)
                 logging.setLevel(HttpLoggingInterceptor.Level.BODY)
                 val httpClient = OkHttpClient.Builder()
                 httpClient.addInterceptor(logging)
@@ -96,7 +95,7 @@ class take_atten : AppCompatActivity() {
                                 createLectureResponse?.lecture_id?.data?.get(0)?.lecture_id
                             val requestBody = RequestBody(
                                 lecture_id = lectureId!!,
-                                students = students_id!!.toList()
+                                students = studentIds!!.toList()
                             )
                             val call2 = lectureService.createLectureWithStudents(requestBody)
                             call2.enqueue(object : Callback<Void> {

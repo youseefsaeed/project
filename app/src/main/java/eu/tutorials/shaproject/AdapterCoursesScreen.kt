@@ -40,7 +40,7 @@ class AdapterCoursesScreen (val context: Context, val items: List<CoursesX>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    holder.course_name.text=items[position].name.toString()
+        holder.course_name.text=items[position].name.toString()
 
     }
 

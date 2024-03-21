@@ -42,3 +42,31 @@ data class Student(
     val faculty: String,
     val student_id: Int
 )
+data class CoursesX(
+    val name: String,
+    val faculty: String,
+    val course_id: Int
+)
+data class RequestBody(
+    val lecture_id: Int,
+    val students: List<Int>
+)
+data class StudentResponse(
+    @SerializedName("student_id")
+    val teacher_id: Int,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("grade")
+    val grade: Int,
+    @SerializedName("faculty")
+    val faculty: String
+)
+data class TeacherResponse(
+    @SerializedName("teacher_id")
+    val teacher_id: Int,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("email")
+    val email: String
+
+)

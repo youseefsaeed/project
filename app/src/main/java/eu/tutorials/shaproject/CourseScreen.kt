@@ -16,62 +16,65 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class CourseScreen : AppCompatActivity() {
-    lateinit var adapterCoursesScreen:AdapterCoursesScreen
+    private lateinit var adapterCoursesScreen: AdapterCoursesScreen
     private lateinit var linearLayoutManager: LinearLayoutManager
-
-
+    private val retrofit: Retrofit = getRetrofitObject()
+    private val courseApi = retrofit.create(CoursesApi::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coursescreen)
-        var doctorName=intent.getStringExtra(Constants.teacher_name)
+
+        var doctorName = intent.getStringExtra(Constants.teacher_name)
         var doctorId = intent.getIntExtra(Constants.teacher_id, 0)
+
         val sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
         sharedPreferences.edit()
             .putInt("doctor_id", doctorId)
             .apply()
 
-        welcome_doctor.text= getString(R.string.welcome, doctorName)
+        welcome_doctor.text = "Welcome,$doctorName."
 
-        recycleview.setHasFixedSize(true)
-        linearLayoutManager=
-            LinearLayoutManager(this)
-        recycleview.layoutManager=linearLayoutManager
+        setupRecyclerView()
+        fetchDataFromApi(doctorId, doctorName!!)
 
-        val logging2 = HttpLoggingInterceptor()
-        logging2.setLevel(HttpLoggingInterceptor.Level.BODY)
-        val httpClient2 = OkHttpClient.Builder()
-        httpClient2.addInterceptor(logging2)
+        btn_logout.setOnClickListener {
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+            finish()
+        }
 
-        val retrofit2: Retrofit = Retrofit.Builder()
-            .baseUrl(Constants.base_url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(httpClient2.build())
-            .build()
-        val courseApi = retrofit2.create(CoursesApi::class.java)
+
+    }
+
+    private fun fetchDataFromApi(doctorId: Int, doctorName: String) {
         val call = courseApi.getTeachers(doctorId)
         call.enqueue(object : Callback<List<CoursesX>?> {
-            override fun onResponse(call: Call<List<CoursesX>?>, response: Response<List<CoursesX>?>) {
-                if (response.isSuccessful ) {
+            override fun onResponse(
+                call: Call<List<CoursesX>?>,
+                response: Response<List<CoursesX>?>
+            ) {
+                if (response.isSuccessful) {
                     val courses = response.body()!!
 
-                    adapterCoursesScreen= AdapterCoursesScreen(baseContext,courses)
-                    adapterCoursesScreen.courseClickListener = object : AdapterCoursesScreen.CourseClickListener {
-                        override fun onCourseClicked(courseId: Int,coursename:String) {
+                    adapterCoursesScreen = AdapterCoursesScreen(baseContext, courses)
+                    adapterCoursesScreen.courseClickListener =
+                        object : AdapterCoursesScreen.CourseClickListener {
+                            override fun onCourseClicked(courseId: Int, coursename: String) {
 
-                            val intent = Intent(this@CourseScreen, course_options::class.java)
-                            intent.putExtra(Constants.course_id,courseId)
-                            intent.putExtra(Constants.course_name,coursename)
-                            intent.putExtra(Constants.teacher_name,doctorName)
-                            startActivity(intent)
+                                val intent = Intent(this@CourseScreen, course_options::class.java)
+                                intent.putExtra(Constants.course_id, courseId)
+                                intent.putExtra(Constants.course_name, coursename)
+                                intent.putExtra(Constants.teacher_name, doctorName)
+                                startActivity(intent)
 
+                            }
                         }
-                    }
                     adapterCoursesScreen.notifyDataSetChanged()
-                    recycleview.adapter=adapterCoursesScreen
+                    recycleview.adapter = adapterCoursesScreen
 
+                } else {
                 }
-                else{}
             }
 
             override fun onFailure(call: Call<List<CoursesX>?>, t: Throwable) {
@@ -80,13 +83,25 @@ class CourseScreen : AppCompatActivity() {
 
             }
         })
-        btn_logout.setOnClickListener {
-            val intent= Intent(this,Login::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-
     }
 
+    private fun getRetrofitObject(): Retrofit {
+        val logging = HttpLoggingInterceptor()
+        val httpClient = OkHttpClient.Builder()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        httpClient.addInterceptor(logging)
+        return Retrofit.Builder()
+            .baseUrl(Constants.base_url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(httpClient.build())
+            .build()
+    }
+
+    private fun setupRecyclerView() {
+        recycleview.setHasFixedSize(true)
+        linearLayoutManager = LinearLayoutManager(this)
+        recycleview.layoutManager = linearLayoutManager
+        adapterCoursesScreen = AdapterCoursesScreen(baseContext, emptyList())
+
+    }
 }

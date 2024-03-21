@@ -30,7 +30,8 @@ import java.util.Locale
 
 class take_atten : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 123
-
+    private val retrofit: Retrofit = getRetrofitObject()
+    private val lectureService = retrofit.create(create_lecuture::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_take_atten)
@@ -49,7 +50,7 @@ class take_atten : AppCompatActivity() {
             startActivity(intent)
 
         }
-        val studentIds = intent.getIntegerArrayListExtra("students_id")
+
         val students = intent.getStringArrayListExtra("students")
         val students2 = intent.getStringArrayListExtra("students2")
         val combinedList: ArrayList<String> = ArrayList()
@@ -65,71 +66,12 @@ class take_atten : AppCompatActivity() {
             var finish = findViewById<View>(R.id.finish)
             finish.visibility = View.VISIBLE
             finish.setOnClickListener {
-
                 createCSVFile(combinedList)
 
-                val logging = HttpLoggingInterceptor()
-                logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-                val httpClient = OkHttpClient.Builder()
-                httpClient.addInterceptor(logging)
-
-                val retrofit = Retrofit.Builder()
-                    .baseUrl(Constants.base_url) // Replace with your actual base URL
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(httpClient.build())
-                    .build()
-
-                val lectureService = retrofit.create(create_lecuture::class.java)
                 val lectureDate = "2024-03-13"
                 val lectureTime = "02:01:02.214Z"
                 val lectureData = LectureData(lectureDate, lectureTime, doctorId, courseid)
-                val call = lectureService.createLecture(lectureData)
-                call.enqueue(object : retrofit2.Callback<LectureResponse?> {
-                    override fun onResponse(
-                        call: Call<LectureResponse?>,
-                        response: retrofit2.Response<LectureResponse?>
-                    ) {
-                        if (response.isSuccessful) {
-                            val createLectureResponse = response.body()
-                            val lectureId =
-                                createLectureResponse?.lecture_id?.data?.get(0)?.lecture_id
-                            val requestBody = RequestBody(
-                                lecture_id = lectureId!!,
-                                students = studentIds!!.toList()
-                            )
-                            val call2 = lectureService.createLectureWithStudents(requestBody)
-                            call2.enqueue(object : Callback<Void> {
-                                override fun onResponse(
-                                    call: Call<Void>,
-                                    response: Response<Void>
-                                ) {
-
-                                }
-
-                                override fun onFailure(call: Call<Void>, t: Throwable) {
-                                    Toast.makeText(this@take_atten, "error", Toast.LENGTH_SHORT)
-                                        .show()
-                                }
-                            })
-
-                        } else {
-                            val statusCode = response.code()
-                            Toast.makeText(
-                                this@take_atten,
-                                "Request failed with status code $statusCode",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-
-                    override fun onFailure(call: Call<LectureResponse?>, t: Throwable) {
-                        Toast.makeText(
-                            this@take_atten,
-                            "Request failed: ${t.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                })
+                call(lectureData)
 
 
             }
@@ -137,6 +79,56 @@ class take_atten : AppCompatActivity() {
         }
     }
 
+    private fun call(lectureData: LectureData){
+        val students_id = intent.getIntegerArrayListExtra("students_id")
+        val call = lectureService.createLecture(lectureData)
+        call.enqueue(object : retrofit2.Callback<LectureResponse?> {
+            override fun onResponse(
+                call: Call<LectureResponse?>,
+                response: retrofit2.Response<LectureResponse?>
+            ) {
+                if (response.isSuccessful) {
+                    val createLectureResponse = response.body()
+                    val lectureId =
+                        createLectureResponse?.lecture_id?.data?.get(0)?.lecture_id
+                    val requestBody = RequestBody(
+                        lecture_id = lectureId!!,
+                        students = students_id!!.toList()
+                    )
+                    val call2 = lectureService.createLectureWithStudents(requestBody)
+                    call2.enqueue(object : Callback<Void> {
+                        override fun onResponse(
+                            call: Call<Void>,
+                            response: Response<Void>
+                        ) {
+
+                        }
+
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            Toast.makeText(this@take_atten, "error", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    })
+
+                } else {
+                    val statusCode = response.code()
+                    Toast.makeText(
+                        this@take_atten,
+                        "Request failed with status code $statusCode",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<LectureResponse?>, t: Throwable) {
+                Toast.makeText(
+                    this@take_atten,
+                    "Request failed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
 
     private fun createCSVFile(students: ArrayList<String>) {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
@@ -203,5 +195,16 @@ class take_atten : AppCompatActivity() {
                 Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+    private fun getRetrofitObject(): Retrofit {
+        val logging = HttpLoggingInterceptor()
+        val httpClient = OkHttpClient.Builder()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        httpClient.addInterceptor(logging)
+        return Retrofit.Builder()
+            .baseUrl(Constants.base_url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(httpClient.build())
+            .build()
     }
 }

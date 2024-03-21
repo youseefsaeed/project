@@ -18,6 +18,8 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_lecuters_history.*
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,7 +34,10 @@ import kotlin.collections.ArrayList
 class lecuters_history : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 123
     private lateinit var lectures: List<Lecture>
-    private lateinit var apiService:create_lecuture
+    private lateinit var spinner: Spinner
+    private lateinit var layoutToShow: LinearLayout
+    private val retrofit: Retrofit = getRetrofitObject()
+    private val  apiService = retrofit.create(create_lecuture::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lecuters_history)
@@ -41,16 +46,19 @@ class lecuters_history : AppCompatActivity() {
         val doctorId = sharedPreferences.getInt("doctor_id", 0)
         val sharedPreferences2 = this.getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
         val courseid = sharedPreferences2.getInt("course_id", 0)
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.base_url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-         apiService = retrofit.create(create_lecuture::class.java)
+
+        call(doctorId,courseid)
+
+
+
+
+    }
+    private fun call(doctorId:Int,courseid:Int){
         val call = apiService.getLectures(doctorId, courseid)
         call.enqueue(object : Callback<List<Lecture>> {
             override fun onResponse(call: Call<List<Lecture>>, response: Response<List<Lecture>>) {
                 if (response.isSuccessful) {
-                     lectures = response.body()!!
+                    lectures = response.body()!!
                     if (lectures != null) {
                         for (lecture in lectures) {
                             val lectureIds = lectures.map { it.lecture_id } // Extract lecture IDs
@@ -59,7 +67,7 @@ class lecuters_history : AppCompatActivity() {
                         }
                     }
                 } else {
-                    // Request failed
+
                 }
             }
 
@@ -67,15 +75,10 @@ class lecuters_history : AppCompatActivity() {
                 // Request failed
             }
         })
-
-
-
-
-}
+    }
     private fun updateSpinner(lectureIds: List<Int>) {
-        val spinner: Spinner = findViewById(R.id.spinner2)
-        val layoutToShow: LinearLayout = findViewById(R.id.layoutToShow)
-
+        spinner = findViewById(R.id.spinner2)
+        layoutToShow = findViewById(R.id.layoutToShow)
         val listoflectures = listOf("-Select a lecture-") + lectureIds.map { "lecture $it" }
         val arrayAdapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, listoflectures)
         spinner.adapter = arrayAdapter
@@ -84,7 +87,7 @@ class lecuters_history : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 if (position != 0) {
                     layoutToShow.visibility = View.VISIBLE
-                    val selectedLecture = lectures[position - 1] // Subtract 1 to account for "Select Item" at position 0
+                    val selectedLecture = lectures[position - 1]
                     val lectureDateTextView: TextView = findViewById(R.id.lecture_date)
                     val lectureTimeTextView: TextView = findViewById(R.id.lecture_time)
                     val studentCountTextView: TextView = findViewById(R.id.number_of_student)
@@ -92,6 +95,8 @@ class lecuters_history : AppCompatActivity() {
                     lectureDateTextView.text = "Date: ${selectedLecture.lecture_date}"
                     lectureTimeTextView.text = "Time: ${selectedLecture.lecture_time}"
                     studentCountTextView.text = "Number of students attended: ${selectedLecture.studentcount}"
+
+                    val button: Button = findViewById(R.id.button)
                     button.setOnClickListener {
                         val call3 = apiService.getStudent(selectedLecture.lecture_id)
                         call3.enqueue(object : Callback<List<ApiResponse>> {
@@ -103,22 +108,22 @@ class lecuters_history : AppCompatActivity() {
                                             .map { student ->
                                                 " ${student.student_id} , ${student.name}"
                                             }
-                                        Toast.makeText(this@lecuters_history, "That is magic", Toast.LENGTH_SHORT).show()
 
-
-                                         createCSVFile(studentList as ArrayList<String>)
+                                        createCSVFile(studentList as ArrayList<String>)
                                     }
                                 } else {
-                                    // Handle unsuccessful response here
+
                                 }
                             }
 
                             override fun onFailure(call: Call<List<ApiResponse>>, t: Throwable) {
-                                Toast.makeText(this@lecuters_history, "Request failed: ${t.message}", Toast.LENGTH_SHORT).show()
-                                Log.e("API_CALL_ERROR", "Error occurred during API call", t)
-                            }
+                                Toast.makeText(
+                                    this@lecuters_history,
+                                    "Request failed: ${t.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                Log.e("API_CALL_ERROR", "Error occurred during API call", t)}
                         })
-
                     }
 
                 } else {
@@ -131,6 +136,9 @@ class lecuters_history : AppCompatActivity() {
             }
         }
     }
+
+
+
     private fun createCSVFile(students: ArrayList<String>) {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val fileName = "students_$timeStamp.csv"
@@ -182,6 +190,7 @@ class lecuters_history : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permission granted. Click again to create CSV file.", Toast.LENGTH_SHORT).show()
@@ -189,5 +198,16 @@ class lecuters_history : AppCompatActivity() {
                 Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+    private fun getRetrofitObject(): Retrofit {
+        val logging = HttpLoggingInterceptor()
+        val httpClient = OkHttpClient.Builder()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        httpClient.addInterceptor(logging)
+        return Retrofit.Builder()
+            .baseUrl(Constants.base_url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(httpClient.build())
+            .build()
     }
 }

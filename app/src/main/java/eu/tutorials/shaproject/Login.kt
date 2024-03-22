@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import eu.tutorials.shaproject.RetrofitClient.Companion.getRetrofitObject
 import eu.tutorials.shaproject.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -140,17 +141,7 @@ class Login : AppCompatActivity() {
         })
     }
 
-    private fun getRetrofitObject(): Retrofit {
-        val logging = HttpLoggingInterceptor()
-        val httpClient = OkHttpClient.Builder()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        httpClient.addInterceptor(logging)
-        return Retrofit.Builder()
-            .baseUrl(Constants.base_url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(httpClient.build())
-            .build()
-    }
+
 }
 
 

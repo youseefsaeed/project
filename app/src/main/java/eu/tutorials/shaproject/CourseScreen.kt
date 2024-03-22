@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
+import eu.tutorials.shaproject.RetrofitClient.Companion.getRetrofitObject
 import kotlinx.android.synthetic.main.activity_coursescreen.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -83,18 +84,6 @@ class CourseScreen : AppCompatActivity() {
 
             }
         })
-    }
-
-    private fun getRetrofitObject(): Retrofit {
-        val logging = HttpLoggingInterceptor()
-        val httpClient = OkHttpClient.Builder()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        httpClient.addInterceptor(logging)
-        return Retrofit.Builder()
-            .baseUrl(Constants.base_url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(httpClient.build())
-            .build()
     }
 
     private fun setupRecyclerView() {

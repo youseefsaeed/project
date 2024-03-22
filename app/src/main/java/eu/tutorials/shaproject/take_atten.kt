@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import eu.tutorials.shaproject.Constants.students
+import eu.tutorials.shaproject.RetrofitClient.Companion.getRetrofitObject
 import kotlinx.android.synthetic.main.activity_take_atten.manually
 import kotlinx.android.synthetic.main.activity_take_atten.nfc
 import okhttp3.OkHttpClient
@@ -51,23 +53,19 @@ class take_atten : AppCompatActivity() {
 
         }
 
-        val students = intent.getStringArrayListExtra("students")
-        val students2 = intent.getStringArrayListExtra("students2")
-        val combinedList: ArrayList<String> = ArrayList()
-        if (students != null) {
-            combinedList.addAll(students)
-        }
-        if (students2 != null) {
-            combinedList.addAll(students2)
-        }
 
-        if (students != null || students2 != null) {
+
+
+
+
+
+        if (students.isNotEmpty() ) {
 
             var finish = findViewById<View>(R.id.finish)
             finish.visibility = View.VISIBLE
             finish.setOnClickListener {
-                createCSVFile(combinedList)
-
+                createCSVFile(students as ArrayList<String>)
+                students.clear()
                 val lectureDate = "2024-03-13"
                 val lectureTime = "02:01:02.214Z"
                 val lectureData = LectureData(lectureDate, lectureTime, doctorId, courseid)
@@ -196,15 +194,5 @@ class take_atten : AppCompatActivity() {
             }
         }
     }
-    private fun getRetrofitObject(): Retrofit {
-        val logging = HttpLoggingInterceptor()
-        val httpClient = OkHttpClient.Builder()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        httpClient.addInterceptor(logging)
-        return Retrofit.Builder()
-            .baseUrl(Constants.base_url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(httpClient.build())
-            .build()
-    }
+
 }

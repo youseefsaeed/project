@@ -17,6 +17,7 @@ import android.text.Layout
 import android.util.Log
 import android.view.View
 import android.widget.*
+import eu.tutorials.shaproject.RetrofitClient.Companion.getRetrofitObject
 import kotlinx.android.synthetic.main.activity_lecuters_history.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -199,15 +200,5 @@ class lecuters_history : AppCompatActivity() {
             }
         }
     }
-    private fun getRetrofitObject(): Retrofit {
-        val logging = HttpLoggingInterceptor()
-        val httpClient = OkHttpClient.Builder()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        httpClient.addInterceptor(logging)
-        return Retrofit.Builder()
-            .baseUrl(Constants.base_url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(httpClient.build())
-            .build()
-    }
+
 }

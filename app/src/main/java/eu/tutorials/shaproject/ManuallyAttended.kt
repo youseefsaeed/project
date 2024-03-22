@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import android.widget.Toast
+import eu.tutorials.shaproject.Constants.students
+import eu.tutorials.shaproject.RetrofitClient.Companion.getRetrofitObject
 import kotlinx.android.synthetic.main.activity_manually_atten.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,7 +20,7 @@ import java.lang.StringBuilder
 
 class ManuallyAttended : AppCompatActivity() {
 
-    private val students = mutableListOf<String>()
+
     private val students_id = mutableListOf<Int>()
     private val retrofit: Retrofit = getRetrofitObject()
     private val studentApi = retrofit.create(StudentApi::class.java)
@@ -30,8 +32,7 @@ class ManuallyAttended : AppCompatActivity() {
 
     }
     private fun setListeners() {
-        students.clear()
-        students_id.clear()
+
         attend.setOnClickListener {
             val studentId = student_id.text.toString()
 
@@ -45,7 +46,7 @@ class ManuallyAttended : AppCompatActivity() {
     }
 
 
-    private fun call(studentId:Int){
+     private fun call(studentId:Int){
         val call = studentApi.getTeachers(studentId)
         call.enqueue(object : Callback<List<StudentResponse>?> {
             override fun onResponse(call: Call<List<StudentResponse>?>, response: Response<List<StudentResponse>?>) {
@@ -70,7 +71,6 @@ class ManuallyAttended : AppCompatActivity() {
                     if (finish.isClickable) {
                         finish.setOnClickListener {
                             val intent = Intent(this@ManuallyAttended, take_atten::class.java)
-                            intent.putStringArrayListExtra("students", ArrayList(students))
                             intent.putIntegerArrayListExtra("students_id", ArrayList(students_id))
                             startActivity(intent)
 
@@ -85,15 +85,5 @@ class ManuallyAttended : AppCompatActivity() {
         })
     }
 
-    private fun getRetrofitObject(): Retrofit {
-        val logging = HttpLoggingInterceptor()
-        val httpClient = OkHttpClient.Builder()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        httpClient.addInterceptor(logging)
-        return Retrofit.Builder()
-            .baseUrl(Constants.base_url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(httpClient.build())
-            .build()
-    }
+
 }

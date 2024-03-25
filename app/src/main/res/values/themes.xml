@@ -289,4 +289,13 @@
         <item name="android:textSize">34.78sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="Theme.ShaProject.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.ShaProject.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.ShaProject.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

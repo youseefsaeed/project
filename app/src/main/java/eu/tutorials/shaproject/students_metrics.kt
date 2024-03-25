@@ -9,9 +9,14 @@ import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import eu.tutorials.shaproject.RetrofitClient.Companion.client
+import eu.tutorials.shaproject.db.AppDatabase
+import eu.tutorials.shaproject.db.StudentEntity
 import kotlinx.android.synthetic.main.activity_course_options.*
 import kotlinx.android.synthetic.main.activity_coursescreen.*
 import kotlinx.android.synthetic.main.activity_students_metrics.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -80,23 +85,29 @@ class students_metrics : AppCompatActivity() {
             override fun onResponse(call: Call<List<ApiResponseformetrics>>, response: Response<List<ApiResponseformetrics>>) {
                 if (response.isSuccessful) {
                     val apiResponseList = response.body()
-                    adapterStudent_metrics = AdapterStudent_metrics(baseContext, apiResponseList)
-                    adapterStudent_metrics.courseClickListener =
-                        object : AdapterStudent_metrics.CourseClickListener {
-                            override fun onCourseClicked(studentId: Int, studentName: String,studentgrade:Int,studentfaculty:String,studentintended:Int) {
-                                val intent = Intent(this@students_metrics, student_details::class.java)
-                                intent.putExtra(Constants.student_id,studentId)
-                                intent.putExtra(Constants.student_name,studentName)
-                                intent.putExtra(Constants.student_attended,studentintended)
-                                intent.putExtra(Constants.student_grade,studentgrade)
-                                intent.putExtra(Constants.student_faculty,studentfaculty)
-                                startActivity(intent)
+                    apiResponseList?.forEach { apiResponse ->
+                        val studentEntity = StudentEntity(
+                            name = apiResponse.students.name,
+                            grade = apiResponse.students.grade,
+                            faculty = apiResponse.students.faculty,
+                            studentId = apiResponse.students.student_id,
+                            percentage = apiResponse.students.percentage,
+                            lectures = apiResponse.students.lectures
+                        )
+                        // Insert the studentEntity into the Room database using the DAO
+                        GlobalScope.launch(Dispatchers.IO) {
+                            try {
+                                val database = AppDatabase.getInstance(applicationContext)
+                                database.studentDao().insert(studentEntity)
+                                Log.d("Coroutine", "Data inserted successfully")
+                            } catch (e: Exception) {
+                                Log.e("Coroutine", "Error inserting data: ${e.message}")
                             }
                         }
-                    adapterStudent_metrics.notifyDataSetChanged()
-                    recycleview2.adapter = adapterStudent_metrics
+                    }
+                }
 
-                } else {
+                else {
                     // Handle error response
                 }
             }
@@ -129,4 +140,20 @@ class students_metrics : AppCompatActivity() {
     private fun sortStudentsByLowerAttendance(studentId: Int) {
         adapterStudent_metrics.sortByLowerAttendance(studentId)
     }
+
 }
+//adapterStudent_metrics = AdapterStudent_metrics(baseContext, apiResponseList)
+//adapterStudent_metrics.courseClickListener =
+//object : AdapterStudent_metrics.CourseClickListener {
+//    override fun onCourseClicked(studentId: Int, studentName: String,studentgrade:Int,studentfaculty:String,studentintended:Int) {
+//        val intent = Intent(this@students_metrics, student_details::class.java)
+//        intent.putExtra(Constants.student_id,studentId)
+//        intent.putExtra(Constants.student_name,studentName)
+//        intent.putExtra(Constants.student_attended,studentintended)
+//        intent.putExtra(Constants.student_grade,studentgrade)
+//        intent.putExtra(Constants.student_faculty,studentfaculty)
+//        startActivity(intent)
+//    }
+//}
+//adapterStudent_metrics.notifyDataSetChanged()
+//recycleview2.adapter = adapterStudent_metrics

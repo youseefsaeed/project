@@ -94,7 +94,6 @@
         app:layout_constraintStart_toStartOf="@+id/welcome_to_"
         app:layout_constraintTop_toBottomOf="@+id/welcome_to_"
         app:layout_constraintVertical_bias="0.0" />
-
     <TextView
         android:id="@+id/exam_name_e"
         android:layout_width="wrap_content"
@@ -228,35 +227,7 @@
         app:layout_constraintStart_toStartOf="@+id/rectangle_4"
         app:layout_constraintTop_toTopOf="@+id/rectangle_4" />
 
-    <TextView
-        android:id="@+id/there_are_n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:gravity="top"
-        android:lineHeight="19sp"
-        android:visibility="invisible"
-        android:text="@string/there_are_n"
-        android:textAppearance="@style/there_are_n"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/healthicons"
-        app:layout_constraintStart_toStartOf="@+id/healthicons"
-        app:layout_constraintTop_toBottomOf="@+id/healthicons"
-        app:layout_constraintVertical_bias="0.344" />
 
-    <TextView
-        android:id="@+id/held_in_tha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter"
-        android:gravity="top"
-        android:visibility="invisible"
-        android:lineHeight="19sp"
-        android:text="@string/held_in_tha"
-        android:textAppearance="@style/held_in_tha"
-        app:layout_constraintEnd_toEndOf="@+id/there_are_n"
-        app:layout_constraintStart_toStartOf="@+id/there_are_n"
-        app:layout_constraintTop_toBottomOf="@+id/there_are_n" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/enter_your_1"
@@ -273,6 +244,8 @@
         app:layout_constraintEnd_toEndOf="@+id/rectangle_3"
         app:layout_constraintStart_toStartOf="@+id/rectangle_3"
         app:layout_constraintTop_toTopOf="@+id/rectangle_3" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

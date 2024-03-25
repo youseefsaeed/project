@@ -89,3 +89,11 @@ data class TeacherResponse(
     val email: String
 
 )
+data class examResponse(
+    @SerializedName("room_name")
+    val room_name: String,
+    @SerializedName("room_id")
+    val room_id: Int,
+
+
+)

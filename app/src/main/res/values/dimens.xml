@@ -32,4 +32,5 @@
     <dimen name="size_91">91dp</dimen>
     <dimen name="size_98">98dp</dimen>
     <dimen name="size_29">29dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

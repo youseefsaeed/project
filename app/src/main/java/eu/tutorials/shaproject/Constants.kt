@@ -34,8 +34,8 @@ class RetrofitClient {
                 .build()
         }
         val client = OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS) // Adjust timeout values as needed
-            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS) // Adjust timeout values as needed
+            .readTimeout(60, TimeUnit.SECONDS)
             .build()
     }
 

@@ -67,16 +67,17 @@ class Login : AppCompatActivity() {
                     finish()
                 } else {
                     val call3 = roomApi.getRooms(username, password)
-                    call3.enqueue(object : Callback<Boolean?> {
+                    call3.enqueue(object : Callback<List<examResponse>?> {
                         override fun onResponse(
-                            call: Call<Boolean?>,
-                            response: Response<Boolean?>
+                            call: Call<List<examResponse>?>,
+                            response: Response<List<examResponse>?>
                         ) {
-                            if (response.isSuccessful && response.body() == true) {
+                            if (response.isSuccessful && response.body()!!.isNotEmpty()) {
                                 val intent = Intent(this@Login, exam::class.java)
                                 startActivity(intent)
                                 finish()
-                            } else {
+                            }
+                            else {
                                 val call = teacherApi.getTeachers(username, password)
                                 call.enqueue(object : Callback<List<TeacherResponse>?> {
                                     override fun onResponse(
@@ -128,7 +129,7 @@ class Login : AppCompatActivity() {
                             }
                         }
 
-                        override fun onFailure(call: Call<Boolean?>, t: Throwable) {
+                        override fun onFailure(call: Call<List<examResponse>?>, t: Throwable) {
                             TODO("Not yet implemented")
                         }
                     })

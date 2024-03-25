@@ -8,6 +8,7 @@ data class StudentEntity(
     val name: String,
     val grade: Int,
     val faculty: String,
+    @PrimaryKey
     val studentId: Int,
     val percentage: String,
     val lectures: Int

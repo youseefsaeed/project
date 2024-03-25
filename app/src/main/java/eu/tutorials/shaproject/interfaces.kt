@@ -30,7 +30,7 @@ interface RoomApi {
     fun getRooms(
         @Query("room_name") param1: String,
         @Query("room_password") param2: String
-    ): Call<Boolean>
+    ): Call<List<examResponse>?>
 }
 interface create_lecuture {
     @POST("lectures")

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import eu.tutorials.shaproject.RetrofitClient.Companion.getRetrofitObject
 import eu.tutorials.shaproject.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -66,71 +65,72 @@ class Login : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    val call3 = roomApi.getRooms(username, password)
-                    call3.enqueue(object : Callback<List<examResponse>?> {
+                    val call = teacherApi.getTeachers(username, password)
+                    call.enqueue(object : Callback<List<TeacherResponse>?> {
                         override fun onResponse(
-                            call: Call<List<examResponse>?>,
-                            response: Response<List<examResponse>?>
+                            call: Call<List<TeacherResponse>?>,
+                            response: Response<List<TeacherResponse>?>
                         ) {
-                            if (response.isSuccessful && response.body()!!.isNotEmpty()) {
-                                val intent = Intent(this@Login, exam::class.java)
+                            if (response.isSuccessful && response.body()!!
+                                    .isNotEmpty()
+                            ) {
+                                val teacher = response.body()!!
+                                val teacher_name = StringBuilder()
+                                val teacher_id = StringBuilder()
+                                for (mydata in teacher) {
+                                    teacher_name.append(mydata.name)
+                                    teacher_id.append(mydata.teacher_id)
+                                }
+
+                                val intent =
+                                    Intent(this@Login, CourseScreen::class.java)
+                                intent.putExtra(
+                                    Constants.teacher_id,
+                                    teacher_id.toString().toIntOrNull()
+                                )
+                                intent.putExtra(
+                                    Constants.teacher_name,
+                                    teacher_name.toString()
+                                )
                                 startActivity(intent)
                                 finish()
-                            }
-                            else {
-                                val call = teacherApi.getTeachers(username, password)
-                                call.enqueue(object : Callback<List<TeacherResponse>?> {
+                            }  else {
+                                val call3 = roomApi.getRooms(username, password)
+                                call3.enqueue(object : Callback<List<examResponse>?> {
                                     override fun onResponse(
-                                        call: Call<List<TeacherResponse>?>,
-                                        response: Response<List<TeacherResponse>?>
+                                        call: Call<List<examResponse>?>,
+                                        response: Response<List<examResponse>?>
                                     ) {
-                                        if (response.isSuccessful && response.body()!!
-                                                .isNotEmpty()
-                                        ) {
-                                            val teacher = response.body()!!
-                                            val teacher_name = StringBuilder()
-                                            val teacher_id = StringBuilder()
-                                            for (mydata in teacher) {
-                                                teacher_name.append(mydata.name)
-                                                teacher_id.append(mydata.teacher_id)
-                                            }
-
-                                            val intent =
-                                                Intent(this@Login, CourseScreen::class.java)
-                                            intent.putExtra(
-                                                Constants.teacher_id,
-                                                teacher_id.toString().toIntOrNull()
-                                            )
-                                            intent.putExtra(
-                                                Constants.teacher_name,
-                                                teacher_name.toString()
-                                            )
+                                        if (response.isSuccessful  && response.body()!!.isNotEmpty()) {
+                                            val intent = Intent(this@Login, exam::class.java)
                                             startActivity(intent)
                                             finish()
                                         } else if (password.isNotEmpty() && username.isNotEmpty()) {
                                             Toast.makeText(
                                                 this@Login,
-                                                "Wrong enrties",
+                                                "Wrong entries",
                                                 Toast.LENGTH_SHORT
                                             ).show()
-                                        } else {
+                                        }
+                                        else{
+
                                         }
                                     }
 
-                                    override fun onFailure(
-                                        call: Call<List<TeacherResponse>?>,
-                                        t: Throwable
-                                    ) {
-
-                                        Log.e("Login", "problem in  " + t.message)
-
+                                    override fun onFailure(call: Call<List<examResponse>?>, t: Throwable) {
+                                        TODO("Not yet implemented")
                                     }
                                 })
                             }
                         }
 
-                        override fun onFailure(call: Call<List<examResponse>?>, t: Throwable) {
-                            TODO("Not yet implemented")
+                        override fun onFailure(
+                            call: Call<List<TeacherResponse>?>,
+                            t: Throwable
+                        ) {
+
+                            Log.e("Login", "problem in  " + t.message)
+
                         }
                     })
                 }
@@ -142,8 +142,25 @@ class Login : AppCompatActivity() {
         })
     }
 
-
+    private fun getRetrofitObject(): Retrofit {
+        val logging = HttpLoggingInterceptor()
+        val httpClient = OkHttpClient.Builder()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        httpClient.addInterceptor(logging)
+        return Retrofit.Builder()
+            .baseUrl(Constants.base_url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(httpClient.build())
+            .build()
+    }
 }
+
+
+
+
+
+
+
 
 
 

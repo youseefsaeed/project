@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.StringBuilder
 import java.util.concurrent.TimeUnit
 
 object Constants {
@@ -18,6 +19,12 @@ object Constants {
     const val student_grade:String="a"
     const val student_attended :String="1"
     const val student_faculty:String=""
+
+    const val exam_id:String="sad"
+    const val exam_date:String="a"
+    const val exam_time:String="d"
+    const val exam_pass:String="s"
+    const val exam_name:String="x"
 
 }
 class RetrofitClient {

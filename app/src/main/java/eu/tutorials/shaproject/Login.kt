@@ -6,13 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import eu.tutorials.shaproject.databinding.ActivityLoginBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.android.synthetic.main.activity_coursescreen.*
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.Retrofit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.*
 import java.lang.StringBuilder
 
 
@@ -24,6 +22,7 @@ class Login : AppCompatActivity() {
     private val teacherApi = retrofit.create(TeacherApi::class.java)
     private val adminApi = retrofit.create(AdminApi::class.java)
     private val roomApi = retrofit.create(RoomApi::class.java)
+    private val examapi=retrofit.create(ExamApi::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -102,25 +101,62 @@ class Login : AppCompatActivity() {
                                         response: Response<List<examResponse>?>
                                     ) {
                                         if (response.isSuccessful  && response.body()!!.isNotEmpty()) {
-                                            val intent = Intent(this@Login, exam::class.java)
-                                            startActivity(intent)
-                                            finish()
-                                        } else if (password.isNotEmpty() && username.isNotEmpty()) {
-                                            Toast.makeText(
-                                                this@Login,
-                                                "Wrong entries",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
+                                            val exams = response.body()!!
+                                            val exam_id = StringBuilder()
+                                            for (mydata in exams) {
+                                                exam_id.append(mydata.room_id)
+                                            }
+                                            val call4=examapi.getExams(exam_id.toString().toInt())
+                                            call4.enqueue(object : Callback<List<ExamDetails>?> {
+                                                override fun onResponse(call: Call<List<ExamDetails>?>, response: Response<List<ExamDetails>?>) {
+                                                    if (response.isSuccessful) {
+                                                        val exams_details = response.body()!!
+                                                        val exam_id=StringBuilder()
+                                                        val exam_date=StringBuilder()
+                                                        val exam_time=StringBuilder()
+                                                        val exam_pass=StringBuilder()
+                                                        val name=StringBuilder()
+                                                        for (mydata in exams_details) {
+                                                            exam_id.append(mydata.exam_id)
+                                                            exam_date.append(mydata.exam_date)
+                                                             exam_time.append(mydata.exam_time)
+                                                             exam_pass.append(mydata.exam_pass)
+                                                             name.append(mydata.name)
+                                                        }
+                                                        val intent = Intent(this@Login, exam::class.java)
+                                                        intent.putExtra(Constants.exam_id,exam_id.toString())
+                                                        intent.putExtra(Constants.exam_date,exam_date.toString())
+                                                        intent.putExtra(Constants.exam_time,exam_time.toString())
+                                                        intent.putExtra(Constants.exam_pass,exam_pass.toString())
+                                                        intent.putExtra(Constants.exam_name,name.toString())
+                                                        startActivity(intent)
+                                                        finish()
+                                                    } else {
+                                                        val intent = Intent(this@Login, no_exam::class.java)
+                                                        startActivity(intent)
+                                                        finish()
+                                                    }
+                                                }
+
+                                                override fun onFailure(call: Call<List<ExamDetails>?>, t: Throwable) {
+
+                                                    Log.e("Login", "problem in  " + t.message)
+
+                                                }
+                                            })
                                         }
+
                                         else{
 
                                         }
+
                                     }
 
                                     override fun onFailure(call: Call<List<examResponse>?>, t: Throwable) {
                                         TODO("Not yet implemented")
                                     }
                                 })
+
                             }
                         }
 
@@ -140,6 +176,7 @@ class Login : AppCompatActivity() {
                 Log.e("Login", "problem in  " + t.message)
             }
         })
+
     }
 
     private fun getRetrofitObject(): Retrofit {

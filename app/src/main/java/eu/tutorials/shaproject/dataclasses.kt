@@ -94,6 +94,21 @@ data class examResponse(
     val room_name: String,
     @SerializedName("room_id")
     val room_id: Int,
-
-
+)
+data class ExamDetails(
+    val exam_id: Int,
+    val exam_date: String,
+    val exam_time: String,
+    val exam_pass: String,
+    val name: String,
+    val room_id: Int,
+    val course_id: Int
+)
+data class examResponse2(
+    val exam_id: Int,
+    val exam_date: String,
+    val exam_time: String,
+    val name: String,
+    val room_id: Int,
+    val course_id: Int
 )

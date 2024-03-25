@@ -54,3 +54,18 @@ interface CoursesApi {
         @Path("id") courseId: Int
     ): Call<List<CoursesX>?>
 }
+interface ExamApi{
+    @GET("exams/{room_id}")
+    fun getExams(
+        @Path("room_id")param1: Int
+    ):Call<List<ExamDetails>>
+
+}
+
+interface Exam {
+    @GET("examsauth")
+    fun getExam1(
+        @Query("name") param1: String,
+        @Query("exam_pass") param2: String
+    ):Call<List<examResponse2>?>
+}

@@ -9,7 +9,9 @@
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.NFC" />
 
-
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
 
 
     <application
@@ -55,7 +57,15 @@
         <activity
             android:name=".NFC_atten"
             android:exported="true"
-            android:theme="@style/noactionbar" />
+            android:theme="@style/noactionbar" >
+
+        <intent-filter>
+            <action android:name="android.nfc.action.TECH_DISCOVERED" />
+        </intent-filter>
+        <intent-filter>
+            <action android:name="android.nfc.action.TAG_DISCOVERED" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".take_atten"
             android:exported="true"

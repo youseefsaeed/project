@@ -69,8 +69,8 @@
 
     <TextView
         android:id="@+id/student_nam"
-        android:layout_width="146dp"
-        android:layout_height="25dp"
+        android:layout_width="152dp"
+        android:layout_height="28dp"
         android:layout_marginTop="340dp"
         android:fontFamily="@font/inter"
         android:gravity="top"
@@ -180,7 +180,7 @@
         android:text="Artificial Intelligence"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/four"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toEndOf="@+id/department_"
@@ -188,7 +188,7 @@
 
     <TextView
         android:id="@+id/group_secti"
-        android:layout_width="149dp"
+        android:layout_width="157dp"
         android:layout_height="25dp"
         android:layout_marginTop="520dp"
         android:fontFamily="@font/inter"
@@ -224,7 +224,7 @@
 
     <TextView
         android:id="@+id/lectures_at"
-        android:layout_width="188dp"
+        android:layout_width="194dp"
         android:layout_height="25dp"
         android:layout_marginTop="568dp"
         android:fontFamily="@font/inter"

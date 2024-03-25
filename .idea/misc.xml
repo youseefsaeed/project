@@ -1,8 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Andriod Studio/caches/transforms-3/7038f4950c1ae8f5a42ba91982c60d62/transformed/appcompat-v7-28.0.0/res/layout/support_simple_spinner_dropdown_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Andriod Studio/caches/transforms-3/e318e69f0a30fc7d921056181ea42f73/transformed/appcompat-1.6.1/res/layout/support_simple_spinner_dropdown_item.xml" value="0.36666666666666664" />
         <entry key="..\:/ShaProject/app/src/main/res/drawable/e43bbf282e5.xml" value="0.3828125" />
         <entry key="..\:/ShaProject/app/src/main/res/drawable/introscreenn.xml" value="0.3828125" />
         <entry key="..\:/ShaProject/app/src/main/res/drawable/rectangle.xml" value="0.3828125" />
@@ -44,6 +46,8 @@
         <entry key="..\:/ShaProject/app/src/main/res/layout/activity_take_atten.xml" value="0.36666666666666664" />
         <entry key="..\:/ShaProject/app/src/main/res/layout/course_style.xml" value="0.36666666666666664" />
         <entry key="..\:/ShaProject/app/src/main/res/layout/lecutre_history_style.xml" value="0.36666666666666664" />
+        <entry key="..\:/ShaProject/app/src/main/res/layout/student_style_in_metrics.xml" value="0.36666666666666664" />
+        <entry key="..\:/ShaProject/app/src/main/res/xml/nfc_tech_filter.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

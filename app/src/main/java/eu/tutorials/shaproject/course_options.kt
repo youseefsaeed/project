@@ -5,17 +5,30 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.room.Room
+import eu.tutorials.shaproject.db.AppDatabase
+import eu.tutorials.shaproject.db.StudentEntity
 import kotlinx.android.synthetic.main.activity_course_options.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class course_options : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_options)
-
         setupViews()
         setupListeners()
     }
+
     private fun setupViews() {
         val courseHomepage = intent.getStringExtra(Constants.course_name)
         course_homepage.text = "$courseHomepage Home Page"

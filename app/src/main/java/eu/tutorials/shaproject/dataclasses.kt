@@ -42,6 +42,25 @@ data class Student(
     val faculty: String,
     val student_id: Int
 )
+data class ApiResponseformetrics(
+    val students: Studentformetrics
+)
+
+data class Studentformetrics(
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("grade")
+    val grade: Int,
+    @SerializedName("faculty")
+    val faculty: String,
+    @SerializedName("student_id")
+    val student_id: Int,
+    @SerializedName("percentage")
+    val percentage:String,
+    @SerializedName("lectures")
+    val lectures:Int
+)
+
 data class CoursesX(
     val name: String,
     val faculty: String,

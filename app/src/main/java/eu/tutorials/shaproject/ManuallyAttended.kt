@@ -47,7 +47,7 @@ class ManuallyAttended : AppCompatActivity() {
 
 
      private fun call(studentId:Int){
-        val call = studentApi.getTeachers(studentId)
+        val call = studentApi.getStudents(studentId)
         call.enqueue(object : Callback<List<StudentResponse>?> {
             override fun onResponse(call: Call<List<StudentResponse>?>, response: Response<List<StudentResponse>?>) {
                 if (response.isSuccessful && !response.body().isNullOrEmpty()) {
@@ -59,7 +59,7 @@ class ManuallyAttended : AppCompatActivity() {
                     }
 
                     val studentData = "$studentId, $studentName"
-                    students_id.add(studentId.toInt())
+                    students_id.add(studentId)
                     students.add(studentData)
                     counter_0.text = "Counter: ${++counter}"
                     student_id.text?.clear()

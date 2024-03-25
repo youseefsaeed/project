@@ -21,7 +21,7 @@ interface TeacherApi {
 }
 interface StudentApi {
     @GET("students/id/{id}")
-    fun getTeachers(
+    fun getStudents(
         @Path("id") courseId: Int
     ): Call<List<StudentResponse>?>
 }
@@ -44,6 +44,9 @@ interface create_lecuture {
     ): Call<List<Lecture>>
     @GET("lectures/{id}/attendance")
     fun getStudent(@Path("id") id: Int): Call<List<ApiResponse>>
+
+    @GET("courses/{course_id}/students")
+    fun getStudentOfCourse(@Path("course_id") course_id: Int): Call<List<ApiResponseformetrics>>
 }
 interface CoursesApi {
     @GET("teachers/courses/{id}")

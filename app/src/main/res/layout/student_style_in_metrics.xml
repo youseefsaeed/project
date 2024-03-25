@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_history_item_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="7dp">
+
+    <TextView
+        android:id="@+id/student_name"
+        style="@style/course_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangletextview"
+        android:fontFamily="@font/inter"
+        android:maxHeight="50dp"
+        android:padding="9dp"
+        android:maxLines="1"
+        android:text="4.Student name"
+        android:textColor="@color/black" />
+</LinearLayout>

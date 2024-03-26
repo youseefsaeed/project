@@ -109,7 +109,7 @@ class Login : AppCompatActivity() {
                                             val call4=examapi.getExams(exam_id.toString().toInt())
                                             call4.enqueue(object : Callback<List<ExamDetails>?> {
                                                 override fun onResponse(call: Call<List<ExamDetails>?>, response: Response<List<ExamDetails>?>) {
-                                                    if (response.isSuccessful) {
+                                                    if (response.isSuccessful && response.body()!!.isNotEmpty() ) {
                                                         val exams_details = response.body()!!
                                                         val exam_id=StringBuilder()
                                                         val exam_date=StringBuilder()
@@ -148,7 +148,7 @@ class Login : AppCompatActivity() {
                                         else if (password.isNotEmpty() && username.isNotEmpty()) {
                                             Toast.makeText(
                                                 this@Login,
-                                                "Wrong enrties",
+                                                "Wrong entries",
                                                 Toast.LENGTH_SHORT
                                             ).show()
                                         }

@@ -145,7 +145,13 @@ class Login : AppCompatActivity() {
                                                 }
                                             })
                                         }
-
+                                        else if (password.isNotEmpty() && username.isNotEmpty()) {
+                                            Toast.makeText(
+                                                this@Login,
+                                                "Wrong enrties",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
                                         else{
 
                                         }

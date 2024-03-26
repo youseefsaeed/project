@@ -8,22 +8,23 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import eu.tutorials.shaproject.db.StudentEntity
 import kotlinx.android.synthetic.main.course_style.view.*
 import kotlinx.android.synthetic.main.student_style_in_metrics.view.*
 
 
 class AdapterStudent_metrics(
     private val context: Context,
-    private var items: List<ApiResponseformetrics>?
+    private var items: List<StudentEntity>
 ) : RecyclerView.Adapter<AdapterStudent_metrics.ViewHolder>(), Filterable {
 
-    private var filteredList: List<ApiResponseformetrics>? = items
+    private var filteredList: List<StudentEntity> = items
     interface CourseClickListener {
         fun onCourseClicked(studentid: Int,studentname:String,studentgrade:Int,studentfaculty:String,studentattended:Int)
     }
     var courseClickListener: CourseClickListener? = null
 
-    class ViewHolder(itemView: View, private val items: List<ApiResponseformetrics>?, private val courseClickListener:CourseClickListener ):
+    class ViewHolder(itemView: View, private val items: List<StudentEntity>, private val courseClickListener:CourseClickListener ):
         RecyclerView.ViewHolder(itemView){
         var student_name: TextView = itemView.student_name
 
@@ -33,11 +34,11 @@ class AdapterStudent_metrics(
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val course = items?.get(position)
-                    val student_id = course?.students?.student_id
-                    val studentname = course?.students?.name
-                    val studentgrade=course?.students?.grade
-                    val studentfaculty=course?.students?.faculty
-                    val studentattended=course?.students?.lectures
+                    val student_id = course?.studentId
+                    val studentname = course?.name
+                    val studentgrade=course?.grade
+                    val studentfaculty=course?.faculty
+                    val studentattended=course?.lectures
                     if (student_id != null) {
                         if (studentname != null) {
                             if (studentgrade != null) {
@@ -61,7 +62,7 @@ class AdapterStudent_metrics(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val student = filteredList?.get(position)?.students
+        val student = filteredList?.get(position)
         val studentNumber = "${position + 1}. ${student?.name}"
         holder.student_name.text = studentNumber
     }
@@ -76,7 +77,7 @@ class AdapterStudent_metrics(
                 filteredList = if (searchQuery.isEmpty()) {
                     items
                 } else {
-                    items?.filter { it.students.name.toLowerCase().startsWith(searchQuery) }
+                    items?.filter { it.name.toLowerCase().startsWith(searchQuery) }
                 }
                 val filterResults = FilterResults()
                 filterResults.values = filteredList
@@ -84,7 +85,7 @@ class AdapterStudent_metrics(
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                filteredList = results?.values as? List<ApiResponseformetrics>
+                filteredList = (results?.values as? List<StudentEntity>)!!
                 notifyDataSetChanged()
             }
         }
@@ -93,17 +94,17 @@ class AdapterStudent_metrics(
     // Search function to filter data
 
     fun sortByName() {
-        filteredList = filteredList?.sortedBy { it.students.name }
+        filteredList = filteredList?.sortedBy { it.name }
         notifyDataSetChanged()
     }
 
     fun sortByHigherAttendance(courseId: Int) {
-        filteredList = filteredList?.sortedByDescending { it.students.lectures }
+        filteredList = filteredList?.sortedByDescending { it.lectures }
         notifyDataSetChanged()
     }
 
     fun sortByLowerAttendance(courseId: Int) {
-        filteredList = filteredList?.sortedBy { it.students.lectures }
+        filteredList = filteredList?.sortedBy { it.lectures }
         notifyDataSetChanged()
     }
     fun search(query: String) {

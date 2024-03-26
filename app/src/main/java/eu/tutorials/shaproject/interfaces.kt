@@ -62,7 +62,7 @@ interface ExamApi{
 
 }
 
-interface Exam {
+interface pass_e {
     @GET("examsauth")
     fun getExam1(
         @Query("name") param1: String,

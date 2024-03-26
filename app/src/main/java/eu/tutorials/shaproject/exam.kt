@@ -24,7 +24,7 @@ import java.util.*
 
 class exam : AppCompatActivity() {
     private val retrofit: Retrofit = RetrofitClient.getRetrofitObject()
-    private val ExamApi = retrofit.create(Exam::class.java)
+    private val ExamApi = retrofit.create(pass_e::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exam)
@@ -40,33 +40,36 @@ class exam : AppCompatActivity() {
         date_dd_mm_.text = "Date: ${intent.getStringExtra(Constants.exam_date)}"
         exam_name_e1.text = "Exam ID: ${intent.getStringExtra(Constants.exam_id)}"
         exam_invigi.text = "Exam invigilator: Ahmed"
-        if (enter_your_1.text.toString().toInt()!! == exam_password?.toInt()!!) {
-            val call = ExamApi.getExam1(exam_name!!, enter_your_1.text.toString()!!)
-            call.enqueue(object : Callback<List<examResponse2>?> {
-                override fun onResponse(
-                    call: Call<List<examResponse2>?>,
-                    response: Response<List<examResponse2>?>
-                ) {
-                    if (response.isSuccessful) {
-                        val intent = Intent(this@exam, take_atten::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
+        rectangle_4.setOnClickListener {
+            if (enter_your_1.text.toString()!! == exam_password!!) {
+                val call = ExamApi.getExam1(exam_name!!, enter_your_1.text.toString()!!)
+                call.enqueue(object : Callback<List<examResponse2>?> {
+                    override fun onResponse(
+                        call: Call<List<examResponse2>?>,
+                        response: Response<List<examResponse2>?>
+                    ) {
+                        if (response.isSuccessful) {
+                            val intent = Intent(this@exam, take_atten::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<List<examResponse2>?>, t: Throwable) {
+
+                        Log.e("exam", "problem in  " + t.message)
 
                     }
-                }
-
-                override fun onFailure(call: Call<List<examResponse2>?>, t: Throwable) {
-
-                    Log.e("exam", "problem in  " + t.message)
-
-                }
-            })
+                })
+            }
+            else{
+                Toast.makeText(this@exam, "wrong password", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
-        else{
-            Toast.makeText(this@exam, "wrong password", Toast.LENGTH_SHORT)
-                .show()
-        }
+
 
 
     }

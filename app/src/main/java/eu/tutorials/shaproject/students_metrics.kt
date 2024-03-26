@@ -8,22 +8,14 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
-import eu.tutorials.shaproject.RetrofitClient.Companion.client
 import eu.tutorials.shaproject.db.AppDatabase
-import eu.tutorials.shaproject.db.StudentEntity
 import kotlinx.android.synthetic.main.activity_course_options.*
 import kotlinx.android.synthetic.main.activity_coursescreen.*
 import kotlinx.android.synthetic.main.activity_students_metrics.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.withContext
 
 class students_metrics : AppCompatActivity() {
     private val sort = "Sort by:"
@@ -56,8 +48,9 @@ class students_metrics : AppCompatActivity() {
         val arrayAdapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, list)
         spinner.adapter = arrayAdapter
 
-        fetchStudentData(courseId)
+
         setupRecyclerView()
+        updateRecyclerView()
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
@@ -73,55 +66,7 @@ class students_metrics : AppCompatActivity() {
         }
     }
 
-    private fun fetchStudentData(courseId: Int) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.base_url)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-         val apiService = retrofit.create(create_lecuture::class.java)
-        val call3 = apiService.getStudentOfCourse(courseId)
-        call3.enqueue(object : Callback<List<ApiResponseformetrics>> {
-            override fun onResponse(call: Call<List<ApiResponseformetrics>>, response: Response<List<ApiResponseformetrics>>) {
-                if (response.isSuccessful) {
-                    val apiResponseList = response.body()
-                    apiResponseList?.forEach { apiResponse ->
-                        val studentEntity = StudentEntity(
-                            name = apiResponse.students.name,
-                            grade = apiResponse.students.grade,
-                            faculty = apiResponse.students.faculty,
-                            studentId = apiResponse.students.student_id,
-                            percentage = apiResponse.students.percentage,
-                            lectures = apiResponse.students.lectures
-                        )
-                        // Insert the studentEntity into the Room database using the DAO
-                        GlobalScope.launch(Dispatchers.IO) {
-                            try {
-                                val database = AppDatabase.getInstance(applicationContext)
-                                database.studentDao().insert(studentEntity)
-                                Log.d("Coroutine", "Data inserted successfully")
-                            } catch (e: Exception) {
-                                Log.e("Coroutine", "Error inserting data: ${e.message}")
-                            }
-                        }
-                    }
-                }
 
-                else {
-                    // Handle error response
-                }
-            }
-
-            override fun onFailure(call: Call<List<ApiResponseformetrics>>, t: Throwable) {
-                Toast.makeText(
-                    this@students_metrics,
-                    "Request failed: ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.e("API_CALL_ERROR", "Error occurred during API call", t)
-            }
-        })
-    }
 
     private fun setupRecyclerView() {
         recycleview2.setHasFixedSize(true)
@@ -130,6 +75,41 @@ class students_metrics : AppCompatActivity() {
         adapterStudent_metrics = AdapterStudent_metrics(baseContext, emptyList())
         recycleview2.adapter = adapterStudent_metrics
 
+    }
+    private fun updateRecyclerView(){
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val database = AppDatabase.getInstance(applicationContext)
+                // Fetch all students from the database
+                val students = database.studentDao().getAllStudents()
+
+                // Update the RecyclerView with the fetched data
+                withContext(Dispatchers.Main) {
+                    adapterStudent_metrics = AdapterStudent_metrics(baseContext, students)
+                    adapterStudent_metrics.courseClickListener =
+                        object : AdapterStudent_metrics.CourseClickListener {
+                            override fun onCourseClicked(
+                                studentId: Int,
+                                studentName: String,
+                                studentgrade: Int,
+                                studentfaculty: String,
+                                studentintended: Int
+                            ) {
+                                val intent = Intent(this@students_metrics, student_details::class.java)
+                                intent.putExtra(Constants.student_id, studentId)
+                                intent.putExtra(Constants.student_name, studentName)
+                                intent.putExtra(Constants.student_attended, studentintended)
+                                intent.putExtra(Constants.student_grade, studentgrade)
+                                intent.putExtra(Constants.student_faculty, studentfaculty)
+                                startActivity(intent)
+                            }
+                        }
+                    recycleview2.adapter = adapterStudent_metrics
+                }
+            } catch (e: Exception) {
+                Log.e("Coroutine", "Error inserting data: ${e.message}")
+            }
+        }
     }
     private fun sortStudentsByName() {
         adapterStudent_metrics.sortByName()
@@ -142,18 +122,4 @@ class students_metrics : AppCompatActivity() {
     }
 
 }
-//adapterStudent_metrics = AdapterStudent_metrics(baseContext, apiResponseList)
-//adapterStudent_metrics.courseClickListener =
-//object : AdapterStudent_metrics.CourseClickListener {
-//    override fun onCourseClicked(studentId: Int, studentName: String,studentgrade:Int,studentfaculty:String,studentintended:Int) {
-//        val intent = Intent(this@students_metrics, student_details::class.java)
-//        intent.putExtra(Constants.student_id,studentId)
-//        intent.putExtra(Constants.student_name,studentName)
-//        intent.putExtra(Constants.student_attended,studentintended)
-//        intent.putExtra(Constants.student_grade,studentgrade)
-//        intent.putExtra(Constants.student_faculty,studentfaculty)
-//        startActivity(intent)
-//    }
-//}
-//adapterStudent_metrics.notifyDataSetChanged()
-//recycleview2.adapter = adapterStudent_metrics
+

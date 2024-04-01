@@ -65,6 +65,7 @@ class take_atten : AppCompatActivity() {
             finish.setOnClickListener {
                 createCSVFile(students as ArrayList<String>)
                 students.clear()
+                Constants.students_ids.clear()
                 val lectureDate = "2024-03-13"
                 val lectureTime = "02:01:02.214Z"
                 val lectureData = LectureData(lectureDate, lectureTime, doctorId, courseid)

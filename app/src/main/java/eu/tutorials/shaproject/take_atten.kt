@@ -61,12 +61,12 @@ class take_atten : AppCompatActivity() {
 
         if (students.isNotEmpty() ) {
             isBackButtonEnabled = false
-            var finish = findViewById<View>(R.id.finish)
+            var finish = findViewById<View>(R.id.finish3)
             finish.visibility = View.VISIBLE
             finish.setOnClickListener {
                 createCSVFile(students as ArrayList<String>)
                 students.clear()
-                Constants.students_ids.clear()
+
                 val lectureDate = "2024-03-13"
                 val lectureTime = "02:01:02.214Z"
                 val lectureData = LectureData(lectureDate, lectureTime, doctorId, courseid)
@@ -91,7 +91,6 @@ class take_atten : AppCompatActivity() {
     }
 
     private fun call(lectureData: LectureData){
-
         val call = lectureService.createLecture(lectureData)
         call.enqueue(object : retrofit2.Callback<LectureResponse?> {
             override fun onResponse(
@@ -106,6 +105,7 @@ class take_atten : AppCompatActivity() {
                         lecture_id = lectureId!!,
                         students = students_ids!!.toList()
                     )
+                    Constants.students_ids.clear()
                     val call2 = lectureService.createLectureWithStudents(requestBody)
                     call2.enqueue(object : Callback<Void> {
                         override fun onResponse(

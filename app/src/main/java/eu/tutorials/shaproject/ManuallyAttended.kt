@@ -30,7 +30,6 @@ class ManuallyAttended : AppCompatActivity() {
 
     private var isBackButtonEnabled = true
     private var counter = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manually_atten)

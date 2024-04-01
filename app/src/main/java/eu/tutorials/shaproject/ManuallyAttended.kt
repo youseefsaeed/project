@@ -30,6 +30,7 @@ class ManuallyAttended : AppCompatActivity() {
     private var isBackButtonEnabled = true
     private val students_id = mutableListOf<Int>()
     private var counter = 0
+    private val students_ids = mutableListOf<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manually_atten)
@@ -49,7 +50,7 @@ class ManuallyAttended : AppCompatActivity() {
                 ).show()
             }
 
-            else if (students_id.contains(studentId.toInt())&&studentId.isNotEmpty()) {
+            else if (students_ids.contains(studentId.toInt())&&studentId.isNotEmpty()) {
                 Toast.makeText(
                     this@ManuallyAttended,
                     "Student ID $studentId is already added.",
@@ -76,6 +77,7 @@ class ManuallyAttended : AppCompatActivity() {
                         val studentData = "$studentId, $studentName"
                         students_id.add(studentId)
                         students.add(studentData)
+                        students_ids.add(studentId)
                         counter_0.text = "Counter: ${++counter}"
                         isBackButtonEnabled = false
                         student_id.text?.clear()

@@ -13,11 +13,10 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import android.widget.Toast
 import eu.tutorials.shaproject.Constants.students
+import eu.tutorials.shaproject.Constants.students_ids
 import eu.tutorials.shaproject.db.AppDatabase
-import kotlinx.android.synthetic.main.activity_manually_atten.*
-import kotlinx.android.synthetic.main.activity_manually_atten.finish
 import kotlinx.android.synthetic.main.activity_nfc_atten.*
-import kotlinx.android.synthetic.main.activity_nfc_atten.counter_0
+import kotlinx.android.synthetic.main.activity_nfc_atten.counter_1
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -32,6 +31,7 @@ class NFC_atten : AppCompatActivity() {
     private var pendingIntent: PendingIntent? = null
     private var counter = 0
     private var isBackButtonEnabled = true
+    private val students_id = mutableListOf<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc_atten)
@@ -70,17 +70,17 @@ class NFC_atten : AppCompatActivity() {
                 val payload = String(record.payload, Charsets.UTF_8)
                 val numericPayload = payload.filter { it.isDigit() }
 
-
-                if (students.contains(numericPayload)) {
-
+                if (students_ids.contains(numericPayload.toInt())) {
                     Toast.makeText(
                         this@NFC_atten,
-                        "Card ID $numericPayload is already added.",
+                        "Student ID $numericPayload is already added.",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
                     checkid(numericPayload.toInt())
-            }
+
+                }
+
             }
             ndef.close()
         }
@@ -102,7 +102,9 @@ class NFC_atten : AppCompatActivity() {
                         val studentid= studentDao.studentId
                         val studentData = "$studentid, $studentName"
                         students.add(studentData)
-                        counter_0.text = "Counter: ${++counter}"
+                        students_id.add(studentId)
+                        students_ids.add(studentId)
+                        counter_1.text = "Counter: ${++counter}"
                         isBackButtonEnabled = false
                         Toast.makeText(this@NFC_atten, "Student ID added.", Toast.LENGTH_SHORT).show()
                         val drawable: Drawable? = ContextCompat.getDrawable(baseContext, R.drawable.rectangle_2222)
@@ -112,6 +114,7 @@ class NFC_atten : AppCompatActivity() {
                         if (finish2.isClickable) {
                             finish2.setOnClickListener {
                                 val intent = Intent(this@NFC_atten, take_atten::class.java)
+                                intent.putIntegerArrayListExtra("students_id", ArrayList(students_id))
                                 startActivity(intent)
 
                             }
@@ -129,6 +132,7 @@ class NFC_atten : AppCompatActivity() {
             }
         }
     }
+
     override fun onBackPressed() {
         if (isBackButtonEnabled) {
             super.onBackPressed()

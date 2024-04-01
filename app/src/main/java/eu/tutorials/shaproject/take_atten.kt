@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import eu.tutorials.shaproject.Constants.students
+import eu.tutorials.shaproject.Constants.students_ids
 import eu.tutorials.shaproject.RetrofitClient.Companion.getRetrofitObject
 import kotlinx.android.synthetic.main.activity_take_atten.manually
 import kotlinx.android.synthetic.main.activity_take_atten.nfc
@@ -90,7 +91,7 @@ class take_atten : AppCompatActivity() {
     }
 
     private fun call(lectureData: LectureData){
-        val students_id = intent.getIntegerArrayListExtra("students_id")
+
         val call = lectureService.createLecture(lectureData)
         call.enqueue(object : retrofit2.Callback<LectureResponse?> {
             override fun onResponse(
@@ -103,7 +104,7 @@ class take_atten : AppCompatActivity() {
                         createLectureResponse?.lecture_id?.data?.get(0)?.lecture_id
                     val requestBody = RequestBody(
                         lecture_id = lectureId!!,
-                        students = students_id!!.toList()
+                        students = students_ids!!.toList()
                     )
                     val call2 = lectureService.createLectureWithStudents(requestBody)
                     call2.enqueue(object : Callback<Void> {

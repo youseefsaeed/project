@@ -28,7 +28,6 @@ import java.lang.StringBuilder
 class ManuallyAttended : AppCompatActivity() {
 
     private var isBackButtonEnabled = true
-    private val students_id = mutableListOf<Int>()
     private var counter = 0
     private val students_ids = mutableListOf<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +74,6 @@ class ManuallyAttended : AppCompatActivity() {
                     if (studentDao != null) {
                         val studentName = studentDao.name
                         val studentData = "$studentId, $studentName"
-                        students_id.add(studentId)
                         students.add(studentData)
                         students_ids.add(studentId)
                         counter_0.text = "Counter: ${++counter}"
@@ -89,7 +87,6 @@ class ManuallyAttended : AppCompatActivity() {
                         if (finish.isClickable) {
                             finish.setOnClickListener {
                                 val intent = Intent(this@ManuallyAttended, take_atten::class.java)
-                                intent.putIntegerArrayListExtra("students_id", ArrayList(students_id))
                                 startActivity(intent)
 
                             }

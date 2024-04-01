@@ -31,7 +31,7 @@ class NFC_atten : AppCompatActivity() {
     private var pendingIntent: PendingIntent? = null
     private var counter = 0
     private var isBackButtonEnabled = true
-    private val students_id = mutableListOf<Int>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc_atten)
@@ -102,7 +102,6 @@ class NFC_atten : AppCompatActivity() {
                         val studentid= studentDao.studentId
                         val studentData = "$studentid, $studentName"
                         students.add(studentData)
-                        students_id.add(studentId)
                         students_ids.add(studentId)
                         counter_1.text = "Counter: ${++counter}"
                         isBackButtonEnabled = false
@@ -114,7 +113,6 @@ class NFC_atten : AppCompatActivity() {
                         if (finish2.isClickable) {
                             finish2.setOnClickListener {
                                 val intent = Intent(this@NFC_atten, take_atten::class.java)
-                                intent.putIntegerArrayListExtra("students_id", ArrayList(students_id))
                                 startActivity(intent)
 
                             }

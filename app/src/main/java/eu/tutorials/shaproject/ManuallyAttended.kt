@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import android.widget.Toast
 import eu.tutorials.shaproject.Constants.students
+import eu.tutorials.shaproject.Constants.students_ids
 import eu.tutorials.shaproject.RetrofitClient.Companion.getRetrofitObject
 import eu.tutorials.shaproject.db.AppDatabase
 import kotlinx.android.synthetic.main.activity_manually_atten.*
@@ -29,7 +30,7 @@ class ManuallyAttended : AppCompatActivity() {
 
     private var isBackButtonEnabled = true
     private var counter = 0
-    private val students_ids = mutableListOf<Int>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manually_atten)

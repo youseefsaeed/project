@@ -25,6 +25,9 @@ object Constants {
     const val exam_time:String="d"
     const val exam_pass:String="s"
     const val exam_name:String="x"
+    const val course_id_e:String="bbbbb"
+    const val exam_code:String="Y"
+
 
 }
 class RetrofitClient {

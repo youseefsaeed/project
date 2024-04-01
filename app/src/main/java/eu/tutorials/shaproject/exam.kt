@@ -1,6 +1,7 @@
 package eu.tutorials.shaproject
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -28,17 +29,31 @@ class exam : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exam)
+
         rectangle_7.setOnClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
         }
-        val exam_password = intent.getStringExtra(Constants.exam_pass)
-        val exam_name = intent.getStringExtra(Constants.exam_name)
-        exam_name_e.text = "Exam name: $exam_name"
-        time_10_00_.text = "Time: ${intent.getStringExtra(Constants.exam_time)}"
-        date_dd_mm_.text = "Date: ${intent.getStringExtra(Constants.exam_date)}"
-        exam_name_e1.text = "Exam ID: ${intent.getStringExtra(Constants.exam_id)}"
+        val sharedPreferences3 = this.getSharedPreferences("my_prefs3", Context.MODE_PRIVATE)
+        val courseid = sharedPreferences3.getInt("course_id", 0)
+        val sharedPreferences2 = this.getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
+        sharedPreferences2.edit()
+            .putInt("code", 5)
+            .putInt("course_id", courseid)
+            .apply()
+
+
+
+
+        val sharedPreferences = this.getSharedPreferences("my_prefs3", Context.MODE_PRIVATE)
+        val exam_password = sharedPreferences.getString("exam_pass","").toString()
+        val exam_name = sharedPreferences.getString("name","").toString()
+
+        exam_name_e.text = "Exam name: ${sharedPreferences.getString("name","")}"
+        time_10_00_.text = "Time: ${sharedPreferences.getString("exam_time","")}"
+        date_dd_mm_.text = "Date: ${sharedPreferences.getString("exam_date","")}"
+        exam_name_e1.text = "Exam ID: ${sharedPreferences.getString("exam_id","")}"
         exam_invigi.text = "Exam invigilator: Ahmed"
         rectangle_4.setOnClickListener {
             if (enter_your_1.text.toString()!! == exam_password!!) {
@@ -51,7 +66,7 @@ class exam : AppCompatActivity() {
                         if (response.isSuccessful) {
                             val intent = Intent(this@exam, take_atten::class.java)
                             startActivity(intent)
-                            finish()
+
                         } else {
 
                         }

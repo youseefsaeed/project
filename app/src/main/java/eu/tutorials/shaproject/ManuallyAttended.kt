@@ -27,7 +27,7 @@ import java.lang.StringBuilder
 
 class ManuallyAttended : AppCompatActivity() {
 
-
+    private var isBackButtonEnabled = true
     private val students_id = mutableListOf<Int>()
     private val retrofit: Retrofit = getRetrofitObject()
     private val studentApi = retrofit.create(StudentApi::class.java)
@@ -43,8 +43,15 @@ class ManuallyAttended : AppCompatActivity() {
 
         attend.setOnClickListener {
             val studentId = student_id.text.toString()
+            if(studentId.isEmpty()){
+                Toast.makeText(
+                    this@ManuallyAttended,
+                    "please,write the student id",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
-            if (students_id.contains(studentId.toInt())) {
+            else if (students_id.contains(studentId.toInt())&&studentId.isNotEmpty()) {
                 Toast.makeText(
                     this@ManuallyAttended,
                     "Student ID $studentId is already added.",
@@ -72,6 +79,7 @@ class ManuallyAttended : AppCompatActivity() {
                         students_id.add(studentId)
                         students.add(studentData)
                         counter_0.text = "Counter: ${++counter}"
+                        isBackButtonEnabled = false
                         student_id.text?.clear()
                         Toast.makeText(this@ManuallyAttended, "Student ID added.", Toast.LENGTH_SHORT).show()
                         val drawable: Drawable? = ContextCompat.getDrawable(baseContext, R.drawable.rectangle_2222)
@@ -98,5 +106,13 @@ class ManuallyAttended : AppCompatActivity() {
                 Log.e("Coroutine", "Error retrieving data: ${e.message}")
             }
         }
-    }}
+    }
+    override fun onBackPressed() {
+        if (isBackButtonEnabled) {
+            super.onBackPressed()
+        } else {
+            Toast.makeText(this, "please,finish the attend", Toast.LENGTH_SHORT).show()
+        }
+    }
+}
 

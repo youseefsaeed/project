@@ -2,6 +2,7 @@ package eu.tutorials.shaproject
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ class CourseScreen : AppCompatActivity() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private val retrofit: Retrofit = getRetrofitObject()
     private val courseApi = retrofit.create(CoursesApi::class.java)
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,11 +64,14 @@ class CourseScreen : AppCompatActivity() {
                     adapterCoursesScreen.courseClickListener =
                         object : AdapterCoursesScreen.CourseClickListener {
                             override fun onCourseClicked(courseId: Int, coursename: String) {
+                                sharedPreferences = getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
+                                sharedPreferences.edit()
+                                    .putInt("course_id", courseId)
+                                    .putString("course_name", coursename)
+                                    .putString("doctorName", doctorName)
+                                    .apply()
 
                                 val intent = Intent(this@CourseScreen, course_options::class.java)
-                                intent.putExtra(Constants.course_id, courseId)
-                                intent.putExtra(Constants.course_name, coursename)
-                                intent.putExtra(Constants.teacher_name, doctorName)
                                 startActivity(intent)
 
                             }

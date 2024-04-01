@@ -1,5 +1,6 @@
 package eu.tutorials.shaproject
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -116,19 +117,26 @@ class Login : AppCompatActivity() {
                                                         val exam_time=StringBuilder()
                                                         val exam_pass=StringBuilder()
                                                         val name=StringBuilder()
+                                                        val course_id=StringBuilder()
                                                         for (mydata in exams_details) {
                                                             exam_id.append(mydata.exam_id)
                                                             exam_date.append(mydata.exam_date)
                                                              exam_time.append(mydata.exam_time)
                                                              exam_pass.append(mydata.exam_pass)
                                                              name.append(mydata.name)
+                                                            course_id.append(mydata.course_id)
                                                         }
+
+                                                        val sharedPreferences = getSharedPreferences("my_prefs3", Context.MODE_PRIVATE)
+                                                        sharedPreferences.edit()
+                                                            .putString("exam_id", exam_id.toString())
+                                                            .putString("exam_date", exam_date.toString())
+                                                            .putString("exam_time", exam_time.toString())
+                                                            .putString("exam_pass", exam_pass.toString())
+                                                            .putString("name", name.toString())
+                                                            .putInt("course_id", course_id.toString().toInt())
+                                                            .apply()
                                                         val intent = Intent(this@Login, exam::class.java)
-                                                        intent.putExtra(Constants.exam_id,exam_id.toString())
-                                                        intent.putExtra(Constants.exam_date,exam_date.toString())
-                                                        intent.putExtra(Constants.exam_time,exam_time.toString())
-                                                        intent.putExtra(Constants.exam_pass,exam_pass.toString())
-                                                        intent.putExtra(Constants.exam_name,name.toString())
                                                         startActivity(intent)
                                                         finish()
                                                     } else {

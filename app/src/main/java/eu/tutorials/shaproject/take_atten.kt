@@ -32,6 +32,7 @@ import java.util.Locale
 
 class take_atten : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 123
+    private var isBackButtonEnabled = true
     private val retrofit: Retrofit = getRetrofitObject()
     private val lectureService = retrofit.create(create_lecuture::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +42,7 @@ class take_atten : AppCompatActivity() {
         val doctorId = sharedPreferences.getInt("doctor_id", 0)
         val sharedPreferences2 = this.getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
         val courseid = sharedPreferences2.getInt("course_id", 0)
-
+        val code=sharedPreferences2.getInt("code",0)
         nfc.setOnClickListener {
             val intent = Intent(this, NFC_atten::class.java)
             startActivity(intent)
@@ -57,10 +58,8 @@ class take_atten : AppCompatActivity() {
 
 
 
-
-
         if (students.isNotEmpty() ) {
-
+            isBackButtonEnabled = false
             var finish = findViewById<View>(R.id.finish)
             finish.visibility = View.VISIBLE
             finish.setOnClickListener {
@@ -70,6 +69,18 @@ class take_atten : AppCompatActivity() {
                 val lectureTime = "02:01:02.214Z"
                 val lectureData = LectureData(lectureDate, lectureTime, doctorId, courseid)
                 call(lectureData)
+
+
+            if(code==1){
+                val intent = Intent(this, course_options::class.java)
+                startActivity(intent)
+
+            }
+                else if(code==5){
+                val intent = Intent(this, exam::class.java)
+                startActivity(intent)
+                }
+
 
 
             }
@@ -192,6 +203,13 @@ class take_atten : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+    override fun onBackPressed() {
+        if (isBackButtonEnabled) {
+            super.onBackPressed()
+        } else {
+            Toast.makeText(this, "please,finish the attend", Toast.LENGTH_SHORT).show()
         }
     }
 

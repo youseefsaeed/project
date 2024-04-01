@@ -19,65 +19,51 @@ class AdapterStudent_metrics(
 ) : RecyclerView.Adapter<AdapterStudent_metrics.ViewHolder>(), Filterable {
 
     private var filteredList: List<StudentEntity> = items
+    private var unfilteredList: List<StudentEntity> = items
+
     interface CourseClickListener {
-        fun onCourseClicked(studentid: Int,studentname:String,studentgrade:Int,studentfaculty:String,studentattended:Int)
+        fun onCourseClicked(student: StudentEntity)
     }
+
     var courseClickListener: CourseClickListener? = null
 
-    class ViewHolder(itemView: View, private val items: List<StudentEntity>, private val courseClickListener:CourseClickListener ):
-        RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var student: StudentEntity? = null
         var student_name: TextView = itemView.student_name
 
         init {
-
             itemView.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val course = items?.get(position)
-                    val student_id = course?.studentId
-                    val studentname = course?.name
-                    val studentgrade=course?.grade
-                    val studentfaculty=course?.faculty
-                    val studentattended=course?.lectures
-                    if (student_id != null) {
-                        if (studentname != null) {
-                            if (studentgrade != null) {
-                                if (studentfaculty != null) {
-                                    if (studentattended != null) {
-                                        courseClickListener.onCourseClicked(student_id,studentname,studentgrade,studentfaculty,studentattended)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                student?.let { courseClickListener?.onCourseClicked(it) }
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var itemView= LayoutInflater.from(context).inflate(R.layout.student_style_in_metrics,parent,false)
-        return ViewHolder(itemView,items,courseClickListener!!)
+        val itemView = LayoutInflater.from(context).inflate(R.layout.student_style_in_metrics, parent, false)
+        return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val student = filteredList?.get(position)
-        val studentNumber = "${position + 1}. ${student?.name}"
+        val student = filteredList[position]
+        holder.student = student
+        val studentNumber = "${position + 1}. ${student.name}"
         holder.student_name.text = studentNumber
     }
 
     override fun getItemCount(): Int {
-        return filteredList?.size ?: 0
+        return filteredList.size
     }
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val searchQuery = constraint.toString().toLowerCase().trim()
                 filteredList = if (searchQuery.isEmpty()) {
-                    items
+                    unfilteredList
                 } else {
-                    items?.filter { it.name.toLowerCase().startsWith(searchQuery) }
+                    unfilteredList.filter {
+                        it.name.toLowerCase().contains(searchQuery) ||
+                                it.studentId.toString().contains(searchQuery)
+                    }
                 }
                 val filterResults = FilterResults()
                 filterResults.values = filteredList
@@ -85,7 +71,7 @@ class AdapterStudent_metrics(
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                filteredList = (results?.values as? List<StudentEntity>)!!
+                filteredList = (results?.values as? List<StudentEntity>) ?: emptyList()
                 notifyDataSetChanged()
             }
         }
@@ -110,5 +96,9 @@ class AdapterStudent_metrics(
     fun search(query: String) {
         filter.filter(query)
     }
-
+    fun updateData(newItems: List<StudentEntity>) {
+        items = newItems
+        unfilteredList = newItems
+        notifyDataSetChanged()
+    }
 }

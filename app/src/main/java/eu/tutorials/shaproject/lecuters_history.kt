@@ -47,7 +47,8 @@ class lecuters_history : AppCompatActivity() {
         val doctorId = sharedPreferences.getInt("doctor_id", 0)
         val sharedPreferences2 = this.getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
         val courseid = sharedPreferences2.getInt("course_id", 0)
-
+        spinner = findViewById(R.id.spinner2)
+        layoutToShow = findViewById(R.id.layoutToShow)
         call(doctorId,courseid)
 
 

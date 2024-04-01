@@ -32,25 +32,25 @@ class NFC_atten : AppCompatActivity() {
         setContentView(R.layout.activity_nfc_atten)
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
+        try {
+            val intent = Intent(this, javaClass).apply {
+                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "This device doesn't have NFC.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-        if (nfcAdapter == null) {
-            Toast.makeText(this, "This device doesn't have NFC.", Toast.LENGTH_SHORT).show()
-            // Handle the absence of NFC adapter
-        } else {
-            val intentFiltersArray = arrayOf(IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED))
-            val techListsArray = arrayOf(arrayOf(Ndef::class.java.name))
-            val flags = NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK or NfcAdapter.FLAG_READER_NFC_F
-            nfcAdapter?.enableReaderMode(this, null, flags, null)
-        }
+        nfcAdapter?.enableForegroundDispatch(this, pendingIntent, null, null)
     }
 
     override fun onPause() {
         super.onPause()
-        nfcAdapter?.disableReaderMode(this)
+        nfcAdapter?.disableForegroundDispatch(this)
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -63,14 +63,17 @@ class NFC_atten : AppCompatActivity() {
             messages?.records?.forEach { record ->
                 val payload = String(record.payload, Charsets.UTF_8)
                 val numericPayload = payload.replace(Regex("[^0-9]"), "")
-
-                if (students.contains(numericPayload)) {
-                    Toast.makeText(this@NFC_atten, "Student ID $numericPayload is already added.", Toast.LENGTH_SHORT).show()
-                } else {
+                if (students.contains(numericPayload))
+                {
                     Toast.makeText(this@NFC_atten, "Student ID $numericPayload is already added.", Toast.LENGTH_SHORT).show()
                 }
 
-                finish.background = ContextCompat.getDrawable(baseContext, R.drawable.rectangle_2222)
+                else{
+                    Toast.makeText(this@NFC_atten, "Student ID $numericPayload is  added.", Toast.LENGTH_SHORT).show()
+
+                }
+                finish.background =
+                    ContextCompat.getDrawable(baseContext, R.drawable.rectangle_2222)
                 finish.isClickable = true
                 Toast.makeText(
                     this,
@@ -78,7 +81,6 @@ class NFC_atten : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 counter_0.text = getString(R.string.counter, (++counter).toString())
-
                 if (finish.isClickable) {
                     finish.setOnClickListener {
                         val takeAttenIntent = Intent(this, take_atten::class.java)
@@ -86,9 +88,9 @@ class NFC_atten : AppCompatActivity() {
                     }
                 }
             }
+
             ndef.close()
-        }
-    }
+        }}
 
 
 

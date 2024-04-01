@@ -1,20 +1,28 @@
 package eu.tutorials.shaproject
 
+import android.Manifest
 import android.app.Activity
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.nfc.NdefMessage
-import android.nfc.NdefRecord
-import android.nfc.NfcAdapter
-import android.nfc.Tag
-import android.nfc.tech.Ndef
+import android.nfc.*
+import android.nfc.NdefRecord.TNF_MIME_MEDIA
+import android.nfc.tech.*
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.ContextCompat
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_addemployee.*
+import java.io.IOException
+import android.nfc.NfcAdapter
+import java.io.UnsupportedEncodingException
+import java.util.*
+
 
 class AddEmployee : AppCompatActivity() {
 
@@ -39,7 +47,7 @@ class AddEmployee : AppCompatActivity() {
             ndef?.connect()
 
             if (ndef != null && ndef.isWritable) {
-                val ndefMessage = NdefMessage(NdefRecord.createTextRecord(null,studentId))
+                val ndefMessage = NdefMessage(NdefRecord.createTextRecord(null, studentId))
                 ndef.writeNdefMessage(ndefMessage)
                 Toast.makeText(this, "ID written to NFC card successfully.", Toast.LENGTH_SHORT).show()
             } else {
@@ -72,25 +80,19 @@ class AddEmployee : AppCompatActivity() {
                     writeStudentIdToNfcCard(tag, studentId)
                 }
             }
+
         }
     }
 
     override fun onResume() {
         super.onResume()
         if (nfcAdapter != null) {
-            val intentFiltersArray = arrayOf(IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED))
-            val techListsArray = arrayOf(arrayOf<String>())
-            val flags = NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK
-            nfcAdapter?.enableReaderMode(this, null, flags, null)
+            enableNFCForegroundDispatch(this, nfcAdapter)
         } else {
             Toast.makeText(this, "NFC adapter is not available on this device.", Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        nfcAdapter?.disableReaderMode(this)
-    }
 
     private fun enableNFCForegroundDispatch(activity: Activity, nfcAdapter: NfcAdapter?) {
         val intent = Intent(activity, activity.javaClass).apply {
@@ -98,10 +100,24 @@ class AddEmployee : AppCompatActivity() {
             action = NfcAdapter.ACTION_TAG_DISCOVERED
         }
 
-        val pendingIntent = PendingIntent.getActivity(activity, 0, intent, 0)
+        val pendingIntent = PendingIntent.getActivity(
+            this, 0, Intent(this, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_MUTABLE)
         val intentFiltersArray = arrayOf(IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED))
         val techListsArray = arrayOf(arrayOf<String>())
 
         nfcAdapter?.enableForegroundDispatch(activity, pendingIntent, intentFiltersArray, techListsArray)
     }
+    override fun onPause() {
+        super.onPause()
+        disableNFCForegroundDispatch(this, nfcAdapter)
+    }
 }
+
+
+
+
+
+
+
+
+

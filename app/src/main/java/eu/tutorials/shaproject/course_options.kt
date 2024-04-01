@@ -26,25 +26,24 @@ class course_options : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_options)
+
         setupViews()
         setupListeners()
 
     }
 
     private fun setupViews() {
-        val courseHomepage = intent.getStringExtra(Constants.course_name)
+        val sharedPreferences = this.getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
+        val courseHomepage = sharedPreferences.getString("course_name","")
         course_homepage.text = "$courseHomepage Home Page"
 
-        val username = intent.getStringExtra(Constants.teacher_name)
+        val username = sharedPreferences.getString("doctorName","")
         username2.text = username
 
-        val courseId = intent.getIntExtra(Constants.course_id, 0)
+        val courseId = sharedPreferences.getInt("course_id",0)
         course_id_1.text = "Course Id: $courseId"
 
-        sharedPreferences = getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
-        sharedPreferences.edit()
-            .putInt("course_id", courseId)
-            .apply()
+
         fetchStudentData(courseId)
     }
     private fun setupListeners() {
@@ -53,8 +52,12 @@ class course_options : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
+        val sharedPreferences = getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
+        sharedPreferences.edit()
+            .putInt("code", 1)
+            .apply()
         take_attend.setOnClickListener {
+
             val intent = Intent(this, take_atten::class.java)
             startActivity(intent)
         }

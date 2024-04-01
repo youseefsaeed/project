@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import eu.tutorials.shaproject.db.AppDatabase
+import eu.tutorials.shaproject.db.StudentEntity
 import kotlinx.android.synthetic.main.activity_course_options.*
 import kotlinx.android.synthetic.main.activity_coursescreen.*
 import kotlinx.android.synthetic.main.activity_students_metrics.*
@@ -86,24 +87,17 @@ class students_metrics : AppCompatActivity() {
                 // Update the RecyclerView with the fetched data
                 withContext(Dispatchers.Main) {
                     adapterStudent_metrics = AdapterStudent_metrics(baseContext, students)
-                    adapterStudent_metrics.courseClickListener =
-                        object : AdapterStudent_metrics.CourseClickListener {
-                            override fun onCourseClicked(
-                                studentId: Int,
-                                studentName: String,
-                                studentgrade: Int,
-                                studentfaculty: String,
-                                studentintended: Int
-                            ) {
-                                val intent = Intent(this@students_metrics, student_details::class.java)
-                                intent.putExtra(Constants.student_id, studentId)
-                                intent.putExtra(Constants.student_name, studentName)
-                                intent.putExtra(Constants.student_attended, studentintended)
-                                intent.putExtra(Constants.student_grade, studentgrade)
-                                intent.putExtra(Constants.student_faculty, studentfaculty)
-                                startActivity(intent)
-                            }
+                    adapterStudent_metrics.courseClickListener = object : AdapterStudent_metrics.CourseClickListener {
+                        override fun onCourseClicked(student: StudentEntity) {
+                            val intent = Intent(this@students_metrics, student_details::class.java)
+                            intent.putExtra(Constants.student_id, student.studentId)
+                            intent.putExtra(Constants.student_name, student.name)
+                            intent.putExtra(Constants.student_attended, student.lectures)
+                            intent.putExtra(Constants.student_grade, student.grade)
+                            intent.putExtra(Constants.student_faculty, student.faculty)
+                            startActivity(intent)
                         }
+                    }
                     recycleview2.adapter = adapterStudent_metrics
                 }
             } catch (e: Exception) {

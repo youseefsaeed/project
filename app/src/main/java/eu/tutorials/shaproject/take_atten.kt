@@ -1,12 +1,15 @@
 package eu.tutorials.shaproject
 
 import android.Manifest
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -28,8 +31,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
+import kotlin.collections.ArrayList
 
 class take_atten : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 123
@@ -67,8 +70,14 @@ class take_atten : AppCompatActivity() {
                 createCSVFile(students as ArrayList<String>)
                 students.clear()
 
-                val lectureDate = "2024-03-13"
-                val lectureTime = "02:01:02.214Z"
+                val calendar = Calendar.getInstance()
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val timeFormat = SimpleDateFormat("HH:mm:ss.SSS'Z'", Locale.getDefault())
+                val lectureDate = dateFormat.format(calendar.time).toString()
+                val lectureTime = timeFormat.format(calendar.time).toString()
+
+
+
                 val lectureData = LectureData(lectureDate, lectureTime, doctorId, courseid)
                 call(lectureData)
 
@@ -176,17 +185,34 @@ class take_atten : AppCompatActivity() {
 
 
     private fun checkPermission(): Boolean {
-        val result =
-            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        return result == PackageManager.PERMISSION_GRANTED
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            Environment.isExternalStorageManager()
+        } else {
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        }
     }
 
     private fun requestPermission() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            PERMISSION_REQUEST_CODE
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            try {
+                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                intent.data = Uri.parse("package:$packageName")
+                startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                val intent = Intent()
+                intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
+                startActivity(intent)
+            }
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                PERMISSION_REQUEST_CODE
+            )
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -196,16 +222,29 @@ class take_atten : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(
-                    this,
-                    "Permission granted. Click again to create CSV file.",
-                    Toast.LENGTH_SHORT
-                ).show()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    Toast.makeText(
+                        this,
+                        "Permission granted. Click again to create CSV file.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show()
+                }
             } else {
-                Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show()
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(
+                        this,
+                        "Permission granted. Click again to create CSV file.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+
     }
     override fun onBackPressed() {
         if (isBackButtonEnabled) {

@@ -50,7 +50,12 @@ class NFC_atten : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        nfcAdapter?.enableForegroundDispatch(this, pendingIntent, null, null)
+        if (nfcAdapter != null) {
+            nfcAdapter?.enableForegroundDispatch(this, pendingIntent, null, null)
+        } else {
+            Toast.makeText(this, "NFC adapter is not available on this device.", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     override fun onPause() {

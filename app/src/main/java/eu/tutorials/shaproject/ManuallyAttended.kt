@@ -29,8 +29,6 @@ class ManuallyAttended : AppCompatActivity() {
 
     private var isBackButtonEnabled = true
     private val students_id = mutableListOf<Int>()
-    private val retrofit: Retrofit = getRetrofitObject()
-    private val studentApi = retrofit.create(StudentApi::class.java)
     private var counter = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

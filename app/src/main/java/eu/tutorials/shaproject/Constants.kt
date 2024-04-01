@@ -8,7 +8,7 @@ import java.lang.StringBuilder
 import java.util.concurrent.TimeUnit
 
 object Constants {
-    val students = mutableListOf<String>()!!
+    val students = ArrayList<String>()!!
     const val teacher_name:String="doctor_name"
     const val teacher_id:String="y"
     const val course_name:String="a"

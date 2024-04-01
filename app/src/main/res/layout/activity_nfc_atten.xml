@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@id/hold_the_de" />
 
     <TextView
-        android:id="@+id/finish"
+        android:id="@+id/finish2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

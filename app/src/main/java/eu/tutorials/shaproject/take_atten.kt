@@ -85,11 +85,13 @@ class take_atten : AppCompatActivity() {
             if(code==1){
                 val intent = Intent(this, course_options::class.java)
                 startActivity(intent)
+                finish()
 
             }
                 else if(code==5){
                 val intent = Intent(this, exam::class.java)
                 startActivity(intent)
+                finish()
                 }
 
 

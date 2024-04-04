@@ -88,6 +88,7 @@ class ManuallyAttended : AppCompatActivity() {
                             finish.setOnClickListener {
                                 val intent = Intent(this@ManuallyAttended, take_atten::class.java)
                                 startActivity(intent)
+                                finish()
 
                             }
                         }

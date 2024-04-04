@@ -119,6 +119,7 @@ class NFC_atten : AppCompatActivity() {
                             finish2.setOnClickListener {
                                 val intent = Intent(this@NFC_atten, take_atten::class.java)
                                 startActivity(intent)
+                                finish()
 
                             }
                         }

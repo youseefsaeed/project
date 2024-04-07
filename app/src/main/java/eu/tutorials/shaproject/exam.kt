@@ -26,67 +26,81 @@ import java.util.*
 class exam : AppCompatActivity() {
     private val retrofit: Retrofit = RetrofitClient.getRetrofitObject()
     private val ExamApi = retrofit.create(pass_e::class.java)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exam)
 
-        rectangle_7.setOnClickListener {
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
-            finish()
-        }
-        val sharedPreferences3 = this.getSharedPreferences("my_prefs3", Context.MODE_PRIVATE)
+        setupLogout()
+
+        val sharedPreferences3 = getSharedPreferences("my_prefs3", Context.MODE_PRIVATE)
         val courseid = sharedPreferences3.getInt("course_id", 0)
-        val sharedPreferences2 = this.getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
+        val sharedPreferences2 = getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
         sharedPreferences2.edit()
             .putInt("code", 5)
             .putInt("course_id", courseid)
             .apply()
 
+        val sharedPreferences = getSharedPreferences("my_prefs3", Context.MODE_PRIVATE)
+        val examPassword = sharedPreferences.getString("exam_pass", "") ?: ""
+        val examName = sharedPreferences.getString("name", "") ?: ""
 
+        showExamDetails(
+            examName = sharedPreferences.getString("name", ""),
+            examTime = sharedPreferences.getString("exam_time", ""),
+            examDate = sharedPreferences.getString("exam_date", ""),
+            examId = sharedPreferences.getString("exam_id", "")
+        )
 
-
-        val sharedPreferences = this.getSharedPreferences("my_prefs3", Context.MODE_PRIVATE)
-        val exam_password = sharedPreferences.getString("exam_pass","").toString()
-        val exam_name = sharedPreferences.getString("name","").toString()
-
-        exam_name_e.text = "Exam name: ${sharedPreferences.getString("name","")}"
-        time_10_00_.text = "Time: ${sharedPreferences.getString("exam_time","")}"
-        date_dd_mm_.text = "Date: ${sharedPreferences.getString("exam_date","")}"
-        exam_name_e1.text = "Exam ID: ${sharedPreferences.getString("exam_id","")}"
-        exam_invigi.text = "Exam invigilator: Ahmed"
         rectangle_4.setOnClickListener {
-            if (enter_your_1.text.toString()!! == exam_password!!) {
-                val call = ExamApi.getExam1(exam_name!!, enter_your_1.text.toString()!!)
-                call.enqueue(object : Callback<List<examResponse2>?> {
-                    override fun onResponse(
-                        call: Call<List<examResponse2>?>,
-                        response: Response<List<examResponse2>?>
-                    ) {
-                        if (response.isSuccessful) {
-                            val intent = Intent(this@exam, take_atten::class.java)
-                            startActivity(intent)
-
-                        } else {
-
-                        }
-                    }
-
-                    override fun onFailure(call: Call<List<examResponse2>?>, t: Throwable) {
-
-                        Log.e("exam", "problem in  " + t.message)
-
-                    }
-                })
-            }
-            else{
-                Toast.makeText(this@exam, "wrong password", Toast.LENGTH_SHORT)
-                    .show()
+            val enteredPassword = enter_your_1.text.toString()
+            if (enteredPassword == examPassword) {
+                getExam1(examName, enteredPassword)
+            } else {
+                showWrongPasswordError()
             }
         }
-
-
-
     }
 
+    private fun setupLogout() {
+        rectangle_7.setOnClickListener {
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun showExamDetails(examName: String?, examTime: String?, examDate: String?, examId: String?) {
+        exam_name_e.text = "Exam name: $examName"
+        time_10_00_.text = "Time: $examTime"
+        date_dd_mm_.text = "Date: $examDate"
+        exam_name_e1.text = "Exam ID: $examId"
+        exam_invigi.text = "Exam invigilator: Ahmed"
+    }
+
+    private fun getExam1(examName: String?, enteredPassword: String) {
+        val call = ExamApi.getExam1(examName!!, enter_your_1.text.toString()!!)
+        call.enqueue(object : Callback<List<examResponse2>?> {
+            override fun onResponse(call: Call<List<examResponse2>?>, response: Response<List<examResponse2>?>) {
+                if (response.isSuccessful) {
+                    showExamAttendanceScreen()
+                } else {
+                    // Handle error
+                }
+            }
+
+            override fun onFailure(call: Call<List<examResponse2>?>, t: Throwable) {
+                Log.e("exam", "problem in  " + t.message)
+            }
+        })
+    }
+
+    private fun showWrongPasswordError() {
+        Toast.makeText(this, "Wrong password", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showExamAttendanceScreen() {
+        val intent = Intent(this, take_atten::class.java)
+        startActivity(intent)
+    }
 }

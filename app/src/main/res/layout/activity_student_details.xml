@@ -36,7 +36,7 @@
 
     <TextView
         android:id="@+id/student_det"
-        android:layout_width="189dp"
+        android:layout_width="205dp"
         android:layout_height="30dp"
         android:layout_marginTop="116dp"
         android:fontFamily="@font/inter"
@@ -52,7 +52,7 @@
 
     <TextView
         android:id="@+id/name_"
-        android:layout_width="64dp"
+        android:layout_width="72dp"
         android:layout_height="25dp"
         android:layout_marginTop="340dp"
         android:fontFamily="@font/inter"
@@ -69,7 +69,7 @@
 
     <TextView
         android:id="@+id/student_nam"
-        android:layout_width="152dp"
+        android:layout_width="165dp"
         android:layout_height="28dp"
         android:layout_marginTop="340dp"
         android:fontFamily="@font/inter"
@@ -87,13 +87,13 @@
 
     <TextView
         android:id="@+id/id_"
-        android:layout_width="27dp"
+        android:layout_width="40dp"
         android:layout_height="25dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/inter"
         android:gravity="top"
         android:lineHeight="25sp"
-        android:text="ID:_"
+        android:text="ID:"
         android:textColor="#000000"
         android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="@+id/name_"
@@ -121,8 +121,8 @@
 
     <TextView
         android:id="@+id/grade_"
-        android:layout_width="67dp"
-        android:layout_height="25dp"
+        android:layout_width="80dp"
+        android:layout_height="32dp"
         android:layout_marginTop="424dp"
         android:fontFamily="@font/inter"
         android:gravity="top"
@@ -155,8 +155,8 @@
 
     <TextView
         android:id="@+id/department_"
-        android:layout_width="125dp"
-        android:layout_height="27dp"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
         android:layout_marginTop="476dp"
         android:fontFamily="@font/inter"
         android:gravity="top"
@@ -173,7 +173,7 @@
     <TextView
         android:id="@+id/artificial_"
         android:layout_width="wrap_content"
-        android:layout_height="26dp"
+        android:layout_height="40dp"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/inter"
         android:gravity="top"
@@ -188,7 +188,7 @@
 
     <TextView
         android:id="@+id/group_secti"
-        android:layout_width="157dp"
+        android:layout_width="175dp"
         android:layout_height="25dp"
         android:layout_marginTop="520dp"
         android:fontFamily="@font/inter"
@@ -205,14 +205,14 @@
 
     <TextView
         android:id="@+id/a_4"
-        android:layout_width="40dp"
+        android:layout_width="58dp"
         android:layout_height="25dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="520dp"
         android:fontFamily="sans-serif-black"
         android:gravity="top"
         android:lineHeight="25sp"
-        android:text="A/4"
+        android:text="B/11"
         android:textColor="#000000"
         android:textSize="21sp"
         android:textStyle="bold"
@@ -224,7 +224,7 @@
 
     <TextView
         android:id="@+id/lectures_at"
-        android:layout_width="194dp"
+        android:layout_width="212dp"
         android:layout_height="25dp"
         android:layout_marginTop="568dp"
         android:fontFamily="@font/inter"

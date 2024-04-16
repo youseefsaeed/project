@@ -78,35 +78,49 @@ class course_options : AppCompatActivity() {
             .client(RetrofitClient.client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
         val apiService = retrofit.create(create_lecuture::class.java)
         val call3 = apiService.getStudentOfCourse(courseId)
+
         call3.enqueue(object : Callback<List<ApiResponseformetrics>> {
             override fun onResponse(call: Call<List<ApiResponseformetrics>>, response: Response<List<ApiResponseformetrics>>) {
                 if (response.isSuccessful) {
                     val apiResponseList = response.body()
-                    apiResponseList?.forEach { apiResponse ->
-                        val studentEntity = StudentEntity(
-                            name = apiResponse.students.name,
-                            grade = apiResponse.students.grade,
-                            faculty = apiResponse.students.faculty,
-                            studentId = apiResponse.students.student_id,
-                            percentage = apiResponse.students.percentage,
-                            lectures = apiResponse.students.lectures
-                        )
-                        // Insert the studentEntity into the Room database using the DAO
+                    apiResponseList?.let { apiList ->
                         GlobalScope.launch(Dispatchers.IO) {
                             try {
                                 val database = AppDatabase.getInstance(applicationContext)
-                                database.studentDao().insert(studentEntity)
-                                Log.d("Coroutine", "Data inserted successfully")
+                                val localStudents = database.studentDao().getAllStudents()
+
+                                // Delete students from local database that are not present in the API response
+                                localStudents.forEach { localStudent ->
+                                    if (apiList.none { apiStudent ->
+                                            apiStudent.students.student_id == localStudent.studentId
+                                        }) {
+                                        database.studentDao().delete(localStudent)
+                                        Log.d("Coroutine", "Deleted student: ${localStudent.name}")
+                                    }
+                                }
+
+                                // Insert or update students from API response
+                                apiList.forEach { apiResponse ->
+                                    val studentEntity = StudentEntity(
+                                        name = apiResponse.students.name,
+                                        grade = apiResponse.students.grade,
+                                        faculty = apiResponse.students.faculty,
+                                        studentId = apiResponse.students.student_id,
+                                        percentage = apiResponse.students.percentage,
+                                        lectures = apiResponse.students.lectures
+                                    )
+                                    database.studentDao().insertOrUpdate(studentEntity)
+                                    Log.d("Coroutine", "Data inserted or updated successfully")
+                                }
                             } catch (e: Exception) {
-                                Log.e("Coroutine", "Error inserting data: ${e.message}")
+                                Log.e("Coroutine", "Error updating data: ${e.message}")
                             }
                         }
                     }
-                }
-
-                else {
+                } else {
                     // Handle error response
                 }
             }

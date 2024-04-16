@@ -37,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/rectangle_9"
         app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="@+id/icon_person"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.128" />
 
@@ -114,33 +114,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.469" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/rectangle_9"
-        android:layout_width="309dp"
-        android:layout_height="37dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/rectangle_9"
 
-        app:layout_constraintBottom_toTopOf="@+id/rectangle_1111"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle_1111"
-        app:layout_constraintHorizontal_bias="0.519"
-        app:layout_constraintStart_toStartOf="@+id/rectangle_1111"
-        app:layout_constraintTop_toBottomOf="@+id/clarity_adm"
-        app:layout_constraintVertical_bias="0.724">
 
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <View
-        android:id="@+id/icon_person"
-        android:layout_width="23dp"
-        android:layout_height="23dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/icon11"
-        app:layout_constraintBottom_toBottomOf="@+id/rectangle_9"
-        app:layout_constraintEnd_toStartOf="@+id/student_id"
-        app:layout_constraintStart_toStartOf="@+id/rectangle_9"
-        app:layout_constraintTop_toTopOf="@+id/rectangle_9" />
 
     <View
         android:id="@+id/rectangle_1111"
@@ -172,16 +148,29 @@
         app:layout_constraintStart_toStartOf="@+id/rectangle_1111"
         app:layout_constraintTop_toTopOf="@+id/rectangle_1111" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/rectangle_9"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginHorizontal="@dimen/size_29"
+        android:layout_marginTop="@dimen/size_9"
+        android:background="@drawable/bg_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/student_id_">
 
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/student_id"
-        android:layout_width="270dp"
-        android:layout_height="35dp"
-        app:layout_constraintBottom_toBottomOf="@+id/rectangle_9"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle_9"
-        app:layout_constraintStart_toStartOf="@+id/rectangle_9"
-        app:layout_constraintTop_toTopOf="@+id/rectangle_9" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/student_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/size_12"
+            android:layout_marginVertical="@dimen/size_10"
+            android:background="@null"
+            android:drawableStart="@drawable/icon11"
+            android:imeOptions="actionDone"
+            android:drawablePadding="@dimen/size_10"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

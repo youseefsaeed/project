@@ -41,23 +41,32 @@ class ManuallyAttended : AppCompatActivity() {
 
         attend.setOnClickListener {
             val studentId = student_id.text.toString()
-            if(studentId.isEmpty()){
+            if (studentId.isEmpty()) {
                 Toast.makeText(
                     this@ManuallyAttended,
-                    "please,write the student id",
+                    "Please, write the student id",
                     Toast.LENGTH_SHORT
                 ).show()
+                return@setOnClickListener
             }
 
-            else if (students_ids.contains(studentId.toInt())&&studentId.isNotEmpty()) {
+            try {
+                val studentIdInt = studentId.toInt()
+                if (students_ids.contains(studentIdInt) && studentId.isNotEmpty()) {
+                    Toast.makeText(
+                        this@ManuallyAttended,
+                        "Student ID $studentId is already added.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    checkid(studentIdInt)
+                }
+            } catch (e: NumberFormatException) {
                 Toast.makeText(
                     this@ManuallyAttended,
-                    "Student ID $studentId is already added.",
+                    "Please enter a valid student ID.",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else {
-                checkid(studentId.toInt())
-
             }
         }
     }

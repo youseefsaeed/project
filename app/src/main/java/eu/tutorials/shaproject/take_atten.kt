@@ -33,12 +33,17 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 
 class take_atten : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 123
     private var isBackButtonEnabled = true
     private val retrofit: Retrofit = getRetrofitObject()
     private val lectureService = retrofit.create(create_lecuture::class.java)
+    private val retrofit2: Retrofit = getRetrofitObject()
+    private val  apiService = retrofit2.create(create_lecuture::class.java)
+    private lateinit var lectures: List<Lecture>
+    private var  lectureId by Delegates.notNull<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_take_atten)
@@ -57,6 +62,7 @@ class take_atten : AppCompatActivity() {
             startActivity(intent)
 
         }
+        call_for_get_all_lectures(doctorId,courseid)
 
 
 
@@ -67,19 +73,29 @@ class take_atten : AppCompatActivity() {
             var finish = findViewById<View>(R.id.finish3)
             finish.visibility = View.VISIBLE
             finish.setOnClickListener {
-                createCSVFile(students as ArrayList<String>)
                 students.clear()
-
                 val calendar = Calendar.getInstance()
                 val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                val timeFormat = SimpleDateFormat("HH:mm:ss.SSS'Z'", Locale.getDefault())
                 val lectureDate = dateFormat.format(calendar.time).toString()
-                val lectureTime = timeFormat.format(calendar.time).toString()
 
+                val existingLecture = lectures.find { it.lecture_date == lectureDate }
+                
+                if (existingLecture != null) {
+                    // If a lecture with the current date exists, use its ID to add students
+                    lectureId = existingLecture.lecture_id
+                    val requestBody = RequestBody(
+                        lecture_id = lectureId!!,
+                        students = students_ids!!.toList()
+                    )
+                    Constants.students_ids.clear()
+                    call_for_send_students_to_lecture(requestBody)
+                } else {
+                    // If not, create a new lecture
+                    val lectureTime = SimpleDateFormat("HH:mm:ss.SSS'Z'", Locale.getDefault()).format(calendar.time).toString()
+                    val lectureData = LectureData(lectureDate, lectureTime, doctorId, courseid)
+                    call(lectureData)
+                }
 
-
-                val lectureData = LectureData(lectureDate, lectureTime, doctorId, courseid)
-                call(lectureData)
 
 
             if(code==1){
@@ -100,7 +116,6 @@ class take_atten : AppCompatActivity() {
 
         }
     }
-
     private fun call(lectureData: LectureData){
         val call = lectureService.createLecture(lectureData)
         call.enqueue(object : retrofit2.Callback<LectureResponse?> {
@@ -110,27 +125,14 @@ class take_atten : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val createLectureResponse = response.body()
-                    val lectureId =
-                        createLectureResponse?.lecture_id?.data?.get(0)?.lecture_id
+                     lectureId =
+                         createLectureResponse?.lecture_id?.data?.get(0)?.lecture_id!!
                     val requestBody = RequestBody(
                         lecture_id = lectureId!!,
                         students = students_ids!!.toList()
                     )
                     Constants.students_ids.clear()
-                    val call2 = lectureService.createLectureWithStudents(requestBody)
-                    call2.enqueue(object : Callback<Void> {
-                        override fun onResponse(
-                            call: Call<Void>,
-                            response: Response<Void>
-                        ) {
-
-                        }
-
-                        override fun onFailure(call: Call<Void>, t: Throwable) {
-                            Toast.makeText(this@take_atten, "error", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    })
+                    call_for_send_students_to_lecture(requestBody)
 
                 } else {
                     val statusCode = response.code()
@@ -148,6 +150,39 @@ class take_atten : AppCompatActivity() {
                     "Request failed: ${t.message}",
                     Toast.LENGTH_SHORT
                 ).show()
+            }
+        })
+    }
+    private fun call_for_send_students_to_lecture(requestBody:RequestBody){
+        val call2 = lectureService.createLectureWithStudents(requestBody)
+        call2.enqueue(object : Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(this@take_atten, "error", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
+    }
+    private fun call_for_get_all_lectures(doctorId:Int,courseid:Int){
+        val call = apiService.getLectures(doctorId, courseid)
+        call.enqueue(object : Callback<List<Lecture>> {
+            override fun onResponse(call: Call<List<Lecture>>, response: Response<List<Lecture>>) {
+                if (response.isSuccessful) {
+                    lectures = response.body()!!
+
+                } else {
+
+                }
+            }
+
+            override fun onFailure(call: Call<List<Lecture>>, t: Throwable) {
+                // Request failed
             }
         })
     }

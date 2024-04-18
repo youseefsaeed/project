@@ -1,6 +1,8 @@
 package eu.tutorials.shaproject
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,12 +31,15 @@ import java.lang.StringBuilder
 class ManuallyAttended : AppCompatActivity() {
 
     private var isBackButtonEnabled = true
+    private lateinit var sharedPreferences: SharedPreferences
     private var counter = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manually_atten)
         setListeners()
-
+//        sharedPreferences = getSharedPreferences("CounterPrefs2", Context.MODE_PRIVATE)
+//        counter = sharedPreferences.getInt("counter", 0)
+        counter_0.text = "Counter: ${students.size}"
     }
 
     private fun setListeners() {
@@ -85,16 +90,16 @@ class ManuallyAttended : AppCompatActivity() {
                         val studentData = "$studentId, $studentName"
                         students.add(studentData)
                         students_ids.add(studentId)
-                        counter_0.text = "Counter: ${++counter}"
+                        counter_0.text = "Counter: ${students.size}"
                         isBackButtonEnabled = false
                         student_id.text?.clear()
                         Toast.makeText(this@ManuallyAttended, "Student ID added.", Toast.LENGTH_SHORT).show()
                         val drawable: Drawable? = ContextCompat.getDrawable(baseContext, R.drawable.rectangle_2222)
-                        finish.background = drawable
-                        finish.isClickable = true
+                        finish_for_manually_attend.background = drawable
+                        finish_for_manually_attend.isClickable = true
 
-                        if (finish.isClickable) {
-                            finish.setOnClickListener {
+                        if (finish_for_manually_attend.isClickable) {
+                            finish_for_manually_attend.setOnClickListener {
                                 val intent = Intent(this@ManuallyAttended, take_atten::class.java)
                                 startActivity(intent)
                                 finish()
@@ -121,5 +126,6 @@ class ManuallyAttended : AppCompatActivity() {
             Toast.makeText(this, "please,finish the attend", Toast.LENGTH_SHORT).show()
         }
     }
+
 }
 

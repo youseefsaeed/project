@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -36,7 +37,7 @@ import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
 class take_atten : AppCompatActivity() {
-    private val PERMISSION_REQUEST_CODE = 123
+    private lateinit var sharedPreferences3: SharedPreferences
     private var isBackButtonEnabled = true
     private val retrofit: Retrofit = getRetrofitObject()
     private val lectureService = retrofit.create(create_lecuture::class.java)
@@ -72,6 +73,7 @@ class take_atten : AppCompatActivity() {
             isBackButtonEnabled = false
             var finish = findViewById<View>(R.id.finish3)
             finish.visibility = View.VISIBLE
+
             finish.setOnClickListener {
                 students.clear()
                 val calendar = Calendar.getInstance()
@@ -187,102 +189,23 @@ class take_atten : AppCompatActivity() {
         })
     }
 
-    private fun createCSVFile(students: ArrayList<String>) {
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val fileName = "students_$timeStamp.csv"
+//    private fun isClickedToday(): Boolean {
+//        val calendar = Calendar.getInstance()
+//        val today = calendar.get(Calendar.DAY_OF_YEAR)
+//
+//        // Get the last clicked day for the given course ID
+//        val sharedPreferences = getSharedPreferences("ButtonClick_", MODE_PRIVATE)
+//        val lastClickedDay = sharedPreferences.getInt("lastClickedDay", -1)
+//
+//        if (lastClickedDay != today) {
+//            // Update the last clicked day for the given course ID
+//            sharedPreferences.edit().putInt("lastClickedDay", today).apply()
+//            return false
+//        }
+//
+//        return true
+//    }
 
-        if (checkPermission()) {
-            val downloadsDirectory =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val file = File(downloadsDirectory, fileName)
-
-            try {
-                val fileOutputStream = FileOutputStream(file)
-                val header = "Student ID,Name"
-                fileOutputStream.write(header.toByteArray())
-
-                students.forEach { student ->
-                    fileOutputStream.write("\n".toByteArray())
-                    fileOutputStream.write(student.toByteArray())
-                }
-                fileOutputStream.close()
-                val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
-                mediaScanIntent.data = Uri.fromFile(file)
-                sendBroadcast(mediaScanIntent)
-
-                Toast.makeText(this, "CSV file created successfully.", Toast.LENGTH_SHORT).show()
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Toast.makeText(this, "An error occurred.", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            requestPermission()
-        }
-    }
-
-
-    private fun checkPermission(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            Environment.isExternalStorageManager()
-        } else {
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
-        }
-    }
-
-    private fun requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            try {
-                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                intent.data = Uri.parse("package:$packageName")
-                startActivity(intent)
-            } catch (e: ActivityNotFoundException) {
-                val intent = Intent()
-                intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
-                startActivity(intent)
-            }
-        } else {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                PERMISSION_REQUEST_CODE
-            )
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    Toast.makeText(
-                        this,
-                        "Permission granted. Click again to create CSV file.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(
-                        this,
-                        "Permission granted. Click again to create CSV file.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-    }
     override fun onBackPressed() {
         if (isBackButtonEnabled) {
             super.onBackPressed()

@@ -42,6 +42,7 @@ class lecuters_history : AppCompatActivity() {
     private lateinit var layoutToShow: LinearLayout
     private val retrofit: Retrofit = getRetrofitObject()
     private val  apiService = retrofit.create(create_lecuture::class.java)
+    private lateinit var  studentList2: List<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lecuters_history)
@@ -101,34 +102,36 @@ class lecuters_history : AppCompatActivity() {
                     lectureTimeTextView.text = "Time: ${selectedLecture.lecture_time}"
                     studentCountTextView.text = "Number of students attended: ${selectedLecture.studentcount}"
 
+
+                    val call3 = apiService.getStudent(selectedLecture.lecture_id)
+                    call3.enqueue(object : Callback<List<ApiResponse>> {
+                        override fun onResponse(call: Call<List<ApiResponse>>, response: Response<List<ApiResponse>>) {
+                            if (response.isSuccessful) {
+                                val apiResponseList = response.body()
+                                if (apiResponseList != null) {
+                                    val studentList = apiResponseList.map { it.students }
+                                        .map { student ->
+                                            " ${student.student_id} , ${student.name}"
+                                        }
+                                    studentList2=studentList
+                                    studentCountTextView.text = "Number of students attended: ${studentList2.size}"
+                                }
+                            } else {
+
+                            }
+                        }
+
+                        override fun onFailure(call: Call<List<ApiResponse>>, t: Throwable) {
+                            Toast.makeText(
+                                this@lecuters_history,
+                                "Request failed: ${t.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            Log.e("API_CALL_ERROR", "Error occurred during API call", t)}
+                    })
                     val button: Button = findViewById(R.id.button)
                     button.setOnClickListener {
-                        val call3 = apiService.getStudent(selectedLecture.lecture_id)
-                        call3.enqueue(object : Callback<List<ApiResponse>> {
-                            override fun onResponse(call: Call<List<ApiResponse>>, response: Response<List<ApiResponse>>) {
-                                if (response.isSuccessful) {
-                                    val apiResponseList = response.body()
-                                    if (apiResponseList != null) {
-                                        val studentList = apiResponseList.map { it.students }
-                                            .map { student ->
-                                                " ${student.student_id} , ${student.name}"
-                                            }
-
-                                        createCSVFile(studentList as ArrayList<String>)
-                                    }
-                                } else {
-
-                                }
-                            }
-
-                            override fun onFailure(call: Call<List<ApiResponse>>, t: Throwable) {
-                                Toast.makeText(
-                                    this@lecuters_history,
-                                    "Request failed: ${t.message}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                Log.e("API_CALL_ERROR", "Error occurred during API call", t)}
-                        })
+                        createCSVFile(studentList2 as ArrayList<String>)
                     }
 
                 } else {

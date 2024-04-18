@@ -121,7 +121,7 @@
                 app:layout_constraintTop_toBottomOf="@id/counter_0" />
 
             <TextView
-                android:id="@+id/finish"
+                android:id="@+id/finish_for_manually_attend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"

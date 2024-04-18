@@ -36,7 +36,7 @@ class NFC_atten : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc_atten)
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-
+        counter_1.text = "Counter: ${students.size}"
         try {
             val intent = Intent(this, javaClass).apply {
                 addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
@@ -108,7 +108,7 @@ class NFC_atten : AppCompatActivity() {
                         val studentData = "$studentid, $studentName"
                         students.add(studentData)
                         students_ids.add(studentId)
-                        counter_1.text = "Counter: ${++counter}"
+                        counter_1.text = "Counter: ${students.size}"
                         isBackButtonEnabled = false
                         Toast.makeText(this@NFC_atten, "Student ID added.", Toast.LENGTH_SHORT).show()
                         val drawable: Drawable? = ContextCompat.getDrawable(baseContext, R.drawable.rectangle_2222)

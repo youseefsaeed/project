@@ -16,6 +16,7 @@ import android.widget.Toast
 import eu.tutorials.shaproject.Constants.students
 import eu.tutorials.shaproject.Constants.students_ids
 import eu.tutorials.shaproject.db.AppDatabase
+import kotlinx.android.synthetic.main.activity_manually_atten.*
 import kotlinx.android.synthetic.main.activity_nfc_atten.*
 import kotlinx.android.synthetic.main.activity_nfc_atten.counter_1
 import kotlinx.coroutines.Dispatchers
@@ -34,11 +35,19 @@ class NFC_atten : AppCompatActivity() {
     private var isBackButtonEnabled = true
     private val sharedPreferences by lazy { getSharedPreferences("my_prefs2", Context.MODE_PRIVATE) }
     private val courseid by lazy { sharedPreferences.getInt("course_id", 0) }
+    private val sharedPreferences3 by lazy { getSharedPreferences("my_prefs3", Context.MODE_PRIVATE) }
+    private val examId by lazy { sharedPreferences3.getString("exam_id", "")!!.toIntOrNull() }
+    private val code by lazy { sharedPreferences.getInt("code", 0) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc_atten)
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-        updateCounterText()
+        if (code==5){
+            updateCounterTextforexam()
+        }
+        else{
+            updateCounterText()
+        }
         try {
             val intent = Intent(this, javaClass).apply {
                 addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
@@ -110,10 +119,18 @@ class NFC_atten : AppCompatActivity() {
                         val studentData = "$studentid, $studentName"
                         students.add(studentData)
                         students_ids.add(studentId)
-                        val currentCounter = sharedPreferences.getInt("nfccounterforcourse$courseid", 0) + 1
-                        sharedPreferences.edit().putInt("nfccounterforcourse$courseid", currentCounter).apply()
+                        if (code==5){
+                            val currentCounter = sharedPreferences.getInt("nfccounterforexam$examId", 0) + 1
+                            sharedPreferences.edit().putInt("nfccounterforexam$examId", currentCounter).apply()
 
-                        updateCounterText()
+                            updateCounterTextforexam()
+                        }
+                        else{
+                            val currentCounter = sharedPreferences.getInt("nfccounterforcourse$courseid", 0) + 1
+                            sharedPreferences.edit().putInt("nfccounterforcourse$courseid", currentCounter).apply()
+
+                            updateCounterText()
+                        }
                         isBackButtonEnabled = false
                         Toast.makeText(this@NFC_atten, "Student ID added.", Toast.LENGTH_SHORT).show()
                         val drawable: Drawable? = ContextCompat.getDrawable(baseContext, R.drawable.rectangle_2222)
@@ -144,6 +161,10 @@ class NFC_atten : AppCompatActivity() {
     private fun updateCounterText() {
         counter_1.text = "Counter: ${sharedPreferences.getInt("nfccounterforcourse$courseid", 0)}"
     }
+    private fun updateCounterTextforexam() {
+        counter_1.text = "Counter: ${sharedPreferences.getInt("nfccounterforexam$examId", 0)}"
+    }
+
     override fun onBackPressed() {
         if (isBackButtonEnabled) {
             super.onBackPressed()

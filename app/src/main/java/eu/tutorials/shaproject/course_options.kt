@@ -23,7 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 class course_options : AppCompatActivity() {
-    private lateinit var sharedPreferences: SharedPreferences
+    private val sharedPreferences3 by lazy { getSharedPreferences("my_prefs3", Context.MODE_PRIVATE) }
+    private val examId by lazy { sharedPreferences3.getString("exam_id", "")!!.toIntOrNull() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_options)
@@ -44,10 +45,14 @@ class course_options : AppCompatActivity() {
         val courseId = sharedPreferences.getInt("course_id",0)
         course_id_1.text = "Course Id: $courseId"
 
-        if (!isClickedToday(courseId)) {
-
+        if (!isClickedToday(courseId) ) {
             sharedPreferences.edit().putInt("manuallycounterforcourse$courseId", 0).apply()
             sharedPreferences.edit().putInt("nfccounterforcourse$courseId", 0).apply()
+        }
+        if (!isClickedToday(examId!!)) {
+            sharedPreferences.edit().putInt("manuallycounterforexam$examId", 0).apply()
+            sharedPreferences.edit().putInt("nfccounterforexam$examId", 0).apply()
+
         }
         fetchStudentData(courseId)
     }

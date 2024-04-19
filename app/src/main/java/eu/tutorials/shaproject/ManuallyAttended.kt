@@ -27,14 +27,18 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.StringBuilder
+import java.util.*
 
 class ManuallyAttended : AppCompatActivity() {
 
     private var isBackButtonEnabled = true
     private lateinit var sharedPreferences: SharedPreferences
     private val sharedPreferences2 by lazy { getSharedPreferences("my_prefs2", Context.MODE_PRIVATE) }
+    private val sharedPreferences3 by lazy { getSharedPreferences("my_prefs3", Context.MODE_PRIVATE) }
+    private val examId by lazy { sharedPreferences3.getString("exam_id", "")!!.toIntOrNull() }
     private val courseid by lazy { sharedPreferences2.getInt("course_id", 0) }
 
+    private val code by lazy { sharedPreferences2.getInt("code", 0) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manually_atten)
@@ -43,8 +47,13 @@ class ManuallyAttended : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
 
         setListeners()
+        if (code==5){
+            updateCounterTextforexam()
+        }
+        else{
+            updateCounterText()
+        }
 
-        updateCounterText()
     }
 
     private fun setListeners() {
@@ -93,12 +102,20 @@ class ManuallyAttended : AppCompatActivity() {
                         val studentData = "$studentId, $studentName"
                         students.add(studentData)
                         students_ids.add(studentId)
+                        if (code==5){
+                            val currentCounter = sharedPreferences.getInt("manuallycounterforexam$examId", 0) + 1
+                            sharedPreferences.edit().putInt("manuallycounterforexam$examId", currentCounter).apply()
 
+                            updateCounterTextforexam()
+                        }
+                        else{
+                            val currentCounter = sharedPreferences.getInt("manuallycounterforcourse$courseid", 0) + 1
+                            sharedPreferences.edit().putInt("manuallycounterforcourse$courseid", currentCounter).apply()
+
+                            updateCounterText()
+                        }
                         // Increment and save counter
-                        val currentCounter = sharedPreferences.getInt("manuallycounterforcourse$courseid", 0) + 1
-                        sharedPreferences.edit().putInt("manuallycounterforcourse$courseid", currentCounter).apply()
 
-                        updateCounterText()
 
                         isBackButtonEnabled = false
                         student_id.text?.clear()
@@ -132,6 +149,9 @@ class ManuallyAttended : AppCompatActivity() {
     private fun updateCounterText() {
         counter_0.text = "Counter: ${sharedPreferences.getInt("manuallycounterforcourse$courseid", 0)}"
     }
+    private fun updateCounterTextforexam() {
+        counter_0.text = "Counter: ${sharedPreferences.getInt("manuallycounterforexam$examId", 0)}"
+    }
 
     override fun onBackPressed() {
         if (isBackButtonEnabled) {
@@ -140,6 +160,7 @@ class ManuallyAttended : AppCompatActivity() {
             Toast.makeText(this, "please,finish the attend", Toast.LENGTH_SHORT).show()
         }
     }
+
 }
 
 

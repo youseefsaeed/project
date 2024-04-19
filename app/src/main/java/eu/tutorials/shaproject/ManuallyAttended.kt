@@ -32,18 +32,22 @@ class ManuallyAttended : AppCompatActivity() {
 
     private var isBackButtonEnabled = true
     private lateinit var sharedPreferences: SharedPreferences
-    private var counter = 0
+    private val sharedPreferences2 by lazy { getSharedPreferences("my_prefs2", Context.MODE_PRIVATE) }
+    private val courseid by lazy { sharedPreferences2.getInt("course_id", 0) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manually_atten)
+
+        // Initialize sharedPreferences
+        sharedPreferences = getSharedPreferences("my_prefs2", Context.MODE_PRIVATE)
+
         setListeners()
-//        sharedPreferences = getSharedPreferences("CounterPrefs2", Context.MODE_PRIVATE)
-//        counter = sharedPreferences.getInt("counter", 0)
-        counter_0.text = "Counter: ${students.size}"
+
+        updateCounterText()
     }
 
     private fun setListeners() {
-
         attend.setOnClickListener {
             val studentId = student_id.text.toString()
             if (studentId.isEmpty()) {
@@ -76,7 +80,6 @@ class ManuallyAttended : AppCompatActivity() {
         }
     }
 
-
     private fun checkid(studentId: Int) {
         GlobalScope.launch(Dispatchers.IO) {
             try {
@@ -90,10 +93,17 @@ class ManuallyAttended : AppCompatActivity() {
                         val studentData = "$studentId, $studentName"
                         students.add(studentData)
                         students_ids.add(studentId)
-                        counter_0.text = "Counter: ${students.size}"
+
+                        // Increment and save counter
+                        val currentCounter = sharedPreferences.getInt("manuallycounterforcourse$courseid", 0) + 1
+                        sharedPreferences.edit().putInt("manuallycounterforcourse$courseid", currentCounter).apply()
+
+                        updateCounterText()
+
                         isBackButtonEnabled = false
                         student_id.text?.clear()
                         Toast.makeText(this@ManuallyAttended, "Student ID added.", Toast.LENGTH_SHORT).show()
+
                         val drawable: Drawable? = ContextCompat.getDrawable(baseContext, R.drawable.rectangle_2222)
                         finish_for_manually_attend.background = drawable
                         finish_for_manually_attend.isClickable = true
@@ -103,7 +113,6 @@ class ManuallyAttended : AppCompatActivity() {
                                 val intent = Intent(this@ManuallyAttended, take_atten::class.java)
                                 startActivity(intent)
                                 finish()
-
                             }
                         }
                     } else {
@@ -119,6 +128,11 @@ class ManuallyAttended : AppCompatActivity() {
             }
         }
     }
+
+    private fun updateCounterText() {
+        counter_0.text = "Counter: ${sharedPreferences.getInt("manuallycounterforcourse$courseid", 0)}"
+    }
+
     override fun onBackPressed() {
         if (isBackButtonEnabled) {
             super.onBackPressed()
@@ -126,6 +140,6 @@ class ManuallyAttended : AppCompatActivity() {
             Toast.makeText(this, "please,finish the attend", Toast.LENGTH_SHORT).show()
         }
     }
-
 }
+
 

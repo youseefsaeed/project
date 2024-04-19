@@ -189,22 +189,6 @@ class take_atten : AppCompatActivity() {
         })
     }
 
-//    private fun isClickedToday(): Boolean {
-//        val calendar = Calendar.getInstance()
-//        val today = calendar.get(Calendar.DAY_OF_YEAR)
-//
-//        // Get the last clicked day for the given course ID
-//        val sharedPreferences = getSharedPreferences("ButtonClick_", MODE_PRIVATE)
-//        val lastClickedDay = sharedPreferences.getInt("lastClickedDay", -1)
-//
-//        if (lastClickedDay != today) {
-//            // Update the last clicked day for the given course ID
-//            sharedPreferences.edit().putInt("lastClickedDay", today).apply()
-//            return false
-//        }
-//
-//        return true
-//    }
 
     override fun onBackPressed() {
         if (isBackButtonEnabled) {

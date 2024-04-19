@@ -1,6 +1,7 @@
 package eu.tutorials.shaproject
 
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.drawable.Drawable
@@ -31,12 +32,13 @@ class NFC_atten : AppCompatActivity() {
     private var pendingIntent: PendingIntent? = null
     private var counter = 0
     private var isBackButtonEnabled = true
-
+    private val sharedPreferences by lazy { getSharedPreferences("my_prefs2", Context.MODE_PRIVATE) }
+    private val courseid by lazy { sharedPreferences.getInt("course_id", 0) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc_atten)
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-        counter_1.text = "Counter: ${students.size}"
+        updateCounterText()
         try {
             val intent = Intent(this, javaClass).apply {
                 addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
@@ -108,7 +110,10 @@ class NFC_atten : AppCompatActivity() {
                         val studentData = "$studentid, $studentName"
                         students.add(studentData)
                         students_ids.add(studentId)
-                        counter_1.text = "Counter: ${students.size}"
+                        val currentCounter = sharedPreferences.getInt("nfccounterforcourse$courseid", 0) + 1
+                        sharedPreferences.edit().putInt("nfccounterforcourse$courseid", currentCounter).apply()
+
+                        updateCounterText()
                         isBackButtonEnabled = false
                         Toast.makeText(this@NFC_atten, "Student ID added.", Toast.LENGTH_SHORT).show()
                         val drawable: Drawable? = ContextCompat.getDrawable(baseContext, R.drawable.rectangle_2222)
@@ -136,7 +141,9 @@ class NFC_atten : AppCompatActivity() {
             }
         }
     }
-
+    private fun updateCounterText() {
+        counter_1.text = "Counter: ${sharedPreferences.getInt("nfccounterforcourse$courseid", 0)}"
+    }
     override fun onBackPressed() {
         if (isBackButtonEnabled) {
             super.onBackPressed()

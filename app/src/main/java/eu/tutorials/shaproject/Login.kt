@@ -82,16 +82,11 @@ class Login : AppCompatActivity() {
                                     teacher_id.append(mydata.teacher_id)
                                 }
 
+                                val sharedPreferences2 = this@Login.getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+                                sharedPreferences2.edit().putInt("doctor_id", teacher_id.toString().toIntOrNull()!!).apply()
+                                sharedPreferences2.edit().putString("doctor_name", teacher_name.toString()).apply()
                                 val intent =
                                     Intent(this@Login, CourseScreen::class.java)
-                                intent.putExtra(
-                                    Constants.teacher_id,
-                                    teacher_id.toString().toIntOrNull()
-                                )
-                                intent.putExtra(
-                                    Constants.teacher_name,
-                                    teacher_name.toString()
-                                )
                                 startActivity(intent)
                                 finish()
                             }  else {

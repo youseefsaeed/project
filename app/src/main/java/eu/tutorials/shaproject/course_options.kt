@@ -20,6 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class course_options : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -43,7 +44,11 @@ class course_options : AppCompatActivity() {
         val courseId = sharedPreferences.getInt("course_id",0)
         course_id_1.text = "Course Id: $courseId"
 
+        if (!isClickedToday(courseId)) {
 
+            sharedPreferences.edit().putInt("manuallycounterforcourse$courseId", 0).apply()
+            sharedPreferences.edit().putInt("nfccounterforcourse$courseId", 0).apply()
+        }
         fetchStudentData(courseId)
     }
     private fun setupListeners() {
@@ -134,5 +139,26 @@ class course_options : AppCompatActivity() {
                 Log.e("API_CALL_ERROR", "Error occurred during API call", t)
             }
         })
+    }
+    private fun isClickedToday(courseid: Int): Boolean {
+        val calendar = Calendar.getInstance()
+        val today = calendar.get(Calendar.DAY_OF_YEAR)
+
+        // Get the last clicked day for the given course ID
+        val sharedPreferences = getSharedPreferences("ButtonClick_$courseid", MODE_PRIVATE)
+        val lastClickedDay = sharedPreferences.getInt("lastClickedDay", -1)
+
+        if (lastClickedDay != today) {
+            // Update the last clicked day for the given course ID
+            sharedPreferences.edit().putInt("lastClickedDay", today).apply()
+            return false
+        }
+
+        return true
+    }
+    override fun onBackPressed() {
+        val intent = Intent(this, CourseScreen::class.java)
+        startActivity(intent)
+        finish()
     }
 }

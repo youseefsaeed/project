@@ -27,14 +27,10 @@ class CourseScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coursescreen)
-
-        var doctorName = intent.getStringExtra(Constants.teacher_name)
-        var doctorId = intent.getIntExtra(Constants.teacher_id, 0)
-
         val sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
-        sharedPreferences.edit()
-            .putInt("doctor_id", doctorId)
-            .apply()
+        var doctorName = sharedPreferences.getString("doctor_name","")
+        var doctorId = sharedPreferences.getInt("doctor_id",0)
+
 
         welcome_doctor.text = "Welcome,$doctorName."
 

@@ -9,7 +9,9 @@ import java.util.concurrent.TimeUnit
 
 object Constants {
     val students = ArrayList<String>()!!
+    val studentsforfile = ArrayList<String>()!!
      val students_ids = mutableListOf<Int>()
+    val students_idsforcheck = mutableListOf<Int>()
     const val teacher_name:String="doctor_name"
     const val teacher_id:String="y"
     const val course_name:String="a"

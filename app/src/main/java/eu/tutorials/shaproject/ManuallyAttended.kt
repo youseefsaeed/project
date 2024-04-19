@@ -38,6 +38,12 @@ class ManuallyAttended : AppCompatActivity() {
     private val examId by lazy { sharedPreferences3.getString("exam_id", "")!!.toIntOrNull() }
     private val courseid by lazy { sharedPreferences2.getInt("course_id", 0) }
 
+    private val students_idsforcheck by lazy {
+        sharedPreferences2.getStringSet("students_idsforcheck${courseid}", setOf())?.map { it.toInt() }?.toMutableList() ?: mutableListOf()
+    }
+    private val students_idsforcheckforexam by lazy {
+        sharedPreferences2.getStringSet("students_idsforcheckforexam${examId}", setOf())?.map { it.toInt() }?.toMutableList() ?: mutableListOf()
+    }
     private val code by lazy { sharedPreferences2.getInt("code", 0) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,15 +76,30 @@ class ManuallyAttended : AppCompatActivity() {
 
             try {
                 val studentIdInt = studentId.toInt()
-                if (students_ids.contains(studentIdInt) && studentId.isNotEmpty()) {
-                    Toast.makeText(
-                        this@ManuallyAttended,
-                        "Student ID $studentId is already added.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    checkid(studentIdInt)
+                        if(code==5){
+                            if (students_idsforcheckforexam.contains(studentIdInt) && studentId.isNotEmpty()) {
+                                Toast.makeText(
+                                    this@ManuallyAttended,
+                                    "Student ID $studentId is already added.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            else {
+                                checkid(studentIdInt)
+                            }
+                        }
+                if (code==1){
+                    if (students_idsforcheck.contains(studentIdInt) && studentId.isNotEmpty()) {
+                        Toast.makeText(
+                            this@ManuallyAttended,
+                            "Student ID $studentId is already added.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        checkid(studentIdInt)
+                    }
                 }
+
             } catch (e: NumberFormatException) {
                 Toast.makeText(
                     this@ManuallyAttended,
@@ -101,17 +122,22 @@ class ManuallyAttended : AppCompatActivity() {
                         val studentName = studentDao.name
                         val studentData = "$studentId, $studentName"
                         students.add(studentData)
+                        Constants.studentsforfile.add(studentData)
                         students_ids.add(studentId)
+
+
                         if (code==5){
                             val currentCounter = sharedPreferences.getInt("manuallycounterforexam$examId", 0) + 1
                             sharedPreferences.edit().putInt("manuallycounterforexam$examId", currentCounter).apply()
-
+                            students_idsforcheckforexam.add(studentId)
+                            sharedPreferences2.edit().putStringSet("students_idsforcheckforexam${examId}", students_idsforcheckforexam.map { it.toString() }.toSet()).apply()
                             updateCounterTextforexam()
                         }
                         else{
                             val currentCounter = sharedPreferences.getInt("manuallycounterforcourse$courseid", 0) + 1
                             sharedPreferences.edit().putInt("manuallycounterforcourse$courseid", currentCounter).apply()
-
+                            students_idsforcheck.add(studentId)
+                            sharedPreferences2.edit().putStringSet("students_idsforcheck${courseid}", students_idsforcheck.map { it.toString() }.toSet()).apply()
                             updateCounterText()
                         }
                         // Increment and save counter

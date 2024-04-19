@@ -38,6 +38,12 @@ class NFC_atten : AppCompatActivity() {
     private val sharedPreferences3 by lazy { getSharedPreferences("my_prefs3", Context.MODE_PRIVATE) }
     private val examId by lazy { sharedPreferences3.getString("exam_id", "")!!.toIntOrNull() }
     private val code by lazy { sharedPreferences.getInt("code", 0) }
+    private val students_idsforcheck by lazy {
+        sharedPreferences.getStringSet("students_idsforcheck${courseid}", setOf())?.map { it.toInt() }?.toMutableList() ?: mutableListOf()
+    }
+    private val students_idsforcheckforexam by lazy {
+        sharedPreferences.getStringSet("students_idsforcheckforexam${examId}", setOf())?.map { it.toInt() }?.toMutableList() ?: mutableListOf()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc_atten)
@@ -86,15 +92,28 @@ class NFC_atten : AppCompatActivity() {
                 val payload = String(record.payload, Charsets.UTF_8)
                 val numericPayload = payload.filter { it.isDigit() }
 
-                if (students_ids.contains(numericPayload.toInt())) {
-                    Toast.makeText(
-                        this@NFC_atten,
-                        "Student ID $numericPayload is already added.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    checkid(numericPayload.toInt())
-
+                if(code==5){
+                    if (students_idsforcheckforexam.contains(numericPayload.toInt()) ) {
+                        Toast.makeText(
+                            this,
+                            "Student ID $numericPayload is already added.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else {
+                        checkid(numericPayload.toInt())
+                    }
+                }
+                if (code==1){
+                    if (students_idsforcheck.contains(numericPayload.toInt()) ) {
+                        Toast.makeText(
+                            this,
+                            "Student ID $numericPayload is already added.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        checkid(numericPayload.toInt())
+                    }
                 }
 
             }
@@ -118,17 +137,20 @@ class NFC_atten : AppCompatActivity() {
                         val studentid= studentDao.studentId
                         val studentData = "$studentid, $studentName"
                         students.add(studentData)
+                        Constants.studentsforfile.add(studentData)
                         students_ids.add(studentId)
                         if (code==5){
                             val currentCounter = sharedPreferences.getInt("nfccounterforexam$examId", 0) + 1
                             sharedPreferences.edit().putInt("nfccounterforexam$examId", currentCounter).apply()
-
+                            students_idsforcheckforexam.add(studentId)
+                            sharedPreferences.edit().putStringSet("students_idsforcheckforexam${examId}", students_idsforcheckforexam.map { it.toString() }.toSet()).apply()
                             updateCounterTextforexam()
                         }
                         else{
                             val currentCounter = sharedPreferences.getInt("nfccounterforcourse$courseid", 0) + 1
                             sharedPreferences.edit().putInt("nfccounterforcourse$courseid", currentCounter).apply()
-
+                            students_idsforcheck.add(studentId)
+                            sharedPreferences.edit().putStringSet("students_idsforcheck${courseid}", students_idsforcheck.map { it.toString() }.toSet()).apply()
                             updateCounterText()
                         }
                         isBackButtonEnabled = false

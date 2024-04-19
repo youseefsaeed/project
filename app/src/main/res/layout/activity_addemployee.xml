@@ -43,7 +43,7 @@
 
     <TextView
         android:id="@+id/welcome_use"
-        android:layout_width="280dp"
+        android:layout_width="330dp"
         android:layout_height="45dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"

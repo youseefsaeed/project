@@ -52,13 +52,14 @@ class course_options : AppCompatActivity() {
             Constants.students_idsforcheck.clear()
             sharedPreferences.edit().putStringSet("students_idsforcheck${courseId}", emptySet<String>()).apply()
         }
-        if (!isClickedToday(examId!!)) {
-            sharedPreferences.edit().putInt("manuallycounterforexam$examId", 0).apply()
-            sharedPreferences.edit().putInt("nfccounterforexam$examId", 0).apply()
-            Constants.studentsforfile.clear()
-            Constants.students_idsforcheck.clear()
-            sharedPreferences.edit().putStringSet("students_idsforcheckforexam${examId}",emptySet<String>()).apply()
-
+        examId?.let { examIdValue ->
+            if (!isClickedToday(examIdValue)) {
+                sharedPreferences.edit().putInt("manuallycounterforexam$examIdValue", 0).apply()
+                sharedPreferences.edit().putInt("nfccounterforexam$examIdValue", 0).apply()
+                Constants.studentsforfile.clear()
+                Constants.students_idsforcheck.clear()
+                sharedPreferences.edit().putStringSet("students_idsforcheckforexam$examIdValue", emptySet<String>()).apply()
+            }
         }
         fetchStudentData(courseId)
     }

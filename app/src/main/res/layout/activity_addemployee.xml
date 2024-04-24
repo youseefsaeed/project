@@ -15,7 +15,6 @@
         android:layout_alignParentTop="true"
         android:fontFamily="@font/inter"
         android:background="@drawable/rectangle_88"
-        android:backgroundTint="@color/bg_blue"
         android:text="@string/logout"
         android:drawableStart="@drawable/logout"
         android:drawablePadding="@dimen/size_7"
